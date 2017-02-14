@@ -10,6 +10,4 @@ require [
 	'use strict'
 	$ ->
 		new MainRouter()
-		bb.history.start
-			pushState: true
-			hashChange: false
+		bb.history.start()
