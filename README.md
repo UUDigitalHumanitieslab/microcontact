@@ -13,7 +13,7 @@ In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the pat
 
 Dependencies
 ------------
-For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`. For local development purposes, also `pip install pytest`. For the JavaScript dependencies, install NPM and Grunt, then run `npm install`. For local development, also install Bower and run `bower install`.
+For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`. For local development purposes, also `pip install pytest`. For the JavaScript dependencies, install NPM, Bower and Grunt, then run `npm install` and `bower install`. For deployment, you can run `bower install` with the `--production` flag in order to skip development-only packages.
 
 Database
 --------
