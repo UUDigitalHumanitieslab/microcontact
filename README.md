@@ -76,23 +76,19 @@ Directory reference
     ├── README.md                this file, in-VCS
     ├── bower.json               listing of JS deps, in-VCS
     ├── bower_components/        JS deps during development, out-of-VCS
-    ├── microcontact             the Django project package, in-VCS
-    │   ├── *.py
-    │   └── *_test.py            unit tests belonging to *.py
     ├── client                   static asset sources, in-VCS
     │   ├── script
     │   │   ├── *.coffee
     │   │   └── *_test.coffee    unit tests belonging to *.coffee
     │   ├── style/
     │   └── template/
-    ├── config.py                supposed to be written by you, out-of-VCS
+    ├── config.py                presumed to be written by you, out-of-VCS
     ├── dist/                    generated static assets for depl., out-of-VCS
-    ├── doc/                     additional documentation, in-VCS
     ├── functional-tests         functional test sources in Coffee, in-VCS
     ├── manage.py                backend manager, in-VCS
-    ├── migrations               Alembic DB migration definitions, in-VCS
-    │   ├── ...                  (ignore these)
-    │   └── versions/            the actual migrations
+    ├── microcontact             the Django project package, in-VCS
+    │   ├── *.py
+    │   └── *_test.py            unit tests belonging to *.py
     ├── node_modules/            Node and Grunt dependencies, out-of-VCS
     ├── package.json             listing of Node/Grunt deps, in-VCS
     ├── requirements.in          top-level Python package requirements, in-VCS
