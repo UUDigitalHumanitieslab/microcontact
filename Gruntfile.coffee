@@ -1,5 +1,6 @@
 ###
 	(c) 2016 Julian Gonggrijp
+	(c) 2017 Digital Humanities Lab, Utrecht University
 ###
 
 'use strict'
