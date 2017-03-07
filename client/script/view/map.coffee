@@ -5,9 +5,10 @@
 
 define [
 	'backbone'
+	'underscore'
 	'googlemaps'
 	'templates'
-], (bb, gmaps, JST) ->
+], (bb, _, gmaps, JST) ->
 	'use strict'
 	
 	center =
@@ -15,8 +16,11 @@ define [
 		lng: -59.0452857
 	zoom = 6
 	mapSettings = {center, zoom}
-	
-	
+	markers = _.flatten({
+		lat: center.lat + y
+		lng: center.lng + x
+	} for x in [-2..2] for y in [-2..2])
+	console.log markers
 	
 	class MapView extends bb.View
 		template: JST['map']
@@ -27,4 +31,9 @@ define [
 			console.log mapElem
 			@map = new gmaps.Map mapElem[0], mapSettings
 			console.log @map
+			@markers = (new gmaps.Marker {
+				position: marker
+				map: @map
+			} for marker in markers)
+			console.log @markers
 			@
