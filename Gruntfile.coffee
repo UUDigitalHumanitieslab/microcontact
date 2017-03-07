@@ -183,6 +183,12 @@ module.exports = (grunt) ->
 						requireConfigFile: '<%= stage %>/<%= script %>/developConfig.js'
 						requireConfig:
 							baseUrl: '<%= script %>'
+							paths:
+								googlemaps: '../bower_components/google-maps-mock/google-maps-mock'
+							shim:
+								googlemaps:
+									deps: []
+									exports: 'google.maps'
 					outfile: '<%= stage %>/_SpecRunner.html'
 					display: 'short'
 					summary: true
