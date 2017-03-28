@@ -6,6 +6,7 @@
 define [
 	'backbone'
 	'view/map'
+	'bootstrap/tab'
 ], (bb, MapView) ->
 	'use strict'
 	
@@ -13,5 +14,5 @@ define [
 	
 	class MainRouter extends bb.Router
 		routes:
-			'': 'map'
+			'(home)': 'map'
 		map: -> mapView.render()

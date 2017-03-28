@@ -4,8 +4,11 @@
 
 @import bootstrap-custom
 
-html, body, main, #map
+html, body, #map
 	height: 100%
 
+body
+	padding: 10px
+
 main
-	@extend .container-fluid
+	height: calc(100% - #{$navbar-height})
