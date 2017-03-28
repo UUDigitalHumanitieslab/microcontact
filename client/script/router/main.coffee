@@ -6,13 +6,17 @@
 define [
 	'backbone'
 	'view/map'
+	'view/contributions'
 	'bootstrap/tab'
-], (bb, MapView) ->
+], (bb, MapView, ContributionsView) ->
 	'use strict'
 	
 	mapView = new MapView
+	contributionsView = new ContributionsView
 	
 	class MainRouter extends bb.Router
 		routes:
-			'(home)': 'map'
-		map: -> mapView.render()
+			'(home)': 'contributions'
+		map: -> mapView.map or mapView.render().map
+		contributions: ->
+			contributionsView.render @map()
