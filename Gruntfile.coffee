@@ -256,6 +256,7 @@ module.exports = (grunt) ->
 						underscore: 'empty:'
 						'handlebars.runtime': 'empty:'
 						async: 'empty:'
+						googlemaps: 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 		
@@ -319,12 +320,12 @@ module.exports = (grunt) ->
 		'newer:coffee:compile'
 		'sass:compile'
 		'postcss:compile'
+		'symlink:compile'
 	]
 	grunt.registerTask 'compile', [
 		'compile-base'
 		'clean:develop'
 		'compile-handlebars:develop'
-		'symlink:compile'
 	]
 	grunt.registerTask 'dist', [
 		'compile-base'
