@@ -26,6 +26,7 @@ define [
 			'participate': 'participate'
 		map: -> mapView.map or mapView.render().map
 		contributions: ->
+			participateView.remove()
 			contributionsView.render @map()
 		participate: ->
 			contributionsView.remove()

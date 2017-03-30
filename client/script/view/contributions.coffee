@@ -20,5 +20,5 @@ define [
 			console.log @markers
 			@
 		remove: ->
-			marker.setMap undefined for marker in @markers
+			marker.setMap undefined for marker in @markers if @markers
 			super()
