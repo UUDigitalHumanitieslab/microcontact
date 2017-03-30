@@ -5,11 +5,12 @@
 
 define [
 	'backbone'
+	'jquery'
 	'view/map'
 	'view/contributions'
 	'view/participate'
 	'bootstrap/tab'
-], (bb, MapView, ContributionsView, ParticipateView) ->
+], (bb, $, MapView, ContributionsView, ParticipateView) ->
 	'use strict'
 	
 	mapView = new MapView
@@ -17,6 +18,9 @@ define [
 	participateView = new ParticipateView
 	
 	class MainRouter extends bb.Router
+		initialize: ->
+			$('nav a').click (event) =>
+				@navigate ($(event.target).attr 'href'), trigger: true
 		routes:
 			'(home)': 'contributions'
 			'participate': 'participate'
