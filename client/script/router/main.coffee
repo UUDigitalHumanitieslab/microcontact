@@ -22,8 +22,8 @@ define [
 			$('nav a').click (event) =>
 				@navigate ($(event.target).attr 'href'), trigger: true
 		routes:
-			'(home)': 'contributions'
-			'participate': 'participate'
+			'(participate)': 'participate'
+			'contributions': 'contributions'
 		map: -> mapView.map or mapView.render().map
 		contributions: ->
 			participateView.remove()
