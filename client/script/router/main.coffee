@@ -19,8 +19,6 @@ define [
 	
 	class MainRouter extends bb.Router
 		initialize: ->
-			$('nav a').click (event) =>
-				@navigate ($(event.target).attr 'href'), trigger: true
 			@map = mapView.render().map
 		routes:
 			'(participate)': 'participate'
@@ -28,6 +26,8 @@ define [
 		contributions: ->
 			participateView.remove()
 			contributionsView.render @map
+			$('nav a[href="#contributions"]').tab 'show'
 		participate: ->
 			contributionsView.remove()
 			participateView.render @map
+			$('nav a[href="#participate"]').tab 'show'
