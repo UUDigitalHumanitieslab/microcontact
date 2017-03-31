@@ -21,13 +21,13 @@ define [
 		initialize: ->
 			$('nav a').click (event) =>
 				@navigate ($(event.target).attr 'href'), trigger: true
+			@map = mapView.render().map
 		routes:
 			'(participate)': 'participate'
 			'contributions': 'contributions'
-		map: -> mapView.map or mapView.render().map
 		contributions: ->
 			participateView.remove()
-			contributionsView.render @map()
+			contributionsView.render @map
 		participate: ->
 			contributionsView.remove()
-			participateView.render @map()
+			participateView.render @map
