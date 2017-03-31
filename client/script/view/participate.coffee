@@ -8,7 +8,8 @@ define [
 	'underscore'
 	'googlemaps'
 	'view/participInstruct'
-], (bb, _, gmaps, ParticipInstructView) ->
+	'view/uploadForm'
+], (bb, _, gmaps, ParticipInstructView, UploadFormView) ->
 	'use strict'
 	
 	class ParticipateView extends bb.View
@@ -16,6 +17,7 @@ define [
 			@popup = new gmaps.InfoWindow()
 			@geocoder = new gmaps.Geocoder maxWidth: 400
 			@instructions = new ParticipInstructView
+			@uploadForm = new UploadFormView
 			@ctrlPos = gmaps.ControlPosition.TOP_RIGHT
 		render: (map) ->
 			@remove() if @map
@@ -36,17 +38,6 @@ define [
 			@popup.setPosition event.latLng
 			@popup.open @map
 		handleGeocode: (results, status) =>
-			switch status
-				when 'OK'
-					cityMatches = _.filter results, (r) -> 'locality' in r.types
-					if cityMatches.length
-						match = cityMatches[0]
-						city = match.address_components[0]
-						country = _.filter match.address_components, (c) ->
-							'country' in c.types
-						@popup.setPosition match.geometry.location
-						@popup.setContent "#{city.long_name}, #{country[0].short_name}"
-					else
-						@popup.setContent "No city here..."
-				else
-					@popup.setContent "#{status}<br>#{JSON.stringify results}"
+			@popup.setContent @uploadForm.render(results, status).el
+			if @uploadForm.match
+				@popup.setPosition @uploadForm.match.geometry.location

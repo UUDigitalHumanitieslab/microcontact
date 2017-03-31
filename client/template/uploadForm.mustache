@@ -1,0 +1,31 @@
+{{#city}}
+	<h2>{{city}}, {{country}}</h2>
+	<p>The site is still under construction, so you cannot actually upload yet. Below is what the upload form will look like.</p>
+	<form>
+		<fieldset>
+			<label>
+				Your recording
+				<input type=file disabled>
+			</label>
+		</fieldset>
+		<fieldset>
+			<label>
+				Country
+				<input type=text disabled value="{{country}}">
+			</label>
+			<label>
+				City
+				<input type=text disabled value="{{city}}">
+			</label>
+		</fieldset>
+		<fieldset>
+			Informed consent (TODO)
+		</fieldset>
+		<fieldset>
+			<button type=submit disabled>Submit (disabled)</button>
+		</fieldset>
+	</form>
+{{/city}}{{^city}}
+	<h2>No city here</h2>
+	<p>It may be easier to click on your city if you <a id=upload-zoom>zoom in</a>.</p>
+{{/city}}
