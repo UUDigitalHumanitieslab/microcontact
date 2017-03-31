@@ -7,20 +7,28 @@ define [
 	'backbone'
 	'underscore'
 	'googlemaps'
-], (bb, _, gmaps) ->
+	'view/participInstruct'
+], (bb, _, gmaps, ParticipInstructView) ->
 	'use strict'
 	
 	class ParticipateView extends bb.View
 		initialize: ->
 			@popup = new gmaps.InfoWindow()
 			@geocoder = new gmaps.Geocoder maxWidth: 400
+			@instructions = new ParticipInstructView
+			@ctrlPos = gmaps.ControlPosition.TOP_RIGHT
 		render: (map) ->
 			@remove() if @map
 			@map = map
+			div = @instructions.render().el
+			div.index = 1
+			map.controls[@ctrlPos].push div
 			@clickListener = map.addListener 'click', @handleClick
 		remove: ->
 			@popup.close()
 			gmaps.event.removeListener @clickListener
+			@map.controls[@ctrlPos].pop() if @map
+			delete @map
 		handleClick: (event) =>
 			@popup.close()
 			@popup.setContent ''
