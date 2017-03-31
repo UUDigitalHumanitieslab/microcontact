@@ -48,6 +48,7 @@ module.exports = (grunt) ->
 				compilerOptions:
 					knownHelpers: {}
 					knownHelpersOnly: true
+					compat: true
 			compile:
 				src: [
 					'<%= source %>/<%= template %>/**/*.mustache'
