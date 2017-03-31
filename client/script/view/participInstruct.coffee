@@ -6,6 +6,8 @@ define [
 	
 	class ParticipInstructView extends bb.View
 		tagName: 'div'
+		className: 'panel panel-default'
+		id: 'participate-instructions'
 		template: JST['participInstruct']
 		
 		render: ->
