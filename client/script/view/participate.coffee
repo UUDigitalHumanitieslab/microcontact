@@ -7,29 +7,29 @@ define [
 	'backbone'
 	'underscore'
 	'googlemaps'
-	'view/participInstruct'
+	'view/participWelcome'
 	'view/uploadForm'
-], (bb, _, gmaps, ParticipInstructView, UploadFormView) ->
+], (bb, _, gmaps, ParticipWelcomeView, UploadFormView) ->
 	'use strict'
 	
 	class ParticipateView extends bb.View
 		initialize: ->
 			@popup = new gmaps.InfoWindow()
 			@geocoder = new gmaps.Geocoder maxWidth: 400
-			@instructions = new ParticipInstructView
+			@welcome = new ParticipWelcomeView
 			@uploadForm = new UploadFormView
-			@ctrlPos = gmaps.ControlPosition.TOP_RIGHT
+			@welcomePos = gmaps.ControlPosition.TOP_RIGHT
 		render: (map) ->
 			@remove() if @map
 			@map = map
-			div = @instructions.render().el
+			div = @welcome.render().el
 			div.index = 1
-			map.controls[@ctrlPos].push div
+			map.controls[@welcomePos].push div
 			@clickListener = map.addListener 'click', @handleClick
 		remove: ->
 			@popup.close()
 			gmaps.event.removeListener @clickListener
-			@map.controls[@ctrlPos].pop() if @map
+			@map.controls[@welcomePos].pop() if @map
 			delete @map
 		handleClick: (event) =>
 			@popup.close()
