@@ -5,9 +5,9 @@
 
 define [
 	'backbone'
-	'googlemaps'
+	'collection/googlePlaces'
 	'templates'
-], (bb, gmaps, JST) ->
+], (bb, Places, JST) ->
 	'use strict'
 	
 	class ParticipStep2View extends bb.View
@@ -16,8 +16,8 @@ define [
 		
 		initialize: (options) ->
 			@map = options.map
-			@places = new gmaps.places.PlacesService @map
-			@query = types: ['locality']
+			@places = new Places null, @map
+			@query = ''
 		
 		render: ->
 			@$el.html @template @model.attributes
@@ -29,12 +29,23 @@ define [
 			'submit form': 'search'
 		
 		edit: (event) ->
-			@query.query = $(event.target).val()
+			@query = $(event.target).val()
 		
 		search: (event) ->
 			event.preventDefault()
 			return unless @query.query
-			@places.textSearch @query, @handleResults
+			@places.fetch
+				method: 'textSearch'
+				query:
+					query: @query
+					types: ['locality']
+					bounds: @map.getBounds()
+				reset: true
+			@places.once 'reset', @showResults
+			@places.once 'error', @showError
 		
-		handleResults: (result, status) =>
+		showResults: =>
+			# TODO
+		
+		showError: =>
 			# TODO
