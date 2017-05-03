@@ -5,7 +5,6 @@ define [
 	'use strict'
 	
 	class ParticipWelcomeView extends bb.View
-		tagName: 'div'
 		className: 'panel panel-default'
 		id: 'participate-welcome'
 		template: JST['participWelcome']

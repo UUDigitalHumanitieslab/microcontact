@@ -10,24 +10,40 @@ define [
 	'view/contributions'
 	'view/participate'
 	'bootstrap/tab'
-], (bb, $, MapView, ContributionsView, ParticipateView) ->
+], (bb, $, Map, Contributions, Participate) ->
 	'use strict'
-	
-	mapView = new MapView
-	contributionsView = new ContributionsView
-	participateView = new ParticipateView
 	
 	class MainRouter extends bb.Router
 		initialize: ->
-			@map = mapView.render().map
+			@map = new Map
+			@map.render()
+			@participate = new Participate map: @map.map
+			@contributions = new Contributions map: @map.map
+			@state = new bb.Model
+			@state.on 'change:mode', (state, newMode) =>
+				switch state.previous 'mode'
+					when 'participate' then @participate.remove()
+					when 'contributions' then @contributions.remove()
+				switch newMode
+					when 'participate' then @participate.render()
+					when 'contributions' then @contributions.render()
+			@participate.state.on 'change', (state) =>
+				{country, query} = state.attributes
+				switch
+					when query then @navigate "participate/#{country}/#{query}"
+					when country then @navigate "participate/#{country}"
+					else @navigate 'participate'
+
 		routes:
-			'(participate)': 'participate'
+			'': 'participate'
+			'participate(/:country)(/:query)': 'participate'
 			'contributions': 'contributions'
-		contributions: ->
-			participateView.remove()
-			contributionsView.render @map
-			$('nav a[href="#contributions"]').tab 'show'
-		participate: ->
-			contributionsView.remove()
-			participateView.render @map
+
+		participate: (country, query) ->
+			@state.set mode: 'participate'
 			$('nav a[href="#participate"]').tab 'show'
+			@participate.state.set {country, query}
+
+		contributions: ->
+			@state.set mode: 'contributions'
+			$('nav a[href="#contributions"]').tab 'show'

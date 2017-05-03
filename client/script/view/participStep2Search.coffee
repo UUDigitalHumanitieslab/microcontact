@@ -5,18 +5,15 @@
 
 define [
 	'backbone'
-	'collection/googlePlaces'
 	'templates'
-], (bb, Places, JST) ->
+], (bb, JST) ->
 	'use strict'
 	
 	class ParticipStep2View extends bb.View
 		el: '#particip-step-content'
 		template: JST['participStep2Search']
 		
-		initialize: (options) ->
-			@map = options.map
-			@places = new Places null, @map
+		initialize: ->
 			@query = ''
 		
 		render: ->
@@ -33,19 +30,4 @@ define [
 		
 		search: (event) ->
 			event.preventDefault()
-			return unless @query.query
-			@places.fetch
-				method: 'textSearch'
-				query:
-					query: @query
-					types: ['locality']
-					bounds: @map.getBounds()
-				reset: true
-			@places.once 'reset', @showResults
-			@places.once 'error', @showError
-		
-		showResults: =>
-			# TODO
-		
-		showError: =>
-			# TODO
+			@model.set query: @query

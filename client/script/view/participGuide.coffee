@@ -13,7 +13,7 @@ define [
 		tagName: 'div'
 		className: 'panel panel-default'
 		id: 'participate-guide'
-		template: JST['participStepsContainer']
+		template: JST['participStepContainer']
 		
 		render: ->
 			@$el.html @template {}

@@ -12,8 +12,11 @@ define [
 	'use strict'
 	
 	class ContributionsView extends bb.View
-		initialize: ->
+		initialize: (options) ->
+			@map = options.map
+			console.log @map
 			@markers = (@createMarker pin for pin in pins)
+			console.log @markers
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribListView
 		createMarker: (pin) ->
@@ -25,10 +28,8 @@ define [
 				@popup.setContent @contribList.render(pin.address).el
 				@popup.open @map, marker
 			marker
-		render: (map) ->
-			marker.setMap map for marker in @markers
-			console.log @markers
-			@map = map
+		render: ->
+			marker.setMap @map for marker in @markers
 			@
 		remove: ->
 			@popup.close()

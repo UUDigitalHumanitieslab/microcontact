@@ -15,7 +15,7 @@ define [
 		model: GooglePlace
 		
 		# should be passed a gmaps.map
-		initialize: (options) ->
+		initialize: (content, options) ->
 			@service = new gmaps.places.PlacesService options.map
 		
 		# Uses Google Maps fetching instead of jQuery fetching. Updates
