@@ -154,7 +154,7 @@ module.exports = (grunt) ->
 					execOptions:
 						env: extendEnv
 							PYTHONUNBUFFERED: 1  # enables console output
-				command: "<%= venv %>/bin/python manage.py runserver 5000"
+				command: "<%= venv %>/Scripts/python manage.py runserver 5000"
 			pytest:
 				files: [{
 					src: ['microcontact/**/*_test.py']
