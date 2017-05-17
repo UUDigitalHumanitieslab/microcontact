@@ -10,14 +10,13 @@ define [
 	'use strict'
 	
 	class ParticipStep2View extends bb.View
-		el: '#particip-step-content'
 		template: JST['participStep2Search']
 		
 		initialize: ->
 			@query = ''
 		
 		render: ->
-			@$el.html @template @model.attributes
+			@$('#particip-step-content').html @template @model.attributes
 			@$('#particip-step-title').text '2. Find your place'
 			@
 		

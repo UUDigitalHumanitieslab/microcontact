@@ -10,10 +10,9 @@ define [
 	'use strict'
 	
 	class ParticipStep1View extends bb.View
-		el: '#particip-step-content'
 		template: JST['participStep1Country']
 		
 		render: ->
-			@$el.html @template {}
+			@$('#particip-step-content').html @template {}
 			@$('#particip-step-title').text '1. Choose your country'
 			@

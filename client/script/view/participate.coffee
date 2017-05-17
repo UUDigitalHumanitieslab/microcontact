@@ -37,8 +37,8 @@ define [
 			@state = new bb.Model country: false, query: false
 			@welcome = new Welcome
 			@guide = new Guide
-			@step1 = new Step1Country
-			@step2 = new Step2Search model: @state
+			@step1 = new Step1Country el: @guide.el
+			@step2 = new Step2Search el: @guide.el, model: @state
 			@uploadForm = new UploadForm
 			@places.on 'reset update', @resetPins
 			@state.on 'change', @updateStep
