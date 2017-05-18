@@ -5,14 +5,13 @@
 'use strict'
 
 module.exports = (grunt) ->
-	
 	stripRegExp = (path, ext) -> new RegExp "^#{path}/|\\.#{ext}$", 'g'
 	httpProxy = require 'http-proxy'
 	proxy = httpProxy.createProxyServer {}
 	fs = require 'fs'
 	process = require 'process'
 	extendEnv = (modifications) -> Object.assign {}, process.env, modifications
-	
+
 	grunt.initConfig
 		source: 'client'
 		script: 'script'
@@ -23,7 +22,7 @@ module.exports = (grunt) ->
 		stage: '.tmp'
 		dist: 'dist'
 		venv: process.env.VIRTUAL_ENV
-		
+
 		clean:
 			develop: ['<%= stage %>/index.html']
 			dist: ['<%= dist %>/index.html']
@@ -35,7 +34,7 @@ module.exports = (grunt) ->
 				'**/__pycache__'
 				'**/*.{pyc,pyo}'
 			]
-		
+
 		handlebars:
 			options:
 				amd: true
@@ -52,7 +51,7 @@ module.exports = (grunt) ->
 					'!<%= source %>/<%= template %>/index.mustache'
 				]
 				dest: '<%= stage %>/<%= script %>/templates.js'
-		
+
 		coffee:
 			options:
 				bare: true
@@ -68,7 +67,7 @@ module.exports = (grunt) ->
 				src: ['**/*.coffee']
 				dest: '.<%= functional %>/'
 				ext: '.js'
-		
+
 		'compile-handlebars':
 			develop:
 				src: '<%= source %>/<%= template %>/index.mustache'
@@ -82,7 +81,7 @@ module.exports = (grunt) ->
 				partials: '<%= stage %>/<%= script %>/*.js'
 				templateData:
 					production: true
-		
+
 		sass:
 			compile:
 				options:
@@ -95,7 +94,7 @@ module.exports = (grunt) ->
 				src: ['*.sass', '*.scss']
 				dest: '<%= stage %>/<%= style %>'
 				ext: '.css.pre'
-		
+
 		postcss:
 			compile:
 				options:
@@ -118,7 +117,7 @@ module.exports = (grunt) ->
 				src: ['*.css.pre']
 				dest: '<%= stage %>/<%= style %>'
 				ext: '.css'
-		
+
 		symlink:
 			compile:
 				expand: true
@@ -126,7 +125,7 @@ module.exports = (grunt) ->
 					'bower_components'
 				]
 				dest: '<%= stage %>'
-		
+
 		connect:
 			options:
 				hostname: 'localhost'
@@ -147,24 +146,30 @@ module.exports = (grunt) ->
 				options:
 					base: 'dist'
 					port: 8080
-		
+
 		shell:
 			backend:
 				options:
 					execOptions:
 						env: extendEnv
 							PYTHONUNBUFFERED: 1  # enables console output
-				command: "<%= venv %>/Scripts/python manage.py runserver 5000"
-			pytest:
-				files: [{
-					src: ['microcontact/**/*_test.py']
-				}]
-				command: ->
-					files = (o.src for o in grunt.config 'shell.pytest.files')
-					src = [].concat.apply([], files)
-					paths = (grunt.file.expand src).join ' '
-					"py.test #{paths}"
-		
+				command: ()=>
+					if process.platform == "win32"
+						return "<%= venv %>/Scripts/python manage.py runserver 5000"
+					else
+						return "<%= venv %>/bin/python manage.py runserver 5000"
+						#
+		pytest:
+			files: [{
+				src: ['microcontact/**/*_test.py']
+			}]
+			command: ->
+				files = (o.src for o in grunt.config 'shell.pytest.files')
+				src = [].concat.apply([], files)
+				paths = (grunt.file.expand src).join ' '
+				"py.test #{paths}"
+
+
 		jasmine:
 			test:
 				options:
@@ -173,7 +178,7 @@ module.exports = (grunt) ->
 						'bower_components/jquery/dist/jquery.js'
 						'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
 					]
-					# host: 'http://localhost:8000/'
+# host: 'http://localhost:8000/'
 					template: require 'grunt-template-jasmine-requirejs'
 					templateOptions:
 						requireConfigFile: '<%= stage %>/<%= script %>/developConfig.js'
@@ -182,13 +187,13 @@ module.exports = (grunt) ->
 					outfile: '<%= stage %>/_SpecRunner.html'
 					display: 'short'
 					summary: true
-		
+
 		casperjs:
 			options:
 				silent: true
 			functional:
 				src: ['.<%= functional %>/**/*.js']
-		
+
 		watch:
 			handlebars:
 				files: '<%= handlebars.compile.src %>'
@@ -233,7 +238,7 @@ module.exports = (grunt) ->
 					cwd:
 						files: '<%= stage %>'
 					livereload: true
-		
+
 		requirejs:
 			dist:
 				options:
@@ -247,14 +252,14 @@ module.exports = (grunt) ->
 						'handlebars.runtime': 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
-		
+
 		cssmin:
 			dist:
 				expand: true
 				cwd: '<%= stage %>/<%= style %>'
 				src: ['*.css']
 				dest: '<%= dist %>/<%= style %>'
-		
+
 		concurrent:
 			server:
 				tasks: ['shell:backend', 'connect:develop:keepalive']
@@ -272,7 +277,7 @@ module.exports = (grunt) ->
 				]
 				options:
 					logConcurrentOutput: true
-		
+
 		newer:
 			options:
 				override: (info, include) ->
@@ -285,11 +290,11 @@ module.exports = (grunt) ->
 								include no
 					else
 						include no
-	
+
 	grunt.loadNpmTasks 'grunt-contrib-clean'
 	grunt.loadNpmTasks 'grunt-contrib-handlebars'
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
-	grunt.loadNpmTasks 'grunt-compile-handlebars'  # compile, not contrib
+	grunt.loadNpmTasks 'grunt-compile-handlebars' # compile, not contrib
 	grunt.loadNpmTasks 'grunt-sass'
 	grunt.loadNpmTasks 'grunt-postcss'
 	grunt.loadNpmTasks 'grunt-contrib-symlink'
@@ -302,7 +307,7 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-contrib-requirejs'
 	grunt.loadNpmTasks 'grunt-contrib-cssmin'
 	grunt.loadNpmTasks 'grunt-newer'
-	
+
 	grunt.registerTask 'compile-base', [
 		'handlebars:compile'
 		'newer:coffee:compile'
