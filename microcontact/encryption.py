@@ -4,7 +4,6 @@ from os import urandom
 from hashlib import pbkdf2_hmac
 # dependencies on package pycrypto
 from Crypto.Cipher import AES
-from Crypto.Random import random
 from Crypto.Util import Counter
 
 def derive_key(password, salt, key_length):
