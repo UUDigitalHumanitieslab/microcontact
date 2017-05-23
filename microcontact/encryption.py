@@ -1,4 +1,6 @@
 from os import urandom
+# os.urandom is used for generation of random bytes. 
+# Ok for cryptographic use, see https://docs.python.org/3.4/library/os.html
 from hashlib import pbkdf2_hmac
 # dependencies on package pycrypto
 from Crypto.Cipher import AES
