@@ -12,3 +12,4 @@
 .grunt
 _SpecRunner.html
 /.functional-tests
+.DS_Store
