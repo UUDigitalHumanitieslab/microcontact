@@ -185,13 +185,14 @@ module.exports = (grunt) ->
 						requireConfig:
 							baseUrl: '<%= script %>'
 							paths:
-								googlemaps: '../bower_components/google-maps-mock/google-maps-mock'
+								'google-maps-mock': '../bower_components/google-maps-mock/google-maps-mock'
+								googlemaps: 'mock/google-maps'
 							shim:
-								googlemaps:
+								'google-maps-mock':
 									deps: []
 									exports: 'google.maps'
 					outfile: '<%= stage %>/_SpecRunner.html'
-					display: 'short'
+					display: 'full'
 					summary: true
 		
 		casperjs:
