@@ -1,7 +1,19 @@
 /*
 	(c) 2016 Julian Gonggrijp
+	(c) 2017 Digital Humanities Lab, Utrecht University
 
 @import bootstrap-custom
 
+html, body, #map
+	height: 100%
+
+body
+	padding: 10px
+
 main
-	@extend .container-fluid
+	height: calc(100% - #{$navbar-height})
+
+#participate-welcome, #participate-guide
+	width: 60ex
+	max-width: 50%
+	margin: 10px

@@ -3,13 +3,17 @@ Microcontact
 
 Configuration
 -------------
-There are default settings in `microcontact.settings`. You can use those for local debugging purposes, although overriding them is recommended. For production use, you should certainly override them.
+There are default settings in `microcontact.settings`. It is recommended that you take some time to review these settings and override them where necessary, especially for production use. See the "Database" section below for comments on the `DATABASES` setting in particular.
 
 For local development use, create a Python module in the project root that starts with `from microcontact.settings import *` and then selectively override settings. Your file will be automatically ignored by git if you call it `config.py`.
 
-For production use, copy `microcontact/settings.py` to a separate file. Put this file elsewhere in the filesystem under restrictive access rights, then modify its contents.
+For production use, copy `microcontact/settings.py` to a separate file. Put this file elsewhere in the filesystem under restrictive access rights, then modify its contents. There are many settings that need to be overridden because of security considerations; please see the comments.
 
 In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the path to your customized settings module in order to use it. For documentation, see the [Django documentation on settings][1].
+
+Google Maps API key
+-------------------
+You need to obtain an API key for Google Maps in order for the frontend application to work. Save the key (with nothing else) in a file named `.gmapikey` in the project root directory. This file is ignored by Git.
 
 Dependencies
 ------------

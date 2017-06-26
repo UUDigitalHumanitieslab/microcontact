@@ -1,5 +1,6 @@
 ###
 	(c) 2016 Julian Gonggrijp
+	(c) 2017 Digital Humanities Lab, Utrecht University
 ###
 
 'use strict'
@@ -10,6 +11,7 @@ module.exports = (grunt) ->
 	httpProxy = require 'http-proxy'
 	proxy = httpProxy.createProxyServer {}
 	fs = require 'fs'
+	googleMapsAPIKey = fs.readFileSync('.gmapikey').toString().trim()
 	process = require 'process'
 	extendEnv = (modifications) -> Object.assign {}, process.env, modifications
 	
@@ -46,6 +48,7 @@ module.exports = (grunt) ->
 				compilerOptions:
 					knownHelpers: {}
 					knownHelpersOnly: true
+					compat: true
 			compile:
 				src: [
 					'<%= source %>/<%= template %>/**/*.mustache'
@@ -76,12 +79,14 @@ module.exports = (grunt) ->
 				partials: '<%= stage %>/<%= script %>/*.js'
 				templateData:
 					production: false
+					gmapikey: googleMapsAPIKey
 			dist:
 				src: '<%= source %>/<%= template %>/index.mustache'
 				dest: '<%= dist %>/index.html'
 				partials: '<%= stage %>/<%= script %>/*.js'
 				templateData:
 					production: true
+					gmapikey: googleMapsAPIKey
 		
 		sass:
 			compile:
@@ -179,8 +184,15 @@ module.exports = (grunt) ->
 						requireConfigFile: '<%= stage %>/<%= script %>/developConfig.js'
 						requireConfig:
 							baseUrl: '<%= script %>'
+							paths:
+								'google-maps-mock': '../bower_components/google-maps-mock/google-maps-mock'
+								googlemaps: 'mock/google-maps'
+							shim:
+								'google-maps-mock':
+									deps: []
+									exports: 'google.maps'
 					outfile: '<%= stage %>/_SpecRunner.html'
-					display: 'short'
+					display: 'full'
 					summary: true
 		
 		casperjs:
@@ -245,6 +257,8 @@ module.exports = (grunt) ->
 						backbone: 'empty:'
 						underscore: 'empty:'
 						'handlebars.runtime': 'empty:'
+						async: 'empty:'
+						googlemaps: 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 		
@@ -308,12 +322,12 @@ module.exports = (grunt) ->
 		'newer:coffee:compile'
 		'sass:compile'
 		'postcss:compile'
+		'symlink:compile'
 	]
 	grunt.registerTask 'compile', [
 		'compile-base'
 		'clean:develop'
 		'compile-handlebars:develop'
-		'symlink:compile'
 	]
 	grunt.registerTask 'dist', [
 		'compile-base'
