@@ -10,7 +10,7 @@ define [
 	'use strict'
 	
 	class ParticipStep3Choose extends bb.View
-		template: JST['participStep2Search']
+		template: JST['participStep3Choose']
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
