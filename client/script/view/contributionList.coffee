@@ -9,6 +9,6 @@ define [
 		tagName: 'div'
 		template: JST['contributionList']
 		
-		render: (city) ->
-			@$el.html @template {city}
+		render: (city, dialect) ->
+			@$el.html @template {city, dialect}
 			@
