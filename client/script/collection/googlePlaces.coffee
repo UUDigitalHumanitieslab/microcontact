@@ -29,7 +29,7 @@ define [
 		#                    'default' is allowed as wildcard.
 		#     reset, add, remove, merge: as in bb.Collection.fetch
 		fetch: (options) ->
-			@service[options.method] options.request, @callback options
+			@service[options.method] options.query, @callback options
 			@trigger 'request', @, null, options
 			return
 		
