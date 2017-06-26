@@ -12,6 +12,7 @@ define [
 	'view/participGuide'
 	'view/participStep1Country'
 	'view/participStep2Search'
+	'view/participStep3Choose'
 	'view/uploadForm'
 ], (
 	bb,
@@ -22,6 +23,7 @@ define [
 	Guide,
 	Step1Country,
 	Step2Search,
+	Step3Choose,
 	UploadForm
 ) ->
 	'use strict'
@@ -39,8 +41,10 @@ define [
 			@guide = new Guide
 			@step1 = new Step1Country el: @guide.el
 			@step2 = new Step2Search el: @guide.el, model: @state
+			@step3 = new Step3Choose el: @guide.el, model: @state
 			@uploadForm = new UploadForm
 			@places.on 'reset update', @resetPins
+			@places.on 'error', (places, error) => @step2.renderError error
 			@state.on 'change', @updateStep
 
 		render:  ->
@@ -89,6 +93,9 @@ define [
 						types: ['locality']
 						bounds: @map.getBounds()
 					reset: true
+					callback:
+						'OK': => @step3.render()
+						'ZERO_RESULTS': => @step2.renderMiss()
 				when state.has 'country' then @step2.render()
 				else @step1.render()
 

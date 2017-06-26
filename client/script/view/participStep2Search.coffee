@@ -11,6 +11,8 @@ define [
 	
 	class ParticipStep2View extends bb.View
 		template: JST['participStep2Search']
+		templateMiss: JST['participStep2SearchMiss']
+		templateError: JST['participStep2SearchError']
 		
 		initialize: ->
 			@query = ''
@@ -18,6 +20,14 @@ define [
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
 			@$('#particip-step-title').text '2. Find your place'
+			@
+		
+		renderMiss: ->
+			@$('#particip-step-content').append @templateMiss @model.attributes
+			@
+		
+		renderError: (error) ->
+			@$('#particip-step-content').append @templateError {error}
 			@
 		
 		events:
