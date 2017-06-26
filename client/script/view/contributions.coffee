@@ -6,39 +6,94 @@
 define [
 	'backbone'
 	'googlemaps'
-	'model/dialects',
+	'model/dialects'
 	'util/mockupPins'
 	'view/contributionList'
 ], (bb, gmaps, dialects, pins, ContribListView) ->
 	'use strict'
-	iconSize = 1
+	iconSize = 32
+	iconOpacity = 0.7
+	iconLogScale = 1.1
 
 	class ContributionsView extends bb.View
+		pieTemplate: JST['contributionPie']
+
 		initialize: (options) ->
 			@map = options.map
-			console.log @map
 			@createLookup(dialects)
-			@markers = (@createMarker pin for pin in pins)
-			console.log @markers
+			groupedPins = @groupContributionsByAddress(pins)
+			@markers = (@createMarker groupedPins[address] for address in Object.keys(groupedPins))
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribListView
+		groupContributionsByAddress: (pins) ->
+			addresses = {}
+			addPin = (address, pin) ->
+				if !addresses[address]
+					addresses[address] = []
+				addresses[address].push(pin)
+			addPin(pin.address, pin) for pin in pins
+			addresses
+		# Create a pie chart to show the response at a certain location
+		bakePie: (pins) ->
+			scale = iconSize * (1 + iconLogScale * Math.log(pins.length))
+			dialectsHistogram = {}
+			dialectsLookup = @dialectsLookup
+			countDialect = (pin) ->
+				if (!dialectsHistogram[pin.dialect])
+					dialectsHistogram[pin.dialect] = { count: 0, fraction: 0 }
+				dialectsHistogram[pin.dialect].count++
+				# TODO: this should be done more efficiently
+				dialectsHistogram[pin.dialect].fraction = dialectsHistogram[pin.dialect].count / pins.length
+			countDialect(pin) for pin in pins
+
+			# convert to list, to make it easily iterable in the template
+			x = 1
+			y = 0
+			
+			currentFraction = 0
+			updateX = (fraction) ->
+				currentFraction += fraction
+			
+				x = Math.cos(2 * Math.PI * currentFraction)
+				y = Math.sin(2 * Math.PI * currentFraction)
+				x
+
+			half = pins.length / 2
+			getPiePiece = (dialect) -> {
+				dialect: dialect,
+				color: dialectsLookup[dialect].color,
+				fraction: dialectsHistogram[dialect].fraction,
+				startX: x,
+				startY: y,
+				largeArcFlag: if dialectsHistogram[dialect].fraction > 0.5 then 1 else 0,
+				endX: updateX(dialectsHistogram[dialect].fraction),
+				endY: y
+			}
+
+			dialects = (getPiePiece(dialect) for dialect in Object.keys(dialectsHistogram))
+			
+			size = Math.floor(iconSize * (1 + iconLogScale * Math.log(pins.length)))			
+			svg = @pieTemplate {dialects, size, opacity: iconOpacity}
+			
+			# emit the chart
+			{
+				url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg)
+				# image is assumed to be 32px wide
+				origin: new gmaps.Point(0,0)
+				anchor: new gmaps.Point(size/2, size/2)
+				size: new gmaps.Size(size, size)
+			}
+
 		createLookup: (dialects) ->
 			@dialectsLookup = {}
 			@dialectsLookup[dialect["name"]] = dialect for dialect in dialects
 			@
-		createMarker: (pin) ->
-			icon = {
-				path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-				fillColor: @dialectsLookup[pin.dialect].color,
-				fillOpacity: 0.7,
-				anchor: new gmaps.Point(0,0),
-				strokeWeight: 0,
-				scale: iconSize
-			}
+		createMarker: (pins) ->
+			pin = pins[0]
 			marker = new gmaps.Marker 
 				position: pin.position
 				title: pin.address
-				icon: icon
+				icon: @bakePie(pins)
 			marker.addListener 'click', =>
 				@popup.setPosition pin.position
 				@popup.setContent @contribList.render(pin.address, pin.dialect).el

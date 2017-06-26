@@ -58,6 +58,18 @@ define [], -> [{
 		lat: -32.9442426
 		lng: -60.65053879999999
 }, {
+	address: 'Rosario'
+	dialect: 'Salentino'
+	position:
+		lat: -32.9442426
+		lng: -60.65053879999999
+}, {
+	address: 'Rosario'
+	dialect: 'Abruzzese/Teatino'
+	position:
+		lat: -32.9442426
+		lng: -60.65053879999999
+}, {
 	address: 'Santa Fe'
 	dialect: 'Abruzzese/Teatino'
 	position:
@@ -70,11 +82,47 @@ define [], -> [{
 		lat: -34.6036844
 		lng: -58.381559100000004
 }, {
+	address: 'Buenos Aires'
+	dialect: 'Abruzzese/Teatino'
+	position:
+		lat: -34.6036844
+		lng: -58.381559100000004
+}, {
+	address: 'Buenos Aires'
+	dialect: 'Salentino'
+	position:
+		lat: -34.6036844
+		lng: -58.381559100000004
+}, {
+	address: 'Buenos Aires'
+	dialect: 'Abruzzese/Teatino'
+	position:
+		lat: -34.6036844
+		lng: -58.381559100000004
+}, {
+	address: 'Buenos Aires'
+	dialect: 'Abruzzese/Teatino'
+	position:
+		lat: -34.6036844
+		lng: -58.381559100000004
+}, {
+	address: 'Buenos Aires'
+	dialect: 'Salentino'
+	position:
+		lat: -34.6036844
+		lng: -58.381559100000004
+}, {
 	address: 'La Plata'
 	dialect: 'Veneto'
 	position:
 		lat: -34.9204948
 		lng: -57.95356570000001
+}, {
+	address: 'Santa Maria'
+	dialect: 'Salentino'
+	position:
+		lat: -29.68725
+		lng: -53.815449899999976
 }, {
 	address: 'Santa Maria'
 	dialect: 'Salentino'
