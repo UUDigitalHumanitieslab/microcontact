@@ -35,8 +35,7 @@ define [
 					else @navigate 'participate'
 
 		routes:
-			'': 'participate'
-			'participate(/:country)(/:query)': 'participate'
+			'(participate)(/:country)(/:query)': 'participate'
 			'contributions': 'contributions'
 
 		participate: (country, query) ->
@@ -47,3 +46,4 @@ define [
 		contributions: ->
 			@state.set mode: 'contributions'
 			$('nav a[href="#contributions"]').tab 'show'
+			@navigate 'contributions'
