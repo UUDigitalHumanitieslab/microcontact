@@ -29,7 +29,7 @@ define [
 		#                    'default' is allowed as wildcard.
 		fetch: (options) ->
 			@service ?= @collection?.service
-			request = placeId: options.placeId ? @id
+			request = placeId: options?.placeId ? @id
 			@service.getDetails request, @callback options
 			@trigger 'request', @, null, options
 			return
@@ -38,9 +38,9 @@ define [
 		# PlacesService as the second argument in a search request.
 		callback: (options) =>
 			clientCallback = switch
-				when _.isFunction options.callback
+				when _.isFunction options?.callback
 					options.callback
-				when _.isPlainObject options.callback
+				when _.isPlainObject options?.callback
 					cb = options.callback
 					(results, status) ->
 						(cb[status] or cb.default or _.noop) results
