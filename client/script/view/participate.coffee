@@ -80,7 +80,13 @@ define [
 
 		handleClick: (place) -> (event) =>
 			@popup.close()
-			@popup.setContent @uploadForm.render(place).el
+			if place.has 'address_components'
+				@popup.setContent @uploadForm.render(place).el
+			else
+				@popup.setContent ''
+				@listenToOnce place, 'change', ->
+					@popup.setContent @uploadForm.render(place).el
+				place.fetch()
 			@popup.setPosition event.latLng
 			@popup.open @map
 		
