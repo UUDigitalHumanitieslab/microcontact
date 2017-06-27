@@ -80,15 +80,15 @@ define [
 
 		handleClick: (place) -> (event) =>
 			@popup.close()
-			if place.has 'address_components'
-				@popup.setContent @uploadForm.render(place).el
-			else
-				@popup.setContent ''
-				@listenToOnce place, 'change', ->
-					@popup.setContent @uploadForm.render(place).el
-				place.fetch()
 			@popup.setPosition event.latLng
-			@popup.open @map
+			finish = =>
+				@popup.setContent @uploadForm.render(place).el
+				@popup.open @map
+			if place.has 'address_components'
+				finish()
+			else
+				@listenToOnce place, 'change', finish
+				place.fetch()
 		
 		updateStep: (state) =>
 			switch
