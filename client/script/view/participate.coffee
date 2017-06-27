@@ -69,18 +69,20 @@ define [
 				pin.setMap undefined for pin in @pins
 				delete @pins
 			@pins = places.map @addPin
+			if @pins.length == 1
+				gmaps.event.trigger @pins[0], 'click'
 
 		addPin: (place) =>
 			pin = new gmaps.Marker
 				position: place.get('geometry').location
 				title: place.get 'name'
 				map: @map
-			pin.addListener 'click', @handleClick place
+			pin.addListener 'click', @handleClick place, pin
 			pin
 
-		handleClick: (place) -> (event) =>
+		handleClick: (place, pin) -> (event) =>
 			@popup.close()
-			@popup.setPosition event.latLng
+			@popup.setPosition pin.getPosition()
 			finish = =>
 				@popup.setContent @uploadForm.render(place).el
 				@popup.open @map
