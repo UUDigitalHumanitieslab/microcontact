@@ -14,7 +14,7 @@ define [
 			country = _.find place.get('address_components'), (component) ->
 				'country' in component.types
 			data.country = country.short_name
-			data.city = place.address_components[0].long_name
+			data.city = place.get('address_components')[0].long_name
 			console.log data
 			@$el.html @template data
 			@
