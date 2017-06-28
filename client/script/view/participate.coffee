@@ -35,6 +35,7 @@ define [
 		initialize: (options) ->
 			@map = options.map
 			@popup = new gmaps.InfoWindow()
+			@placesService = new gmaps.places.PlacesService options.map
 			@places = new Places null, map: @map
 			@state = new bb.Model country: false, query: false
 			@welcome = new Welcome
@@ -103,6 +104,15 @@ define [
 					callback:
 						'OK': => @step3.render()
 						'ZERO_RESULTS': => @step2.renderMiss()
-				when state.has 'country' then @step2.render()
+				when state.has 'country' then @placesService.textSearch({
+						query: "#{state.get 'country'}"
+						types: ['country']
+					},					
+					(data) =>
+						# assume one country is returned for the country code
+						countryData = data[0]
+						@map.panTo(countryData.geometry.location)
+						@map.fitBounds(countryData.geometry.viewport)
+						@step2.render())
 				else @step1.render()
 
