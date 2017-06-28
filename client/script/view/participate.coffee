@@ -12,6 +12,7 @@ define [
 	'view/participGuide'
 	'view/participStep1Country'
 	'view/participStep2Search'
+	'view/participStep3Choose'
 	'view/uploadForm'
 ], (
 	bb,
@@ -22,6 +23,7 @@ define [
 	Guide,
 	Step1Country,
 	Step2Search,
+	Step3Choose,
 	UploadForm
 ) ->
 	'use strict'
@@ -39,8 +41,10 @@ define [
 			@guide = new Guide
 			@step1 = new Step1Country el: @guide.el
 			@step2 = new Step2Search el: @guide.el, model: @state
+			@step3 = new Step3Choose el: @guide.el, model: @state
 			@uploadForm = new UploadForm
 			@places.on 'reset update', @resetPins
+			@places.on 'error', (places, error) => @step2.renderError error
 			@state.on 'change', @updateStep
 
 		render:  ->
@@ -65,20 +69,28 @@ define [
 				pin.setMap undefined for pin in @pins
 				delete @pins
 			@pins = places.map @addPin
+			if @pins.length == 1
+				gmaps.event.trigger @pins[0], 'click'
 
 		addPin: (place) =>
 			pin = new gmaps.Marker
 				position: place.get('geometry').location
 				title: place.get 'name'
 				map: @map
-			pin.addListener 'click', @handleClick place
+			pin.addListener 'click', @handleClick place, pin
 			pin
 
-		handleClick: (place) -> (event) =>
+		handleClick: (place, pin) -> (event) =>
 			@popup.close()
-			@popup.setContent @uploadForm.render(place).el
-			@popup.setPosition event.latLng
-			@popup.open @map
+			@popup.setPosition pin.getPosition()
+			finish = =>
+				@popup.setContent @uploadForm.render(place).el
+				@popup.open @map
+			if place.has 'address_components'
+				finish()
+			else
+				@listenToOnce place, 'change', finish
+				place.fetch()
 		
 		updateStep: (state) =>
 			switch
@@ -89,6 +101,9 @@ define [
 						types: ['locality']
 						bounds: @map.getBounds()
 					reset: true
+					callback:
+						'OK': => @step3.render()
+						'ZERO_RESULTS': => @step2.renderMiss()
 				when state.has 'country' then @step2.render()
 				else @step1.render()
 
