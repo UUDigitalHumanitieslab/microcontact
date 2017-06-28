@@ -33,6 +33,22 @@ define [
 				addresses[address].push(pin)
 			addPin(pin.address, pin) for pin in pins
 			addresses
+		# Group the contributions by dialects.
+		# Returns:
+		# 	Array with each element containing { dialect, color, pins[] }
+		groupContributionsByDialect: (pins) ->		
+			groupedDialects = {}
+			addPin = (dialect, pin) ->
+				if !groupedDialects[dialect]
+					groupedDialects[dialect] = []
+				groupedDialects[dialect].push(pin)
+			addPin(pin.dialect, pin) for pin in pins
+			dialectsLookup = @dialectsLookup
+			{
+				dialect: dialect,
+				color: dialectsLookup[dialect].color,
+				pins: groupedDialects[dialect]
+			} for dialect in Object.keys(groupedDialects).sort()
 		# Create a pie chart to show the response at a certain location
 		bakePie: (pins) ->
 			scale = iconSize * (1 + iconLogScale * Math.log(pins.length))
@@ -89,14 +105,16 @@ define [
 			@dialectsLookup[dialect["name"]] = dialect for dialect in dialects
 			@
 		createMarker: (pins) ->
-			pin = pins[0]
+			pin = pins[0]			
 			marker = new gmaps.Marker 
 				position: pin.position
 				title: pin.address
 				icon: @bakePie(pins)
 			marker.addListener 'click', =>
 				@popup.setPosition pin.position
-				@popup.setContent @contribList.render(pin.address, pin.dialect).el
+				@popup.setContent @contribList.render(
+					pin.address, 
+					@groupContributionsByDialect(pins)).el
 				@popup.open @map, marker
 			marker		
 		render: ->

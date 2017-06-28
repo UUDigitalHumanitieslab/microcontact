@@ -4,13 +4,13 @@
 ###
 
 define [], -> [
-	{ name: 'Abruzzese/Teatino', color: '#F44336' },
-	{ name: 'Fiorentino', color: '#EC407A' },
-	{ name: 'Napoletano (Campano)', color: '#9C27B0' },
-	{ name: 'Palermitano (Siciliano)', color: '#2196F3' },
-	{ name: 'Piemontese', color: '#80CBC4' },
-	{ name: 'Salentino', color: '#8BC34A' },
-	{ name: 'Senese (Toscano)', color: '#E6EE9C' },
-	{ name: 'Veneto', color: '#FFEE58' }
+	{ name: 'Abruzzese/Teatino', color: '#d01' },
+	{ name: 'Fiorentino', color: '#f90' },
+	{ name: 'Napoletano (Campano)', color: '#717' },
+	{ name: 'Palermitano (Siciliano)', color: '#ee4' },
+	{ name: 'Piemontese', color: '#06e' },
+	{ name: 'Salentino', color: '#5d2' },
+	{ name: 'Senese (Toscano)', color: '#ddd' },
+	{ name: 'Veneto', color: '#333' }
 	# TODO: add other as "Dialect"
 ]
