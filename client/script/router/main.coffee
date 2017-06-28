@@ -32,7 +32,7 @@ define [
 			@participate.state.on 'change', (state) =>
 				{country, query} = state.attributes
 				switch
-					when query then @navigate "participate/#{country}/#{query}"
+					when query then @navigate "participate/#{country}/#{query}", trigger: true
 					when country then @navigate "participate/#{country}"
 					else @navigate 'participate'
 

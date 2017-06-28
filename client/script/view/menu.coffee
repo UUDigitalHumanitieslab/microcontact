@@ -23,4 +23,10 @@ define [
 		
 		update: (route, params) ->
 			@$('li').removeClass 'active'
+			switch route
+				when 'participate'
+					[country, query] = params
+					@model.set {country, query}
+					@render()
+					@$('\#tab-participate li').last().addClass 'active'
 			@$("\#tab-#{route}").addClass 'active'
