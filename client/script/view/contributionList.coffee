@@ -5,10 +5,10 @@ define [
 	'use strict'
 	
 	class ContributionListView extends bb.View
-	
+		className: 'contributions-pin'
 		tagName: 'div'
 		template: JST['contributionList']
 		
-		render: (city) ->
-			@$el.html @template {city}
+		render: (city, pins) ->
+			@$el.html @template {city, pins}
 			@
