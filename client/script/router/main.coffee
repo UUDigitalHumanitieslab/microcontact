@@ -7,10 +7,10 @@ define [
 	'backbone'
 	'jquery'
 	'view/map'
+	'view/menu'
 	'view/contributions'
 	'view/participate'
-	'bootstrap/tab'
-], (bb, $, Map, Contributions, Participate) ->
+], (bb, $, Map, Menu, Contributions, Participate) ->
 	'use strict'
 	
 	class MainRouter extends bb.Router
@@ -19,6 +19,8 @@ define [
 			@map.render()
 			@participate = new Participate map: @map.map
 			@contributions = new Contributions map: @map.map
+			@menu = new Menu el: $ 'nav#nav-main'
+			@menu.listenTo @, 'route', @menu.update
 			@state = new bb.Model
 			@state.on 'change:mode', (state, newMode) =>
 				switch state.previous 'mode'
@@ -40,10 +42,8 @@ define [
 
 		participate: (country, query) ->
 			@state.set mode: 'participate'
-			$('nav a[href="#participate"]').tab 'show'
 			@participate.state.set {country, query}
 
 		contributions: ->
 			@state.set mode: 'contributions'
-			$('nav a[href="#contributions"]').tab 'show'
 			@navigate 'contributions'
