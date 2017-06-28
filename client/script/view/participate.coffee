@@ -97,9 +97,8 @@ define [
 				when state.has 'query' then @places.fetch
 					method: 'textSearch'
 					query:
-						query: state.get 'query'
+						query: "#{state.get 'query'}, #{state.get 'country'}"
 						types: ['locality']
-						bounds: @map.getBounds()
 					reset: true
 					callback:
 						'OK': => @step3.render()
