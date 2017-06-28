@@ -29,6 +29,12 @@ main
 		.contributions-count
 			font-style: italic
 
+//  The next three selectors are a bit of a hack.
+	They copy the contents of the similar .nav* > li* > a selectors,
+	rather than extending those selectors. This is because of the
+	limitation of Sass that it doesn't support extending selector
+	sequences. See http://sass-lang.com/documentation/file.SASS_REFERENCE.html#selector_sequences
+
 .nav-tabs > li.active > ol
 	border: 1px solid #ddd
 	border-bottom-color: transparent

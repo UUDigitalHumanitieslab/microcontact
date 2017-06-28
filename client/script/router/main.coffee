@@ -32,6 +32,7 @@ define [
 			@participate.state.on 'change', (state) =>
 				{country, query} = state.attributes
 				switch
+					# trigger: true to ensure that the route event is triggered
 					when query then @navigate "participate/#{country}/#{query}", trigger: true
 					when country then @navigate "participate/#{country}"
 					else @navigate 'participate'
