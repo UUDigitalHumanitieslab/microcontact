@@ -34,8 +34,12 @@ define [
 				switch
 					# trigger: true to ensure that the route event is triggered
 					when query then @navigate "participate/#{country}/#{query}", trigger: true
-					when country then @navigate "participate/#{country}"
-					else @navigate 'participate'
+					when country
+						@participate.close()
+						@navigate "participate/#{country}"
+					else
+						@participate.close()
+						@navigate 'participate'
 
 		routes:
 			'(participate)(/:country)(/:query)': 'participate'

@@ -58,6 +58,10 @@ define [
 			div.index = index
 			@map.controls[position].push div
 
+		# Close the popup of the currently running participation.
+		close: ->		
+			@popup.close()
+
 		remove: ->
 			@popup.close()
 			@state.clear()
