@@ -13,20 +13,26 @@ define [
 		template: JST['participStep2Search']
 		templateMiss: JST['participStep2SearchMiss']
 		templateError: JST['participStep2SearchError']
-		
+		isRendered: false
+
 		initialize: ->
 			@query = ''
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
 			@$('#particip-step-title').text '2. Find your place'
+			@isRendered = true
 			@
 		
 		renderMiss: ->
+			if !@isRendered
+				@render()
 			@$('#particip-step-content').append @templateMiss @model.attributes
 			@
 		
 		renderError: (error) ->
+			if !@isRendered
+				@render()
 			@$('#particip-step-content').append @templateError {error}
 			@
 		
