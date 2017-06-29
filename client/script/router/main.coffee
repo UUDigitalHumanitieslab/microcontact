@@ -10,7 +10,8 @@ define [
 	'view/menu'
 	'view/contributions'
 	'view/participate'
-], (bb, $, Map, Menu, Contributions, Participate) ->
+	'util/countries'
+], (bb, $, Map, Menu, Contributions, Participate, countries) ->
 	'use strict'
 	
 	class MainRouter extends bb.Router
@@ -43,7 +44,8 @@ define [
 
 		participate: (country, query) ->
 			@state.set mode: 'participate'
-			@participate.state.set {country, query}
+			countryLong = (countries.find code: country)?.get 'name'
+			@participate.state.set {country, countryLong, query}
 
 		contributions: ->
 			@state.set mode: 'contributions'

@@ -47,6 +47,7 @@ define [
 			@places.on 'reset update', @resetPins
 			@places.on 'error', (places, error) => @step2.renderError error
 			@state.on 'change', @updateStep
+			@listenTo @step1, 'select', @updateCountry
 
 		render:  ->
 			@addControl @welcome, @welcomePos, 1
@@ -115,4 +116,10 @@ define [
 						@map.fitBounds(countryData.geometry.viewport)
 						@step2.render())
 				else @step1.render()
+		
+		updateCountry: (country) ->
+			@state.set
+				country: country.get 'code'
+				countryLong: country.get 'name'
+				query: null
 
