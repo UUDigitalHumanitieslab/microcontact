@@ -20,7 +20,6 @@ define [
 				parent: @
 			@$list = $ '<div class=list-group>'
 			@$list.append item.render().el for item in @items
-			
 		
 		render: ->
 			@$('#particip-step-content').html @$list
