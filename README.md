@@ -17,7 +17,13 @@ You need to obtain an API key for Google Maps in order for the frontend applicat
 
 Dependencies
 ------------
-For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`. For local development purposes, also `pip install pytest`. For the JavaScript dependencies, install NPM, Bower and Grunt, then run `npm install` and `bower install`. For deployment, you can run `bower install` with the `--production` flag in order to skip development-only packages.
+For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`. For local development purposes, also `pip install pytest`.
+Some dependencies might require `python-dev` to be installed first (primarly for Anaconda3 users).
+Try either:
+`sudo apt-get install python-dev`
+or
+`sudo apt-get install python3-dev`.
+For the JavaScript dependencies, install NPM, Bower and Grunt, then run `npm install` and `bower install`. For deployment, you can run `bower install` with the `--production` flag in order to skip development-only packages.
 
 Database
 --------
