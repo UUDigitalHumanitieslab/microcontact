@@ -19,7 +19,7 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text '2. Find your place'
+			@$('#particip-step-title').text '2. Find your location'
 			@
 		
 		renderMiss: ->
