@@ -14,5 +14,5 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text '3. Pick your place from the results'
+			@$('#particip-step-title').text 'Pick your place from the results'
 			@

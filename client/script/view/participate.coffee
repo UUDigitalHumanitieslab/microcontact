@@ -86,6 +86,10 @@ define [
 			finish = =>
 				@popup.setContent @uploadForm.render(place).el
 				@popup.open @map
+				# only need to instruct user to click on a marker, if none has been opened yet
+				$('#participate-guide').hide()
+				gmaps.event.addListener(@popup, 'closeclick', () ->
+					$('#participate-guide').show())
 			if place.has 'address_components'
 				finish()
 			else
@@ -93,6 +97,8 @@ define [
 				place.fetch()
 		
 		updateStep: (state) =>
+			# it might have been hidden once a marker was selected
+			$('#participate-guide').show()
 			switch
 				when state.has 'query' then @places.fetch
 					method: 'textSearch'

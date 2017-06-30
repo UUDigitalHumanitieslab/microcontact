@@ -14,9 +14,16 @@ main
 	height: 100%
 
 #participate-welcome, #participate-guide
-	width: 60ex
+	width: 80ex
 	max-width: 50%
 	margin: 10px
+
+	h1 small
+		clear: left
+
+	p:not(.lead)
+		font-size: 1.1em
+		line-height: 1.8
 
 .contributions-pin
 	h2
@@ -37,13 +44,17 @@ main
 
 #nav-main
 	position: absolute
-	top: 10px
-	left: 10px
+	top: 0
+	left: 0
+	width: 100%
 	z-index: 2
+
+	#tab-contributions
+		float: right
 
 	.breadcrumb
 		display: inline-block
-		margin-right: 5px
+		margin: 10px
 
 		.active a
 			color: #555	
