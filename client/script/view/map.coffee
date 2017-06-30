@@ -14,7 +14,13 @@ define [
 		lat: -28.699929
 		lng: -59.0452857
 	zoom = 6
-	mapSettings = {center, zoom, mapTypeId: 'terrain'}
+	mapSettings = {
+		center
+		zoom
+		mapTypeId: 'terrain'
+		streetViewControl: false
+		mapTypeControl: false
+	}
 	
 	class MapView extends bb.View
 		template: JST['map']

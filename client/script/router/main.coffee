@@ -37,14 +37,14 @@ define [
 					when query then @navigate "participate/#{country}/#{query}", trigger: true
 					when country
 						@participate.close()
-						@navigate "participate/#{country}"
+						@navigate "participate/#{country}", trigger: true
 					else
 						@participate.close()
 						@navigate 'participate'
 
 		routes:
-			'(participate)(/:country)(/:query)': 'participate'
-			'contributions': 'contributions'
+			'participate(/:country)(/:query)': 'participate'
+			'(contributions)': 'contributions'
 
 		participate: (country, query) ->
 			@state.set mode: 'participate'

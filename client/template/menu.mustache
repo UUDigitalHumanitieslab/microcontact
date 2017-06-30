@@ -1,14 +1,14 @@
-<ul class="nav nav-tabs" role=tablist>
-	<li id=tab-participate role=presentation>
-		<ol class=breadcrumb role=tab>
-			<li><a href="#participate">Partecipa</a>
-			{{#country}}
-			<li><a href="#participate/{{country}}">{{country}}</a>
-			{{/country}}
-			{{#query}}
-			<li><a href="#participate/{{country}}/{{query}}">{{query}}</a>
-			{{/query}}
-		</ol>
-	<li id=tab-contributions role=presentation>
-		<a href="#contributions" role=tab>Mostra i contributi</a>
-</ul>
+{{#show}}
+	<ol id="tab-participate" class="breadcrumb" role="tab">
+		<li><a href="#participate">Partecipa</a>
+		{{#country}}
+		<li><a href="#participate/{{country}}">{{country}}</a>
+		{{/country}}
+		{{#query}}
+		<li><a href="#participate/{{country}}/{{query}}">{{query}}</a>
+		{{/query}}
+	</ol>
+	<ol id="tab-contributions" class="breadcrumb" role="presentation">
+		<li><a href="#contributions" role="tab">Mostra i contributi</a></li>
+	</ol>
+{{/show}}

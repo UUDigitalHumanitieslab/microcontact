@@ -8,15 +8,22 @@ html, body, #map
 	height: 100%
 
 body
-	padding: 10px
+	padding: 0
 
 main
-	height: calc(100% - #{$navbar-height})
+	height: 100%
 
 #participate-welcome, #participate-guide
-	width: 60ex
+	width: 80ex
 	max-width: 50%
 	margin: 10px
+
+	h1 small
+		clear: left
+
+	p:not(.lead)
+		font-size: 1.1em
+		line-height: 1.8
 
 .contributions-pin
 	h2
@@ -35,22 +42,20 @@ main
 	limitation of Sass that it doesn't support extending selector
 	sequences. See http://sass-lang.com/documentation/file.SASS_REFERENCE.html#selector_sequences
 
-.nav-tabs > li.active > ol
-	border: 1px solid #ddd
-	border-bottom-color: transparent
+#nav-main
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	z-index: 2
 
-	&.breadcrumb > .active > a
-		color: #555
+	#tab-contributions
+		float: right
 
-.nav-tabs > li > ol
-	background-color: #fff
-	margin-right: 2px
-	margin-bottom: 0
-	line-height: 1.428571429
-	border: 1px solid transparent
-	border-radius: 4px 4px 0 0
+	.breadcrumb
+		display: inline-block
+		margin: 10px
 
-.nav > li > ol
-	position: relative
-	display: block
-	padding: 10px 15px
+		.active a
+			color: #555	
+			pointer-events: none

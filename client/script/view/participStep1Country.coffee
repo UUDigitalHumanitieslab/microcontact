@@ -18,10 +18,10 @@ define [
 			@items = countries.map (country) => new Item 
 				model: country
 				parent: @
-			@$list = $ '<div class=list-group>'
+			@$list = $ '<div class="list-group lead">'
 			@$list.append item.render().el for item in @items
 		
 		render: ->
 			@$('#particip-step-content').html @$list
-			@$('#particip-step-title').text '1. Choose your country'
+			@$('#particip-step-title').text 'Choose your country'
 			@
