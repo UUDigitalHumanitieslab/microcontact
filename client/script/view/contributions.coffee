@@ -9,13 +9,15 @@ define [
 	'model/dialects'
 	'util/mockupPins'
 	'view/contributionList'
-], (bb, gmaps, dialects, pins, ContribListView) ->
+	'view/participWelcome'
+], (bb, gmaps, dialects, pins, ContribListView, Welcome) ->
 	'use strict'
 	iconSize = 32
 	iconOpacity = 0.7
 	iconLogScale = 1.1
 
 	class ContributionsView extends bb.View
+		welcomePos: gmaps.ControlPosition.TOP_LEFT
 		pieTemplate: JST['contributionPie']
 
 		initialize: (options) ->
@@ -25,6 +27,7 @@ define [
 			@markers = (@createMarker groupedPins[address] for address in Object.keys(groupedPins))
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribListView
+			@welcome = new Welcome
 		groupContributionsByAddress: (pins) ->
 			addresses = {}
 			addPin = (address, pin) ->
@@ -118,9 +121,15 @@ define [
 				@popup.open @map, marker
 			marker		
 		render: ->
+			@addControl @welcome, @welcomePos, 1
 			marker.setMap @map for marker in @markers
 			@
 		remove: ->
+			@map.controls[@welcomePos].pop()
 			@popup.close()
 			marker.setMap undefined for marker in @markers if @markers
 			super()
+		addControl: (view, position, index) ->
+			div = view.render().el
+			div.index = index
+			@map.controls[position].push div

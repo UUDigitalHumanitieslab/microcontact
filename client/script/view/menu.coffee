@@ -26,7 +26,10 @@ define [
 			switch route
 				when 'participate'
 					[country, query] = params
-					@model.set {country, query}
+					@model.set {country, show: true, query}
 					@render()
 					@$('\#tab-participate li').last().addClass 'active'
+				when 'contributions'
+					@model.set {show: false}
+					@render()
 			@$("\#tab-#{route}").addClass 'active'

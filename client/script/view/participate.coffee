@@ -8,7 +8,6 @@ define [
 	'underscore'
 	'googlemaps'
 	'collection/googlePlaces'
-	'view/participWelcome'
 	'view/participGuide'
 	'view/participStep1Country'
 	'view/participStep2Search'
@@ -19,7 +18,6 @@ define [
 	_,
 	gmaps,
 	Places,
-	Welcome,
 	Guide,
 	Step1Country,
 	Step2Search,
@@ -29,7 +27,6 @@ define [
 	'use strict'
 	
 	class ParticipateView extends bb.View
-		welcomePos: gmaps.ControlPosition.TOP_RIGHT
 		guidePos: gmaps.ControlPosition.TOP_CENTER
 
 		initialize: (options) ->
@@ -38,7 +35,6 @@ define [
 			@placesService = new gmaps.places.PlacesService options.map
 			@places = new Places null, map: @map
 			@state = new bb.Model country: false, query: false
-			@welcome = new Welcome
 			@guide = new Guide
 			@step1 = new Step1Country el: @guide.el
 			@step2 = new Step2Search el: @guide.el, model: @state
@@ -50,7 +46,6 @@ define [
 			@listenTo @step1, 'select', @updateCountry
 
 		render:  ->
-			@addControl @welcome, @welcomePos, 1
 			@addControl @guide, @guidePos, 1
 			@
 
@@ -67,7 +62,6 @@ define [
 			@popup.close()
 			@state.clear()
 			@map.controls[@guidePos].pop()
-			@map.controls[@welcomePos].pop()
 			@
 
 		resetPins: (places) =>
