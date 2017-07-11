@@ -116,7 +116,6 @@ define [
 					(data) =>
 						# assume one country is returned for the country code
 						countryData = data[0]
-						@map.panTo(countryData.geometry.location)
 						@map.fitBounds(countryData.geometry.viewport)
 						@step2.render())
 				else @step1.render()
