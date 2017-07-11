@@ -5,8 +5,8 @@
 
 define ['backbone'], (bb) -> new bb.Collection [
 	{code: 'AR', name: 'Argentina'}
-	{code: 'BR', name: 'Brazil'}
+	{code: 'BR', name: 'Brasile'}
 	{code: 'CA', name: 'Canada'}
 	{code: 'US', name: 'USA'}
-	{code: 'IT', name: 'Italy'}
+	{code: 'IT', name: 'Italia'}
 ]

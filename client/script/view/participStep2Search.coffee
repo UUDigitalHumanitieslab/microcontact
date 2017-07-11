@@ -20,7 +20,7 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text 'Find your location'
+			@$('#particip-step-title').text 'Trova la località'
 			@isRendered = true
 			@
 		
