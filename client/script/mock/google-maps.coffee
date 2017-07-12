@@ -25,6 +25,7 @@ define [
 		BOTTOM_RIGHT: 11
 	gmaps.Map = () ->
 		controls: ([] for i in Object.keys(gmaps.ControlPosition))
+		fitBounds: -> undefined
 
 	# mock the places library
 	gmaps.places = PlacesService: class PlacesService				
