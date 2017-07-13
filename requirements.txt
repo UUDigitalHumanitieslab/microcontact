@@ -6,5 +6,6 @@
 #
 django-auth-ldap==1.2.13
 django==1.8.17
+djangorestframework==3.6.3
 pycrypto==2.6.1
 pyldap==2.4.37

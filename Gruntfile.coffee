@@ -163,15 +163,15 @@ module.exports = (grunt) ->
 					else
 						return "<%= venv %>/bin/python manage.py runserver 5000"
 						#
-		pytest:
-			files: [{
-				src: ['microcontact/**/*_test.py']
-			}]
-			command: ->
-				files = (o.src for o in grunt.config 'shell.pytest.files')
-				src = [].concat.apply([], files)
-				paths = (grunt.file.expand src).join ' '
-				"py.test #{paths}"
+			pytest:
+				files: [{
+					src: ['microcontact/**/*_test.py']
+				}]
+				command: ->
+					files = (o.src for o in grunt.config 'shell.pytest.files')
+					src = [].concat.apply([], files)
+					paths = (grunt.file.expand src).join ' '
+					"py.test #{paths}"
 
 
 		jasmine:

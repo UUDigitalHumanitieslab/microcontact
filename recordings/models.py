@@ -5,19 +5,32 @@ from django.db import models
 from django.db import models
 
 
+class ModelWithName:
+    def __str__(self):
+        return self.name
+
+
 class Dialect(models.Model):
     dialect = models.CharField(max_length=200)
+    def __str__(self):
+        return self.dialect
 
 
 class Language(models.Model):
     language = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.language
 
-class Country(models.Model):
+
+class Country(ModelWithName, models.Model):
     name = models.CharField(max_length=200)
 
+    class Meta:
+        verbose_name_plural = 'Countries'
 
-class Place(models.Model):
+
+class Place(ModelWithName, models.Model):
     placeID = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     latitude = models.FloatField()
@@ -25,7 +38,7 @@ class Place(models.Model):
     country = models.ForeignKey(Country, on_delete="PROTECT")
 
 
-class Recording(models.Model):
+class Recording(ModelWithName, models.Model):
     id = models.AutoField(primary_key=True)
     status_choices = (
         ('a', 'censored'),
@@ -46,7 +59,7 @@ class Recording(models.Model):
     )
     sex = models.CharField(max_length=1, choices=sex_choices)
     age = models.IntegerField()
-    languages = models.ForeignKey(Language, on_delete="PROTECT", null=True)
+    languages = models.ForeignKey(Language, on_delete="PROTECT")
     dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
     is_public_recording = models.BooleanField(default=False)
     speaker_generation_choices = (
@@ -54,6 +67,6 @@ class Recording(models.Model):
         ('b', 'second')
     )
     speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True)
-    place = models.ForeignKey(Place, on_delete="PROTECT", null=True)
+    place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
     recording_link = models.CharField(max_length=200)
