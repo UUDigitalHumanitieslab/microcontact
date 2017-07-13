@@ -11,7 +11,9 @@ def convert_to_mp3(infile):
 	outfile = os.path.splitext(infile)[0] + '.mp3'
 	# output as a one-channel, 128kbit mp3 (variable bit rate)
 	# -ar flag omitted, this automatically uses input sampling rate
+	# does not show log output (as this goes to stderr)
+	# always overwrites files (-y)
 	query_string = 'ffmpeg -i ' + infile + \
-	 ' -acodec mp3 -ac 1 -ab 128k -hide_banner '\
+	 ' -acodec mp3 -ac 1 -ab 128k -hide_banner -loglevel panic -y '\
 	  + outfile
 	subprocess.run(query_string, shell=True, check=True)
