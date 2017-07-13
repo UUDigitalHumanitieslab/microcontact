@@ -26,10 +26,11 @@
 			<p class=form-control-static>{{city}}</p>
 		</div>
 		<div class=form-group>
-			Consenso informato (in costruzione)
+			La persona la cui voce è registrata su questo file dichiara di aver letto e capito il Modulo Informativo del Partecipante e di accettare di partecipare a questo studio.<br>
+			<input type="checkbox" name="consent" id=user-consent {{agreed}}> D'accordo <br>
 		</div>
 		<div class=form-group>
-			<button type=submit class="btn btn-default" disabled>Invia (non attivo)</button>
+			<button type=submit class="btn btn-primary" id=submit-button disabled>Invia</button>
 		</div>
 	</form>
 {{/city}}{{^city}}

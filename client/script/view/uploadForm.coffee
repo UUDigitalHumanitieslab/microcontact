@@ -8,6 +8,8 @@ define [
 	class UploadFormView extends bb.View
 	
 		template: JST['uploadForm']
+
+		events: 'click #user-consent': 'activate'
 		
 		render: (place) ->
 			data = {}
@@ -19,3 +21,8 @@ define [
 			@$el.html @template data
 			@
 		
+		activate: ->
+			if @$('#user-consent').prop('checked')
+				@$('#submit-button').prop('disabled', false)
+			else
+				@$('#submit-button').prop('disabled', true)
