@@ -103,7 +103,7 @@ define [
 				when state.has 'query' then @places.fetch
 					method: 'textSearch'
 					query:
-						query: "#{state.get 'query'}, #{state.get 'country'}"
+						query: "#{state.get 'query'}, #{state.get 'countryLong'}"
 						types: ['locality']
 					reset: true
 					callback:

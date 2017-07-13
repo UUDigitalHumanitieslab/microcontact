@@ -74,6 +74,12 @@ You are advised to run the Django-based backend as a WSGI application from your 
 
 Serve the WSGI application under `/api/` while serving the static assets under `/`.
 
+####LDAP
+
+#####Linux
+On linux make sure that the following packages are installed:
+libsasl2-dev, python-dev, libldap2-dev, libssl-dev
+
 Directory reference
 -------------------
 

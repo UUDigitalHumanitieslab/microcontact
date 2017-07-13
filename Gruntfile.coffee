@@ -282,7 +282,7 @@ module.exports = (grunt) ->
 				tasks: [
 					['shell:pytest', 'shell:backend']
 					['watch']
-					['compile', 'jasmine:test', 'connect:develop:keepalive']
+					['compile', 'connect:develop:keepalive']
 				]
 				options:
 					logConcurrentOutput: true
