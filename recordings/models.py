@@ -12,6 +12,7 @@ class ModelWithName:
 
 class Dialect(models.Model):
     dialect = models.CharField(max_length=200)
+
     def __str__(self):
         return self.dialect
 
