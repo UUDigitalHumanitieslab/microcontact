@@ -10,6 +10,7 @@ require.config
 		underscore: '../bower_components/lodash/dist/lodash'
 		'handlebars.runtime': '../bower_components/handlebars/handlebars.runtime.amd'
 		bootstrap: '../bower_components/bootstrap-sass/assets/javascripts/bootstrap'
+		async: '../bower_components/requirejs-plugins/src/async'
 	shim:
 		'bootstrap/transition': ['jquery']
 		'bootstrap/modal': ['jquery']      # has own CSS component

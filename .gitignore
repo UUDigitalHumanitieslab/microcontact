@@ -12,4 +12,8 @@
 .grunt
 _SpecRunner.html
 /.functional-tests
+.gmapikey
+.DS_Store
+/.env
 .idea
+

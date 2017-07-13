@@ -52,6 +52,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+
 ROOT_URLCONF = 'microcontact.urls'
 
 TEMPLATES = [
