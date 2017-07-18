@@ -68,4 +68,4 @@ class Recording(ModelWithName, models.Model):
     speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
-    recording_link = models.CharField(max_length=200)
+    recording = models.FileField(upload_to='recordings', max_length=200)
