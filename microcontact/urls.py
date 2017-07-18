@@ -17,6 +17,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('recordings.urls')) # Add this line
-
+    url(r'^api/', include('recordings.urls')) # Add this line
 ]

@@ -135,11 +135,12 @@ module.exports = (grunt) ->
 				hostname: 'localhost'
 				middleware: (connect, options, middlewares) ->
 					middlewares.unshift (req, res, next) ->
-						return next() unless req.url.startsWith '/api/'
-						req.url = req.url.slice 4
-						proxy.web req, res, {
-							target: 'http://localhost:5000'
-						}
+						if req.url.startsWith('/api') or req.url.startsWith('/admin') or req.url.startsWith('/static')
+							proxy.web req, res, {
+								target: 'http://localhost:5000'
+							}
+						else
+							next()
 					middlewares
 				open: true
 			develop:
