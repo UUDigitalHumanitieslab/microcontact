@@ -1,18 +1,20 @@
 from django.shortcuts import render
-from rest_framework import generics
-from .serializers import DialectSerializer
-from .models import Dialect
+from rest_framework import viewsets
+from .serializers import *
+from .models import Dialect, Country, Recording
 # Create your views here.
 
-class CreateView(generics.ListCreateAPIView):
+
+class DialectViewSet(viewsets.ModelViewSet):
     queryset = Dialect.objects.all()
     serializer_class = DialectSerializer
 
-    def perform_create(self, serializer):
-        serializer.save()
 
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
-    """This class handles the http GET, PUT and DELETE requests."""
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
 
-    queryset = Dialect.objects.all()
-    serializer_class = DialectSerializer
+
+class RecordingViewSet(viewsets.ModelViewSet):
+    queryset = Recording.objects.all()
+    serializer_class = RecordingSerializer

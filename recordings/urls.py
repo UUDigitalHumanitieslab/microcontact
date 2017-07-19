@@ -1,13 +1,16 @@
 # api/urls.py
 
 from django.conf.urls import url, include
-from rest_framework.urlpatterns import format_suffix_patterns
-from .views import CreateView, DetailsView
+from rest_framework import routers
 
-urlpatterns = {
-    url(r'^dialects/$', CreateView.as_view(), name="create"),
-    url(r'^dialects/(?P<pk>[0-9]+)/$',
-        DetailsView.as_view(), name="details"),
-}
+from recordings import views
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+router = routers.DefaultRouter()
+router.register(r'dialects', views.DialectViewSet)
+router.register(r'countries', views.CountryViewSet)
+router.register(r'recordings', views.RecordingViewSet)
+
+urlpatterns = [
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+]

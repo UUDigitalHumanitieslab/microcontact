@@ -52,3 +52,16 @@ define [
 					when 'OK' then @set results
 					else @trigger 'error', @, status, options
 		
+		toInternal: ->
+			components = @get 'address_components'
+			countryComponent = if components
+				_.find components, (component) -> 'country' in component.types
+			cityComponent = if components then components[0]
+			location = @get('geometry')?.location
+			return result =
+				placeID: @get 'place_id'
+				name: cityComponent?.long_name
+				country: countryComponent?.short_name
+				countryName: countryComponent?.long_name
+				latitude: location?.lat()
+				longitude: location?.lng()

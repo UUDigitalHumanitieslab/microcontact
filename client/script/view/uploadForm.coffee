@@ -1,21 +1,32 @@
 define [
 	'backbone'
+	'jquery'
 	'underscore'
 	'templates'
-], (bb, _, JST) ->
+	'util/dialects'
+], (bb, $, _, JST, dialects) ->
 	'use strict'
 	
 	class UploadFormView extends bb.View
 	
 		template: JST['uploadForm']
 		
+		events:
+			'submit form': 'submit'
+		
 		render: (place) ->
-			data = {}
-			country = _.find place.get('address_components'), (component) ->
-				'country' in component.types
-			data.country = country.short_name
-			data.city = place.get('address_components')[0].long_name
-			console.log data
-			@$el.html @template data
+			@$el.html @template {place: place.toInternal(), dialects}
 			@
 		
+		submit: (event) ->
+			event.preventDefault()
+			form = @$ 'form'
+			form.prop 'disabled', true
+			$.ajax
+				url: '/api/recordings/'
+				type: 'POST'
+				data: new FormData form[0]
+				cache: false
+				contentType: false
+				processData: false
+				success: => @$el.text 'Grazie!'

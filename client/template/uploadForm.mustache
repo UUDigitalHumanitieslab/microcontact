@@ -1,38 +1,35 @@
-{{#city}}
-	<h2>{{city}}, {{country}}</h2>
-	<p>Il sito è ancora in costruzione, quindi al momento non è possibile caricare le registrazioni. Qui sotto puoi vedere come apparirà il modulo per il caricamento.</p>
+{{#place}}
+	<h2>{{name}}, {{countryName}}</h2>
 	<form>
 		<div class=form-group>
 			<label for=upload-file class=control-label>La tua registrazione</label>
-			<input id=upload-file type=file class=form-control disabled>
+			<input id=upload-file name=recording type=file class=form-control>
 		</div>
 		<div class=form-group>
 			<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
-			<select id=upload-dialect class=form-control disabled>
-				<option>Abruzzese/Teatino</option>
-				<option>Fiorentino</option>
-				<option>Napoletano (Campano)</option>
-				<option>Palermitano (Siciliano)</option>
-				<option>Piemontese</option>
-				<option>Salentino</option>
-				<option>Senese (Toscano)</option>
-				<option>Veneto</option>
+			<select id=upload-dialect name=dialect class=form-control>
+				{{#dialects}}<option value={{id}}>{{name}}</option>{{/dialects}}
 			</select>
 		</div>
 		<div class=form-group>
 			<label class=control-label>Nazione</label>
-			<p class=form-control-static>{{country}}</p>
+			<p class=form-control-static>{{countryName}}</p>
 			<label class=control-label>Città</label>
-			<p class=form-control-static>{{city}}</p>
+			<p class=form-control-static>{{name}}</p>
+			<input type=hidden name="place.placeID" value="{{placeID}}">
+			<input type=hidden name="place.name" value="{{name}}">
+			<input type=hidden name="place.country" value="{{country}}">
+			<input type=hidden name="place.latitude" value="{{latitude}}">
+			<input type=hidden name="place.longitude" value="{{longitude}}">
 		</div>
 		<div class=form-group>
 			Consenso informato (in costruzione)
 		</div>
 		<div class=form-group>
-			<button type=submit class="btn btn-default" disabled>Invia (non attivo)</button>
+			<button type=submit class="btn btn-default">Invia</button>
 		</div>
 	</form>
-{{/city}}{{^city}}
+{{/place}}{{^place}}
 	<h2>Nessuna città qui</h2>
 	<p>Può essere più facile trovare e cliccare la tua città ingrandendo la mappa con lo <a id=upload-zoom>zoom</a>.</p>
-{{/city}}
+{{/place}}
