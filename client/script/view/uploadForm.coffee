@@ -2,7 +2,8 @@ define [
 	'backbone'
 	'underscore'
 	'templates'
-], (bb, _, JST) ->
+	'util/dialects'
+], (bb, _, JST, dialects) ->
 	'use strict'
 	
 	class UploadFormView extends bb.View
@@ -15,6 +16,7 @@ define [
 				'country' in component.types
 			data.country = country.short_name
 			data.city = place.get('address_components')[0].long_name
+			data.dialects = dialects
 			console.log data
 			@$el.html @template data
 			@

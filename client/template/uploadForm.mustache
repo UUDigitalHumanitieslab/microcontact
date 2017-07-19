@@ -9,14 +9,7 @@
 		<div class=form-group>
 			<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
 			<select id=upload-dialect class=form-control disabled>
-				<option>Abruzzese/Teatino</option>
-				<option>Fiorentino</option>
-				<option>Napoletano (Campano)</option>
-				<option>Palermitano (Siciliano)</option>
-				<option>Piemontese</option>
-				<option>Salentino</option>
-				<option>Senese (Toscano)</option>
-				<option>Veneto</option>
+				{{#dialects}}<option value={{id}}>{{name}}</option>{{/dialects}}
 			</select>
 		</div>
 		<div class=form-group>
