@@ -61,6 +61,7 @@ define [
 			return result =
 				placeID: @get 'place_id'
 				name: cityComponent?.long_name
-				country: countryComponent?.long_name
+				country: countryComponent?.short_name
+				countryName: countryComponent?.long_name
 				latitude: location?.lat()
 				longitude: location?.lng()

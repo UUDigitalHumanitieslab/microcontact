@@ -14,11 +14,14 @@ class DialectSerializer(serializers.ModelSerializer):
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'code')
 
 
 class PlaceSerializer(serializers.ModelSerializer):
-    country = serializers.StringRelatedField()
+    country = serializers.SlugRelatedField(
+        slug_field='code',
+        queryset=Country.objects.all(),
+    )
 
     class Meta:
         model = Place

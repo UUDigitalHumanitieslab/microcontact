@@ -24,6 +24,7 @@ class Language(models.Model):
 
 class Country(ModelWithName, models.Model):
     name = models.CharField(max_length=200)
+    code = models.CharField(max_length=3, unique=True)
 
     class Meta:
         verbose_name_plural = 'Countries'
