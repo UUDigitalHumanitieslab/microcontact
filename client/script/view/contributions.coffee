@@ -6,7 +6,7 @@
 define [
 	'backbone'
 	'googlemaps'
-	'model/dialects'
+	'util/dialects'
 	'util/mockupPins'
 	'view/contributionList'
 	'view/participWelcome'
