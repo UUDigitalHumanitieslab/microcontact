@@ -39,34 +39,30 @@ class Place(ModelWithName, models.Model):
 
 
 class Recording(ModelWithName, models.Model):
-    id = models.AutoField(primary_key=True)
     status_choices = (
         ('a', 'censored'),
         ('b', 'reviewed'),
         ('c', 'open')
     )
-    status = models.CharField(max_length=1, choices=status_choices)
-    name = models.CharField(max_length=200)
-    street = models.TextField(max_length=200)
-    street_number = models.CharField(max_length=8)
-    city = models.TextField()
-    province = models.TextField()
-    code = models.TextField()
     sex_choices = (
         ('a', 'male'),
         ('b', 'female'),
         ('c', '-')
     )
-    sex = models.CharField(max_length=1, choices=sex_choices)
-    age = models.IntegerField()
-    languages = models.ForeignKey(Language, on_delete="PROTECT")
-    dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
-    is_public_recording = models.BooleanField(default=False)
     speaker_generation_choices = (
         ('a', 'first'),
         ('b', 'second')
     )
-    speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True)
+
+    id = models.AutoField(primary_key=True)
+    status = models.CharField(max_length=1, choices=status_choices, default='c')
+    name = models.CharField(max_length=200, blank=True)
+    sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    languages = models.ForeignKey(Language, on_delete="PROTECT", blank=True, null=True)
+    dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
+    is_public_recording = models.BooleanField(default=False)
+    speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True, blank=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
     recording = models.FileField(upload_to='recordings', max_length=200)
