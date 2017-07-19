@@ -12,7 +12,7 @@ define [
 		template: JST['uploadForm']
 
 		events:
-			'click #user-consent': 'activate'
+			'click #user-consent': 'updateConsent'
 			'submit form': 'submit'
 		
 		render: (place) ->
@@ -21,6 +21,7 @@ define [
 		
 		submit: (event) ->
 			event.preventDefault()
+			return unless @consentGiven
 			form = @$ 'form'
 			form.prop 'disabled', true
 			$.ajax
@@ -32,8 +33,6 @@ define [
 				processData: false
 				success: => @$el.text 'Grazie!'
 
-		activate: ->
-			if @$('#user-consent').prop('checked')
-				@$('#submit-button').prop('disabled', false)
-			else
-				@$('#submit-button').prop('disabled', true)
+		updateConsent: ->
+			@consentGiven = @$('#user-consent').prop('checked')
+			@$('#submit-button').prop('disabled', !@consentGiven)
