@@ -1,3 +1,5 @@
+import os.path as op
+
 from django.db import models
 
 # Create your models here.
@@ -38,7 +40,7 @@ class Place(ModelWithName, models.Model):
     country = models.ForeignKey(Country, on_delete="PROTECT")
 
 
-class Recording(ModelWithName, models.Model):
+class Recording(models.Model):
     status_choices = (
         ('a', 'censored'),
         ('b', 'reviewed'),
@@ -66,3 +68,6 @@ class Recording(ModelWithName, models.Model):
     place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
     recording = models.FileField(upload_to='recordings', max_length=200)
+    
+    def __str__(self):
+        return op.split(self.recording.name)[1]
