@@ -32,12 +32,15 @@ class Country(ModelWithName, models.Model):
         verbose_name_plural = 'Countries'
 
 
-class Place(ModelWithName, models.Model):
+class Place(models.Model):
     placeID = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     latitude = models.FloatField()
     longitude = models.FloatField()
     country = models.ForeignKey(Country, on_delete="PROTECT")
+    
+    def __str__(self):
+        return '{}, {}'.format(self.name, self.country.code)
 
 
 class Recording(models.Model):
@@ -70,4 +73,4 @@ class Recording(models.Model):
     recording = models.FileField(upload_to='recordings', max_length=200)
     
     def __str__(self):
-        return op.split(self.recording.name)[1]
+        return '{} ({})'.format(self.id, op.split(self.recording.name)[1])
