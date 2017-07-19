@@ -22,9 +22,11 @@
 			<input type=hidden name="place.latitude" value="{{latitude}}">
 			<input type=hidden name="place.longitude" value="{{longitude}}">
 		</div>
-		<div class=form-group>
-			La persona la cui voce è registrata su questo file dichiara di aver letto e capito il Modulo Informativo del Partecipante e di accettare di partecipare a questo studio.<br>
-			<input type="checkbox" name="consent" id=user-consent {{agreed}}> D'accordo <br>
+		<div class=checkbox>
+			<label>
+				<input type="checkbox" name="consent" id=user-consent>
+				La persona la cui voce è registrata su questo file dichiara di aver letto e capito il Modulo Informativo del Partecipante e di accettare di partecipare a questo studio.
+			</label>
 		</div>
 		<div class=form-group>
 			<button type=submit class="btn btn-primary" id=submit-button disabled>Invia</button>
