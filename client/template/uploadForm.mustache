@@ -1,14 +1,13 @@
 {{#city}}
 	<h2>{{city}}, {{country}}</h2>
-	<p>Il sito è ancora in costruzione, quindi al momento non è possibile caricare le registrazioni. Qui sotto puoi vedere come apparirà il modulo per il caricamento.</p>
 	<form>
 		<div class=form-group>
 			<label for=upload-file class=control-label>La tua registrazione</label>
-			<input id=upload-file type=file class=form-control disabled>
+			<input id=upload-file type=file class=form-control>
 		</div>
 		<div class=form-group>
 			<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
-			<select id=upload-dialect class=form-control disabled>
+			<select id=upload-dialect class=form-control>
 				{{#dialects}}<option value={{id}}>{{name}}</option>{{/dialects}}
 			</select>
 		</div>
@@ -22,7 +21,7 @@
 			Consenso informato (in costruzione)
 		</div>
 		<div class=form-group>
-			<button type=submit class="btn btn-default" disabled>Invia (non attivo)</button>
+			<button type=submit class="btn btn-default">Invia</button>
 		</div>
 	</form>
 {{/city}}{{^city}}
