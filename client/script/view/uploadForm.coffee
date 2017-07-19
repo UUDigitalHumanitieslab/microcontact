@@ -10,8 +10,9 @@ define [
 	class UploadFormView extends bb.View
 	
 		template: JST['uploadForm']
-		
+
 		events:
+			'click #user-consent': 'activate'
 			'submit form': 'submit'
 		
 		render: (place) ->
@@ -30,3 +31,9 @@ define [
 				contentType: false
 				processData: false
 				success: => @$el.text 'Grazie!'
+
+		activate: ->
+			if @$('#user-consent').prop('checked')
+				@$('#submit-button').prop('disabled', false)
+			else
+				@$('#submit-button').prop('disabled', true)
