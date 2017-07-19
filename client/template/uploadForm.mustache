@@ -3,11 +3,11 @@
 	<form>
 		<div class=form-group>
 			<label for=upload-file class=control-label>La tua registrazione</label>
-			<input id=upload-file type=file class=form-control>
+			<input id=upload-file name=recording type=file class=form-control>
 		</div>
 		<div class=form-group>
 			<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
-			<select id=upload-dialect class=form-control>
+			<select id=upload-dialect name=dialect class=form-control>
 				{{#dialects}}<option value={{id}}>{{name}}</option>{{/dialects}}
 			</select>
 		</div>
@@ -16,6 +16,11 @@
 			<p class=form-control-static>{{countryName}}</p>
 			<label class=control-label>Città</label>
 			<p class=form-control-static>{{name}}</p>
+			<input type=hidden name="place.placeID" value="{{placeID}}">
+			<input type=hidden name="place.name" value="{{name}}">
+			<input type=hidden name="place.country" value="{{country}}">
+			<input type=hidden name="place.latitude" value="{{latitude}}">
+			<input type=hidden name="place.longitude" value="{{longitude}}">
 		</div>
 		<div class=form-group>
 			Consenso informato (in costruzione)
