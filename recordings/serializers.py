@@ -29,6 +29,21 @@ class PlaceSerializer(serializers.ModelSerializer):
 
 
 class RecordingSerializer(serializers.HyperlinkedModelSerializer):
+    dialect = serializers.PrimaryKeyRelatedField(
+        queryset=Dialect.objects.all(),
+    )
+    place = PlaceSerializer()
+
     class Meta():
         model = Recording
         fields = ('url', 'recording', 'dialect', 'place')
+    
+    def create(self, validated_data):
+        place_data = validated_data.pop('place')
+        placeID = place_data.pop('placeID')
+        place, created = Place.objects.get_or_create(
+            placeID=placeID,
+            defaults=place_data,
+        )
+        validated_data['place'] = place
+        return super().create(validated_data)
