@@ -11,13 +11,6 @@ define [
 		template: JST['uploadForm']
 		
 		render: (place) ->
-			data = {}
-			country = _.find place.get('address_components'), (component) ->
-				'country' in component.types
-			data.country = country.long_name
-			data.city = place.get('address_components')[0].long_name
-			data.dialects = dialects
-			console.log data
-			@$el.html @template data
+			@$el.html @template {place: place.toInternal(), dialects}
 			@
 		

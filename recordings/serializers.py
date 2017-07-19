@@ -24,10 +24,6 @@ class PlaceSerializer(serializers.ModelSerializer):
         model = Place
         fields = ('id', 'placeID', 'name', 'latitude', 'longitude', 'country')
 
-    def to_internal_value(self, data):
-        """ Permit parsing of objects from the Google Maps API. """
-        return super().to_internal_value(data)
-
 
 class RecordingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta():

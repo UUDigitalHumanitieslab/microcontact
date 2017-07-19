@@ -1,5 +1,5 @@
-{{#city}}
-	<h2>{{city}}, {{country}}</h2>
+{{#place}}
+	<h2>{{name}}, {{country}}</h2>
 	<form>
 		<div class=form-group>
 			<label for=upload-file class=control-label>La tua registrazione</label>
@@ -15,7 +15,7 @@
 			<label class=control-label>Nazione</label>
 			<p class=form-control-static>{{country}}</p>
 			<label class=control-label>Città</label>
-			<p class=form-control-static>{{city}}</p>
+			<p class=form-control-static>{{name}}</p>
 		</div>
 		<div class=form-group>
 			Consenso informato (in costruzione)
@@ -24,7 +24,7 @@
 			<button type=submit class="btn btn-default">Invia</button>
 		</div>
 	</form>
-{{/city}}{{^city}}
+{{/place}}{{^place}}
 	<h2>Nessuna città qui</h2>
 	<p>Può essere più facile trovare e cliccare la tua città ingrandendo la mappa con lo <a id=upload-zoom>zoom</a>.</p>
-{{/city}}
+{{/place}}
