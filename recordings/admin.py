@@ -7,8 +7,7 @@ from .models import Dialect, Recording, Language, Place, Country
 
 
 class PlaceAdmin(admin.ModelAdmin):
-    readonly_fields = ('name', 'latitude', 'longitude', 'country')
-    exclude = ('placeID',)
+    readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
 
 
 class RecordingAdmin(admin.ModelAdmin):
