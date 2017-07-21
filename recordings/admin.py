@@ -24,6 +24,6 @@ class RecordingAdmin(admin.ModelAdmin):
 
 admin.site.register(Dialect)
 admin.site.register(Recording, RecordingAdmin)
-admin.site.register(Language)
+# admin.site.register(Language)
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Country)
