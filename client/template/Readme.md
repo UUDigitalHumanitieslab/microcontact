@@ -1,4 +1,4 @@
-Templates in CampbellSoup
+Templates in Microcontact
 =========================
 
 You may have noticed that the templates in this directory have file names ending in `.mustache`, while the `bower.json`, the `package.json` and the Gruntfile in the project root directory are all telling you that we are using Handlebars. The reason is that we are *actually* using the Mustache templating language, because of its greater portability, but we compile it on the client side using the Handlebars implementation because it is much faster.

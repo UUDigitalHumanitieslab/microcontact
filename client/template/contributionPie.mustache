@@ -1,0 +1,6 @@
+{{!helpful link here: https://hackernoon.com/a-simple-pie-chart-in-svg-dbdd653b6936}}
+<svg width="{{ size }}px" height="{{ size }}px" viewBox="-1 -1 2 2" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	{{#dialects}}		
+		<path d="M {{ startX }} {{ startY }} A 1 1 0 {{ largeArcFlag }} 1 {{ endX }} {{ endY }} L 0 0" fill="{{ color }}" opacity="{{ opacity }}" />
+	{{/dialects}}
+</svg>
