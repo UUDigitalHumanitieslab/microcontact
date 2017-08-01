@@ -17,7 +17,7 @@ You need to obtain an API key for Google Maps in order for the frontend applicat
 
 Dependencies
 ------------
-For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`. For local development purposes, also `pip install pytest`.
+For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`.
 Some dependencies might require `python-dev` to be installed first (primarly for Anaconda3 users).
 Try either:
 `sudo apt-get install python-dev`
@@ -29,7 +29,7 @@ For audio conversion, get ffmpeg. See instructions for Windows, OS X and Ubuntu 
 
 Database
 --------
-The default configuration in `microcontact.settings` assumes a SQLite database. This is also the only database backend supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For PostgreSQL, which we recommend, use `pip install psycopg2`. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. See the [Django settings reference][2] for instructions on setting `DATABASES`.
+The default configuration in `microcontact.settings` assumes a SQLite database. SQLite and PostgreSQL are also the only database backends supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. See the [Django settings reference][2] for instructions on setting `DATABASES`.
 
 In order to bootstrap your local database before first running the application, run `python manage.py migrate`. Run this command again after defining new migrations. In order to define a new migration (after modifying the database schema), run `python manage.py makemigrations` and edit the generated file. See the [Django documentation on migrations][14] for details.
 
