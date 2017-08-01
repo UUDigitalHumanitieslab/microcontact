@@ -3,21 +3,33 @@ Microcontact
 
 Configuration
 -------------
-There are default settings in `microcontact.settings`. You can use those for local debugging purposes, although overriding them is recommended. For production use, you should certainly override them.
+There are default settings in `microcontact.settings`. It is recommended that you take some time to review these settings and override them where necessary, especially for production use. See the "Database" section below for comments on the `DATABASES` setting in particular.
 
 For local development use, create a Python module in the project root that starts with `from microcontact.settings import *` and then selectively override settings. Your file will be automatically ignored by git if you call it `config.py`.
 
-For production use, copy `microcontact/settings.py` to a separate file. Put this file elsewhere in the filesystem under restrictive access rights, then modify its contents.
+For production use, copy `microcontact/settings.py` to a separate file. Put this file elsewhere in the filesystem under restrictive access rights, then modify its contents. There are many settings that need to be overridden because of security considerations; please see the comments.
 
 In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the path to your customized settings module in order to use it. For documentation, see the [Django documentation on settings][1].
 
+Google Maps API key
+-------------------
+You need to obtain an API key for Google Maps in order for the frontend application to work. Save the key (with nothing else) in a file named `.gmapikey` in the project root directory. This file is ignored by Git.
+
 Dependencies
 ------------
-For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`. For local development purposes, also `pip install pytest`. For the JavaScript dependencies, install NPM and Grunt, then run `npm install`. For local development, also install Bower and run `bower install`.
+For the Python dependencies, create a Python 3 virtualenv and activate it. `pip install pip-tools` and then run `pip-sync`.
+Some dependencies might require `python-dev` to be installed first (primarly for Anaconda3 users).
+Try either:
+`sudo apt-get install python-dev`
+or
+`sudo apt-get install python3-dev`.
+For the JavaScript dependencies, install NPM, Bower and Grunt, then run `npm install` and `bower install`. For deployment, you can run `bower install` with the `--production` flag in order to skip development-only packages.
+
+For audio conversion, get ffmpeg. See instructions for Windows, OS X and Ubuntu [here][21].
 
 Database
 --------
-The default configuration in `microcontact.settings` assumes a SQLite database. This is also the only database backend supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For PostgreSQL, which we recommend, use `pip install psycopg2`. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. See the [Django settings reference][2] for instructions on setting `DATABASES`.
+The default configuration in `microcontact.settings` assumes a SQLite database. SQLite and PostgreSQL are also the only database backends supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. See the [Django settings reference][2] for instructions on setting `DATABASES`.
 
 In order to bootstrap your local database before first running the application, run `python manage.py migrate`. Run this command again after defining new migrations. In order to define a new migration (after modifying the database schema), run `python manage.py makemigrations` and edit the generated file. See the [Django documentation on migrations][14] for details.
 
@@ -64,6 +76,12 @@ You are advised to run the Django-based backend as a WSGI application from your 
 
 Serve the WSGI application under `/api/` while serving the static assets under `/`.
 
+####LDAP
+
+#####Linux
+On linux make sure that the following packages are installed:
+libsasl2-dev, python-dev, libldap2-dev, libssl-dev
+
 Directory reference
 -------------------
 
@@ -76,23 +94,19 @@ Directory reference
     ├── README.md                this file, in-VCS
     ├── bower.json               listing of JS deps, in-VCS
     ├── bower_components/        JS deps during development, out-of-VCS
-    ├── microcontact             the Django project package, in-VCS
-    │   ├── *.py
-    │   └── *_test.py            unit tests belonging to *.py
     ├── client                   static asset sources, in-VCS
     │   ├── script
     │   │   ├── *.coffee
     │   │   └── *_test.coffee    unit tests belonging to *.coffee
     │   ├── style/
     │   └── template/
-    ├── config.py                supposed to be written by you, out-of-VCS
+    ├── config.py                presumed to be written by you, out-of-VCS
     ├── dist/                    generated static assets for depl., out-of-VCS
-    ├── doc/                     additional documentation, in-VCS
     ├── functional-tests         functional test sources in Coffee, in-VCS
     ├── manage.py                backend manager, in-VCS
-    ├── migrations               Alembic DB migration definitions, in-VCS
-    │   ├── ...                  (ignore these)
-    │   └── versions/            the actual migrations
+    ├── microcontact             the Django project package, in-VCS
+    │   ├── *.py
+    │   └── *_test.py            unit tests belonging to *.py
     ├── node_modules/            Node and Grunt dependencies, out-of-VCS
     ├── package.json             listing of Node/Grunt deps, in-VCS
     ├── requirements.in          top-level Python package requirements, in-VCS
@@ -122,3 +136,4 @@ Directory reference
 [18]: https://www.npmjs.com/package/grunt-sass
 [19]: https://www.npmjs.com/package/grunt-postcss
 [20]: https://docs.djangoproject.com/en/1.8/howto/deployment/
+[21]: https://github.com/adaptlearning/adapt_authoring/wiki/installing-ffmpeg

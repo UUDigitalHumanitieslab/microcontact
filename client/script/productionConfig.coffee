@@ -8,3 +8,4 @@ require.config
 		backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min'
 		underscore: '//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.1/lodash.min'
 		'handlebars.runtime': '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.runtime.amd.min'
+		async: '//cdnjs.cloudflare.com/ajax/libs/requirejs-plugins/1.0.3/async.min'

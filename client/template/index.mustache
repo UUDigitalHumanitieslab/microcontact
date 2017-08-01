@@ -1,16 +1,14 @@
-{{!
-	(c) 2016 Julian Gonggrijp
-}}
 <!DOCTYPE html>
 <html lang=en>
 	<head>
 		<!--
 			(c) 2016 Julian Gonggrijp
+			(c) 2017 Digital Humanities Lab, Utrecht University
 		-->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>CampbellSoup</title>
+		<title>Microcontact</title>
 		<link rel="stylesheet" href="style/main.css">
 	</head>
 	<body>
@@ -23,20 +21,31 @@
 		<!--[if lt IE 10]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
+		<nav id="nav-main"></nav>
 		<main></main>
-		{{#production}}
-		<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
+		<script
+			{{#production}}
+			src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"
+			{{/production}}{{^production}}
+			src="bower_components/requirejs/require.js"
+			{{/production}}
+		></script>
 		<script>
+			{{#production}}
 			{{>productionConfig}}
-			require(['microcontact']);
-		</script>
-		{{/production}}
-		{{^production}}
-		<script src="bower_components/requirejs/require.js"></script>
-		<script>
+			{{/production}}{{^production}}
 			{{>developConfig}}
+			{{/production}}
+			define('googlemaps', [
+				'async!https://maps.google.com/maps/api/js?v=3&libraries=places&language=IT&region=IT&key={{gmapikey}}'
+			], function() {
+				return window.google.maps;
+			});
+			{{#production}}
+			require(['microcontact']);
+			{{/production}}{{^production}}
 			require(['main']);
+			{{/production}}
 		</script>
-		{{/production}}
 	</body>
 </html>
