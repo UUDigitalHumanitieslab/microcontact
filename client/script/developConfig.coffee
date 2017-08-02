@@ -3,7 +3,7 @@
 ###
 
 require.config
-	baseUrl: 'script'
+	baseUrl: 'static/script'
 	paths:
 		jquery: '../bower_components/jquery/dist/jquery'
 		backbone: '../bower_components/backbone/backbone'
