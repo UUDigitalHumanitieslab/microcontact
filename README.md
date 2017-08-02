@@ -105,11 +105,15 @@ Directory reference
     ├── dist/                    generated static assets for depl., out-of-VCS
     ├── functional-tests         functional test sources in Coffee, in-VCS
     ├── manage.py                backend manager, in-VCS
+    ├── media/                   file uploads, out-of-VCS
     ├── microcontact             the Django project package, in-VCS
     │   ├── *.py
     │   └── *_test.py            unit tests belonging to *.py
     ├── node_modules/            Node and Grunt dependencies, out-of-VCS
     ├── package.json             listing of Node/Grunt deps, in-VCS
+    ├── recordings               the Django API application package, in-VCS
+    │   ├── *.py
+    │   └── *_test.py            unit tests belonging to *.py
     ├── requirements.in          top-level Python package requirements, in-VCS
     └── requirements.txt         generated pinned requirements, in-VCS
 
