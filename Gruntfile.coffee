@@ -130,28 +130,6 @@ module.exports = (grunt) ->
 				]
 				dest: '<%= stage %>'
 
-		connect:
-			options:
-				hostname: 'localhost'
-				middleware: (connect, options, middlewares) ->
-					middlewares.unshift (req, res, next) ->
-						if req.url.startsWith('/api') or req.url.startsWith('/admin') or req.url.startsWith('/static')
-							proxy.web req, res, {
-								target: 'http://localhost:5000'
-							}
-						else
-							next()
-					middlewares
-				open: true
-			develop:
-				options:
-					base: '.tmp'
-					livereload: true
-			dist:
-				options:
-					base: 'dist'
-					port: 8080
-
 		shell:
 			backend:
 				options:
@@ -160,9 +138,9 @@ module.exports = (grunt) ->
 							PYTHONUNBUFFERED: 1  # enables console output
 				command: ()=>
 					if process.platform == "win32"
-						return "<%= venv %>/Scripts/python manage.py runserver 5000"
+						return "<%= venv %>/Scripts/python manage.py runserver"
 					else
-						return "<%= venv %>/bin/python manage.py runserver 5000"
+						return "<%= venv %>/bin/python manage.py runserver"
 						#
 			pytest:
 				files: [{
@@ -273,22 +251,15 @@ module.exports = (grunt) ->
 				dest: '<%= dist %>/microcontact.css'
 
 		concurrent:
-			server:
-				tasks: ['shell:backend', 'connect:develop:keepalive']
-				options:
-					logConcurrentOutput: true
-			dist:
-				tasks: ['shell:backend', 'connect:dist:keepalive']
-				options:
-					logConcurrentOutput: true
+			preserver:
+				tasks: ['shell:pytest', 'compile']
 			develop:
 				tasks: [
-					['shell:pytest', 'shell:backend']
+					['concurrent:preserver', 'shell:backend']
 					['watch']
-					['compile', 'connect:develop:keepalive']
 				]
-				options:
-					logConcurrentOutput: true
+			options:
+				logConcurrentOutput: true
 
 		newer:
 			options:
@@ -310,7 +281,6 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-sass'
 	grunt.loadNpmTasks 'grunt-postcss'
 	grunt.loadNpmTasks 'grunt-contrib-symlink'
-	grunt.loadNpmTasks 'grunt-contrib-connect'
 	grunt.loadNpmTasks 'grunt-shell'
 	grunt.loadNpmTasks 'grunt-concurrent'
 	grunt.loadNpmTasks 'grunt-contrib-jasmine'
@@ -339,5 +309,5 @@ module.exports = (grunt) ->
 		'requirejs:dist'
 		'cssmin:dist'
 	]
-	grunt.registerTask 'server', ['concurrent:server']
+	grunt.registerTask 'server', ['shell:backend']
 	grunt.registerTask 'default', ['concurrent:develop']
