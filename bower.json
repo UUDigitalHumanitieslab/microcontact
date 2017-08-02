@@ -2,7 +2,8 @@
   "name": "microcontact",
   "private": true,
   "dependencies": {
-    "bootstrap-sass": "^3.3.7"
+    "bootstrap-sass": "^3.3.7",
+    "js-cookie": "^2.1.4"
   },
   "devDependencies": {
     "handlebars": "^4.0.5",

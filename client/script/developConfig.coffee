@@ -11,6 +11,7 @@ require.config
 		'handlebars.runtime': '../bower_components/handlebars/handlebars.runtime.amd'
 		bootstrap: '../bower_components/bootstrap-sass/assets/javascripts/bootstrap'
 		async: '../bower_components/requirejs-plugins/src/async'
+		'js.cookie': '../bower_components/js-cookie/src/js.cookie'
 	shim:
 		'bootstrap/transition': ['jquery']
 		'bootstrap/modal': ['jquery']      # has own CSS component
