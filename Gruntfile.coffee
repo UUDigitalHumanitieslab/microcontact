@@ -269,10 +269,8 @@ module.exports = (grunt) ->
 
 		cssmin:
 			dist:
-				expand: true
-				cwd: '<%= stage %>/<%= style %>'
-				src: ['*.css']
-				dest: '<%= dist %>/<%= style %>'
+				src: ['<%= stage %>/<%= style %>/*.css']
+				dest: '<%= dist %>/microcontact.css'
 
 		concurrent:
 			server:
