@@ -51,5 +51,8 @@
 			require(['main']);
 			{{/production}}
 		</script>
+		{{^production}}
+		<script src="//localhost:35729/livereload.js"></script>
+		{{/production}}
 	</body>
 </html>
