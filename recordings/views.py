@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from .serializers import *
 from .models import Dialect, Country, Recording
@@ -17,10 +16,5 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 
 class RecordingViewSet(viewsets.ModelViewSet):
-    authentication_classes = []  # TODO: Should be removed when CSRF works
     queryset = Recording.objects.all()
     serializer_class = RecordingSerializer
-    
-    @csrf_exempt
-    def create(self, request):
-        return super().create(request)
