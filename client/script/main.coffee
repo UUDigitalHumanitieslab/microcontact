@@ -6,6 +6,7 @@ require [
 	'jquery'
 	'backbone'
 	'router/main'
+	'util/csrf'
 ], ($, bb, MainRouter) ->
 	'use strict'
 	$ ->

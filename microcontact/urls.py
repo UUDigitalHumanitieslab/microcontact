@@ -15,7 +15,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from .index import index
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include('recordings.urls')) # Add this line
+    url(r'^api/', include('recordings.urls')),
+    url(r'^$', index),
 ]

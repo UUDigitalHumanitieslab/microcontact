@@ -4,7 +4,8 @@ define [
 	'underscore'
 	'templates'
 	'util/dialects'
-], (bb, $, _, JST, dialects) ->
+	'util/csrf'
+], (bb, $, _, JST, dialects, getCSRFToken) ->
 	'use strict'
 	
 	class UploadFormView extends bb.View
@@ -24,10 +25,16 @@ define [
 			return unless @consentGiven
 			form = @$ 'form'
 			form.prop 'disabled', true
+			# TODO: we want the following to be a RecordingModel.create.
+			# In that case, it should not be necessary to explicitly import/call
+			# getCSRFToken, as it will defer to bb.sync, which we have
+			# overridden in util/csrf to always include the CSRF token.
 			$.ajax
 				url: '/api/recordings/'
 				type: 'POST'
 				data: new FormData form[0]
+				headers:
+					'X-CSRFToken': getCSRFToken()
 				cache: false
 				contentType: false
 				processData: false
