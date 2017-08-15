@@ -43,6 +43,13 @@ class Place(models.Model):
         return '{}, {}'.format(self.name, self.country.code)
 
 
+class Recording(models.Model):
+    recording = models.FileField(upload_to='recordings', max_length=200)
+    
+    def __str__(self):
+        return self.recording.name
+
+
 class Contribution(models.Model):
     status_choices = (
         ('a', 'censored'),
@@ -70,7 +77,11 @@ class Contribution(models.Model):
     speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True, blank=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
-    recording = models.FileField(upload_to='recordings', max_length=200)
+    recording = models.ForeignKey(Recording)
+    recording_web = models.ForeignKey(
+        Recording,
+        related_name='contribution_set_web',
+    )
     
     def __str__(self):
         return '{} ({})'.format(self.id, op.split(self.recording.name)[1])
