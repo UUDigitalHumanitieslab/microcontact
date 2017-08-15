@@ -2,7 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 from django.test import TestCase
-from .models import Dialect, Recording
+from .models import Dialect, Contribution
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.core.urlresolvers import reverse
@@ -24,10 +24,10 @@ class ModelTestCase(TestCase):
         self.assertNotEqual(old_count, new_count)
     def test_model_can_create_recording(self):
         self.dialect.save();
-        self.recording = Recording(status='a', name='test', street='testStreet', city='testCity', province='suite province', code='123', sex='a', age=23, dialect=self.dialect, city_coordinates_lon=1, city_coordinates_lng=2, recording_link="http://thisisafakelink.notavirus" )
-        old_count = Recording.objects.count()
+        self.recording = Contribution(status='a', name='test', street='testStreet', city='testCity', province='suite province', code='123', sex='a', age=23, dialect=self.dialect, city_coordinates_lon=1, city_coordinates_lng=2, recording_link="http://thisisafakelink.notavirus" )
+        old_count = Contribution.objects.count()
         self.recording.save()
-        new_count = Recording.objects.count()
+        new_count = Contribution.objects.count()
         self.assertNotEqual(old_count, new_count)
 
 class ViewTestCase(TestCase):

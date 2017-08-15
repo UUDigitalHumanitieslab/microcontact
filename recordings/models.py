@@ -43,7 +43,7 @@ class Place(models.Model):
         return '{}, {}'.format(self.name, self.country.code)
 
 
-class Recording(models.Model):
+class Contribution(models.Model):
     status_choices = (
         ('a', 'censored'),
         ('b', 'reviewed'),

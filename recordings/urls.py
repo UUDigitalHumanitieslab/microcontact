@@ -8,7 +8,7 @@ from recordings import views
 router = routers.DefaultRouter()
 router.register(r'dialects', views.DialectViewSet)
 router.register(r'countries', views.CountryViewSet)
-router.register(r'recordings', views.RecordingViewSet)
+router.register(r'contributions', views.ContributionViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

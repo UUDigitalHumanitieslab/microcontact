@@ -30,7 +30,7 @@ define [
 			# getCSRFToken, as it will defer to bb.sync, which we have
 			# overridden in util/csrf to always include the CSRF token.
 			$.ajax
-				url: '/api/recordings/'
+				url: '/api/contributions/'
 				type: 'POST'
 				data: new FormData form[0]
 				headers:

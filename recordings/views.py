@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import *
-from .models import Dialect, Country, Recording
+from .models import Dialect, Country, Contribution
 # Create your views here.
 
 
@@ -15,6 +15,6 @@ class CountryViewSet(viewsets.ModelViewSet):
     serializer_class = CountrySerializer
 
 
-class RecordingViewSet(viewsets.ModelViewSet):
-    queryset = Recording.objects.all()
-    serializer_class = RecordingSerializer
+class ContributionViewSet(viewsets.ModelViewSet):
+    queryset = Contribution.objects.all()
+    serializer_class = ContributionSerializer

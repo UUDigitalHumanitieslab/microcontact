@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Dialect, Country, Place, Recording
+from .models import Dialect, Country, Place, Contribution
 
 
 class DialectSerializer(serializers.ModelSerializer):
@@ -28,14 +28,14 @@ class PlaceSerializer(serializers.ModelSerializer):
         fields = ('id', 'placeID', 'name', 'latitude', 'longitude', 'country')
 
 
-class RecordingSerializer(serializers.HyperlinkedModelSerializer):
+class ContributionSerializer(serializers.HyperlinkedModelSerializer):
     dialect = serializers.PrimaryKeyRelatedField(
         queryset=Dialect.objects.all(),
     )
     place = PlaceSerializer()
 
     class Meta():
-        model = Recording
+        model = Contribution
         fields = ('url', 'recording', 'dialect', 'place')
     
     def create(self, validated_data):
