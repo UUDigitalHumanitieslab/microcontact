@@ -71,6 +71,14 @@ class Recording(models.Model):
     place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
     recording = models.FileField(upload_to='recordings', max_length=200)
+    recording_web = models.FileField(
+        upload_to='recordings',
+        max_length=200,
+        blank=True,
+    )
+    
+    def get_web_recording(self):
+        return self.recording_web or self.recording
     
     def __str__(self):
         return '{} ({})'.format(self.id, op.split(self.recording.name)[1])
