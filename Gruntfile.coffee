@@ -144,7 +144,10 @@ module.exports = (grunt) ->
 						#
 			pytest:
 				files: [{
-					src: ['microcontact/**/*_test.py']
+					src: [
+						'microcontact/**/*_test.py'
+						'recordings/**/*_test.py'
+					]
 				}]
 				command: ->
 					files = (o.src for o in grunt.config 'shell.pytest.files')
@@ -207,7 +210,7 @@ module.exports = (grunt) ->
 				]
 				tasks: ['clean:develop', 'compile-handlebars:develop']
 			python:
-				files: 'microcontact/**/*.py'
+				files: ['microcontact/**/*.py', 'recordings/**/*.py']
 				tasks: 'newer:shell:pytest'
 			functional:
 				files: '<%= coffee.functional.src %>'
