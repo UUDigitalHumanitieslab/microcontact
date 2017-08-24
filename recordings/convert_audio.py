@@ -18,3 +18,4 @@ def convert_to_mp3(infile):
      ' -acodec mp3 -ac 1 -ab 128k -hide_banner -loglevel panic -y '\
       + outfile
     subprocess.run(query_string, shell=True, check=True)
+    return outfile
