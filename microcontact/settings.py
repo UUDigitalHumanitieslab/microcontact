@@ -113,3 +113,32 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# Logging, for debugging convenience
+# https://docs.djangoproject.com/en/1.8/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'microcontact': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'recordings': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
