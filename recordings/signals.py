@@ -1,7 +1,7 @@
 from mimetypes import guess_type
 import os.path as op
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.conf import settings
 
 from .convert_audio import convert_to_mp3
@@ -30,11 +30,24 @@ def convert_web_recording(sender, **kwargs):
         instance.save(update_fields=('recording_web',))
 
 
+def remove_recording_files(sender, **kwargs):
+    """ Remove the audio files associated with the instance. """
+    instance = kwargs.get('instance')
+    instance.recording_web.delete(save=False)
+    instance.recording.delete(save=False)
+
+
 def connect_signals(app_instance):
     # See the .apps module for app_instance. We can't import the .models
     # directly at this time, hence the app_instance.get_model construction.
+    Recording = app_instance.get_model('Recording')
     post_save.connect(
         convert_web_recording,
-        sender=app_instance.get_model('Recording'),
+        sender=Recording,
+        dispatch_uid='recordings.models.Recording#convert_web_recording',
+    )
+    post_delete.connect(
+        remove_recording_files,
+        sender=Recording,
         dispatch_uid='recordings.models.Recording#convert_web_recording',
     )
