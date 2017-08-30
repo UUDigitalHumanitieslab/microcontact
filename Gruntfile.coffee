@@ -270,6 +270,8 @@ module.exports = (grunt) ->
 					if info.task == 'shell' and info.target == 'pytest'
 						source = info.path.replace /_test\.py$/, '.py'
 						fs.stat source, (error, stats) ->
+							if error?.code
+								grunt.log.error "#{error.code} #{error.path} (#{error.syscall})"
 							if stats.mtime.getTime() > info.time.getTime()
 								include yes
 							else
