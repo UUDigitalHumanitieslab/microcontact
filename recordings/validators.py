@@ -76,7 +76,8 @@ class MediaTypeValidator(object):
     def __call__(self, file):
         """ `file` should be a path or an object with a `name` attribute. """
         name = getattr(file, 'name', file)
-        guessed_type = mimetypes.guess_type(name, strict=False)
+        guessed_type, encoding = mimetypes.guess_type(name, strict=False)
+        guessed_type = guessed_type.lower() if guessed_type else 'unknown'
         if not any(map(self.match, self.accept, repeat(guessed_type))):
             raise ValidationError(
                 '%(found)s is not included in the set of accepted types',
@@ -91,6 +92,6 @@ class MediaTypeValidator(object):
     @staticmethod
     def match(pattern, guessed):
         for left, right in zip(pattern.split('/'), guessed.split('/')):
-            if left not in ('*', right):
+            if left.lower() not in ('*', right):
                 return False
         return True
