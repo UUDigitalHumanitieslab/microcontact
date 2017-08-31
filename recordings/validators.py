@@ -1,5 +1,7 @@
-import mimetypes
 from itertools import repeat
+import io
+
+import magic
 
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
@@ -56,13 +58,13 @@ class MediaTypeValidator(object):
     in `reject`. If you wish to accept anything except for a small set of
     types, you can pass '*/*' as the first and only pattern in `accept`.
     
-    The media type of the file is guessed using the `mimetypes` module from
-    the Python standard library. This is based purely on the file name. The
-    type is made to include common nonstandard types by passing
-    `strict=False`.
+    The media type of the file is guessed using the python-magic package.
+    It relies on libmagic internally. Recent versions of libmagic have a
+    bug, that cause it to report 'application/octet-stream' as the type
+    for many less-common media file formats (such as AMR audio).
     
     References:
-    https://docs.python.org/3/library/mimetypes.html
+    https://github.com/ahupp/python-magic
     https://www.iana.org/assignments/media-types/media-types.xhtml
     """
     
@@ -74,9 +76,11 @@ class MediaTypeValidator(object):
         return self.accept == other.accept and self.reject == other.reject
     
     def __call__(self, file):
-        """ `file` should be a path or an object with a `name` attribute. """
-        name = getattr(file, 'name', file)
-        guessed_type, encoding = mimetypes.guess_type(name, strict=False)
+        """ `file` should be a path or a buffer object. """
+        if isinstance(file, io.IOBase):
+            guessed_type = magic.from_buffer(file, mime=True)
+        else:
+            guessed_type = magic.from_file(file, mime=True)
         guessed_type = guessed_type.lower() if guessed_type else 'unknown'
         if not any(map(self.match, self.accept, repeat(guessed_type))):
             raise ValidationError(

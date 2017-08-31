@@ -27,6 +27,8 @@ For the JavaScript dependencies, install NPM, Bower and Grunt, then run `npm ins
 
 For audio conversion, get ffmpeg. See instructions for Windows, OS X and Ubuntu [here][21].
 
+For file type detection we use the [python-magic][22] package, which depends on `libmagic` being installed on your system.
+
 Database
 --------
 The default configuration in `microcontact.settings` assumes a SQLite database. SQLite and PostgreSQL are also the only database backends supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. See the [Django settings reference][2] for instructions on setting `DATABASES`.
@@ -142,3 +144,4 @@ Directory reference
 [19]: https://www.npmjs.com/package/grunt-postcss
 [20]: https://docs.djangoproject.com/en/1.8/howto/deployment/
 [21]: https://github.com/adaptlearning/adapt_authoring/wiki/installing-ffmpeg
+[22]: https://github.com/ahupp/python-magic
