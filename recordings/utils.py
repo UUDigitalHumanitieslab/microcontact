@@ -9,7 +9,8 @@ def get_absolute_path(file):
     """ Return the absolute path for a file name or a django File object. """
     if isinstance(file, File):
         return op.abspath(op.join(settings.MEDIA_ROOT, file.name))
-    return op.abspath(file)
+    name = getattr(file, 'name', file)
+    return op.abspath(name)
 
 
 def get_file_size(file):
