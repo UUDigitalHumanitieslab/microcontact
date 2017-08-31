@@ -64,27 +64,27 @@ MEDIA_TYPE_SCENARIOS = {
         'pass': False,
     },
     'accept_audio': {
-        'accept': ['audio/*'],
+        'accept': ['audio/*', 'application/octet-stream'],
         'reject': [],
         'pass': True,
     },
     'reject_audio': {
         'accept': ['*/*'],
-        'reject': ['audio/*'],
+        'reject': ['audio/*', 'application/octet-stream'],
         'pass': False,
     },
     'accept_amr': {
-        'accept': ['audio/AMR'],
+        'accept': ['audio/AMR', 'application/octet-stream'],
         'reject': [],
         'pass': True,
     },
     'reject_amr': {
         'accept': ['audio/*'],
-        'reject': ['audio/AMR'],
+        'reject': ['audio/AMR', 'application/octet-stream'],
         'pass': False,
     },
     'mixed_accept_audio': {
-        'accept': ['video/*', 'audio/*', 'text/plain', 'text/csv'],
+        'accept': ['video/*', 'audio/*', 'application/octet-stream', 'text/plain', 'text/csv'],
         'reject': ['video/MPV', 'video/quicktime'],
         'pass': True,
     },
@@ -94,7 +94,7 @@ MEDIA_TYPE_SCENARIOS = {
         'pass': False,
     },
     'mixed_accept_amr': {
-        'accept': ['video/*', 'text/plain', 'text/csv', 'audio/AMR'],
+        'accept': ['video/*', 'text/plain', 'text/csv', 'audio/AMR', 'application/octet-stream'],
         'reject': ['video/MPV', 'video/quicktime'],
         'pass': True,
     },

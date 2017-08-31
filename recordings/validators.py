@@ -61,7 +61,11 @@ class MediaTypeValidator(object):
     The media type of the file is guessed using the python-magic package.
     It relies on libmagic internally. Recent versions of libmagic have a
     bug, that cause it to report 'application/octet-stream' as the type
-    for many less-common media file formats (such as AMR audio).
+    for many less-common media file formats (such as AMR audio). If you
+    wish to broadly accept such types, you can safely add
+    'application/octet-stream' as a fallback to the accepted types;
+    executable files (which may be malware) get different types, such as
+    'application/x-executable'.
     
     References:
     https://github.com/ahupp/python-magic
