@@ -71,7 +71,7 @@ class MediaTypeValidator(object):
         self.reject = reject
     
     def __eq__(self, other):
-        return self.accept = other.accept and self.reject = other.reject
+        return self.accept == other.accept and self.reject == other.reject
     
     def __call__(self, file):
         """ `file` should be a path or an object with a `name` attribute. """
