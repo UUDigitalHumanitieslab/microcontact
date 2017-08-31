@@ -52,6 +52,59 @@ FILE_SIZE_SCENARIOS = {
     },
 }
 
+MEDIA_TYPE_SCENARIOS = {
+    'accept_all': {
+        'accept': ['*/*'],
+        'reject': [],
+        'pass': True,
+    },
+    'reject_all': {
+        'accept': [],
+        'reject': [],
+        'pass': False,
+    },
+    'accept_audio': {
+        'accept': ['audio/*'],
+        'reject': [],
+        'pass': True,
+    },
+    'reject_audio': {
+        'accept': ['*/*'],
+        'reject': ['audio/*'],
+        'pass': False,
+    },
+    'accept_amr': {
+        'accept': ['audio/AMR'],
+        'reject': [],
+        'pass': True,
+    },
+    'reject_amr': {
+        'accept': ['audio/*'],
+        'reject': ['audio/AMR'],
+        'pass': False,
+    },
+    'mixed_accept_audio': {
+        'accept': ['video/*', 'audio/*', 'text/plain', 'text/csv'],
+        'reject': ['video/MPV', 'video/quicktime'],
+        'pass': True,
+    },
+    'mixed_reject_audio': {
+        'accept': ['video/*', 'text/plain', 'text/csv'],
+        'reject': ['video/MPV', 'video/quicktime', 'audio/*'],
+        'pass': False,
+    },
+    'mixed_accept_amr': {
+        'accept': ['video/*', 'text/plain', 'text/csv', 'audio/AMR'],
+        'reject': ['video/MPV', 'video/quicktime'],
+        'pass': True,
+    },
+    'mixed_reject_amr': {
+        'accept': ['video/*', 'audio/*', 'text/plain', 'text/csv'],
+        'reject': ['video/MPV', 'audio/AMR', 'video/quicktime'],
+        'pass': False,
+    },
+}
+
 
 @pytest.fixture(
     params=FILE_SIZE_SCENARIOS.values(),
@@ -68,3 +121,23 @@ def test_FileSizeValidator(file_size_fix):
     else:
         with pytest.raises(ValidationError):
             validate(file_size_fix['file'])
+
+
+@pytest.fixture(
+    params=MEDIA_TYPE_SCENARIOS.values(),
+    ids=list(MEDIA_TYPE_SCENARIOS.keys()),
+)
+def media_type_fix(request):
+    return dict(file=TEST_FILE, **request.param)
+
+
+def test_MediaTypeValidator(media_type_fix):
+    validate = MediaTypeValidator(
+        media_type_fix['accept'],
+        media_type_fix['reject'],
+    )
+    if media_type_fix['pass']:
+        assert validate(media_type_fix['file']) is None
+    else:
+        with pytest.raises(ValidationError):
+            validate(media_type_fix['file'])
