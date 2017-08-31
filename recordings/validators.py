@@ -8,6 +8,8 @@ from django.utils.deconstruct import deconstructible
 
 from .utils import get_file_size
 
+SAMPLE_SIZE = 4096
+
 
 @deconstructible  # to facilitate migrations
 class FileSizeValidator(object):
@@ -80,9 +82,9 @@ class MediaTypeValidator(object):
         return self.accept == other.accept and self.reject == other.reject
     
     def __call__(self, file):
-        """ `file` should be a path or a buffer object. """
-        if isinstance(file, io.IOBase):
-            guessed_type = magic.from_buffer(file, mime=True)
+        """ `file` should be a path or a file-like object. """
+        if hasattr(file, 'read'):
+            guessed_type = magic.from_buffer(file.read(SAMPLE_SIZE), mime=True)
         else:
             guessed_type = magic.from_file(file, mime=True)
         guessed_type = guessed_type.lower() if guessed_type else 'unknown'
