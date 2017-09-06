@@ -62,10 +62,17 @@ class Recording(models.Model):
         ('b', 'second')
     )
 
+    # administrative fields
     status = models.CharField(max_length=1, choices=status_choices, default='c')
+    is_public_recording = models.BooleanField(default=False)
+
+    # details about the uploader
     name = models.CharField(max_length=200, blank=True)
+
+    # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
     age = models.IntegerField(blank=True, null=True)
+    place = models.ForeignKey(Place, on_delete="PROTECT")
     languages = models.ForeignKey(
         Language,
         on_delete="PROTECT",
@@ -73,15 +80,15 @@ class Recording(models.Model):
         null=True,
     )
     dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
-    is_public_recording = models.BooleanField(default=False)
     speaker_generation = models.CharField(
         max_length=1,
         choices=speaker_generation_choices,
         null=True,
         blank=True,
     )
-    place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
+
+    # the recording proper
     recording = models.FileField(
         upload_to='recordings',
         max_length=200,
