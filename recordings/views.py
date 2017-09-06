@@ -16,5 +16,5 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 
 class RecordingViewSet(viewsets.ModelViewSet):
-    queryset = Recording.objects.all()
+    queryset = Recording.objects.filter(is_public_recording=True)
     serializer_class = RecordingSerializer
