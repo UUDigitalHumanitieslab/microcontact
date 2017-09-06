@@ -57,14 +57,14 @@ class Recording(models.Model):
         ('b', 'female'),
         ('c', '-')
     )
-    speaker_generation_choices = (
+    generation_choices = (
         ('a', 'first'),
         ('b', 'second')
     )
 
     # administrative fields
     status = models.CharField(max_length=1, choices=status_choices, default='c')
-    is_public_recording = models.BooleanField(default=False)
+    public = models.BooleanField(default=False)
 
     # details about the uploader
     name = models.CharField(max_length=200, blank=True)
@@ -80,13 +80,13 @@ class Recording(models.Model):
         null=True,
     )
     dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
-    speaker_generation = models.CharField(
+    generation = models.CharField(
         max_length=1,
-        choices=speaker_generation_choices,
+        choices=generation_choices,
         null=True,
         blank=True,
     )
-    year_migrated_to_americas = models.DateField(null=True, blank=True)
+    migrated = models.DateField(null=True, blank=True)
 
     # the recording proper
     recording = models.FileField(
