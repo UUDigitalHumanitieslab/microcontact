@@ -62,7 +62,6 @@ class Recording(models.Model):
         ('b', 'second')
     )
 
-    id = models.AutoField(primary_key=True)
     status = models.CharField(max_length=1, choices=status_choices, default='c')
     name = models.CharField(max_length=200, blank=True)
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
