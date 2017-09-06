@@ -46,6 +46,11 @@ class Place(models.Model):
         return '{}, {}'.format(self.name, self.country.code)
 
 
+class AgeCategory(models.Model):
+    least = models.IntegerField()
+    greatest = models.IntegerField()
+
+
 class Recording(models.Model):
     status_choices = (
         ('a', 'censored'),
@@ -71,7 +76,7 @@ class Recording(models.Model):
 
     # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
-    age = models.IntegerField(blank=True, null=True)
+    age = models.ForeignKey(AgeCategory, blank=True, null=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
     languages = models.ForeignKey(
         Language,
