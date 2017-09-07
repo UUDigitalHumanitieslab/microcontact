@@ -84,7 +84,9 @@ class MediaTypeValidator(object):
     def __call__(self, file):
         """ `file` should be a path or a file-like object. """
         if hasattr(file, 'read'):
+            position = file.tell()
             guessed_type = magic.from_buffer(file.read(SAMPLE_SIZE), mime=True)
+            file.seek(position)  # this prevents ugly side effects
         else:
             guessed_type = magic.from_file(file, mime=True)
         guessed_type = guessed_type.lower() if guessed_type else 'unknown'
