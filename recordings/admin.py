@@ -15,7 +15,7 @@ class RecordingAdmin(admin.ModelAdmin):
     fields = (
         'status',
         'dialect',
-        'is_public_recording',
+        'public',
         'place',
         'recording',
     )
