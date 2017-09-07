@@ -1,7 +1,7 @@
 import os.path as op
 
 from django.db import models
-from django.core.validators import URLValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -9,6 +9,8 @@ from .validators import FileSizeValidator, MediaTypeValidator
 
 ACCEPTABLE_SIZE = 100 * 2**20  # 100MiB
 ACCEPTABLE_TYPES = ['audio/*', 'application/octet-stream']
+TURN_OF_19TH_CENTURY = 1890
+END_OF_RESEARCH_PROJECT = 2021
 
 
 class ModelWithName:
@@ -97,7 +99,10 @@ class Recording(models.Model):
         null=True,
         blank=True,
     )
-    migrated = models.DateField(null=True, blank=True)
+    migrated = models.IntegerField(null=True, blank=True, validators=[
+        MinValueValidator(TURN_OF_19TH_CENTURY),
+        MaxValueValidator(END_OF_RESEARCH_PROJECT),
+    ])
     origin = models.CharField(
         'speaker\'s village of origin',
         blank=True,
