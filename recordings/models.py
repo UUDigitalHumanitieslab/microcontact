@@ -1,6 +1,9 @@
 import os.path as op
 
 from django.db import models
+from django.core.validators import URLValidator
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 from .validators import FileSizeValidator, MediaTypeValidator
 
@@ -66,6 +69,12 @@ class Recording(models.Model):
         ('a', 'first'),
         ('b', 'second')
     )
+    education_choices = (
+        ('e', 'elementary'),
+        ('m', 'middle'),
+        ('h', 'high'),
+        ('u', 'university'),
+    )
 
     # administrative fields
     status = models.CharField(max_length=1, choices=status_choices, default='c')
@@ -73,6 +82,8 @@ class Recording(models.Model):
 
     # details about the uploader
     name = models.CharField(max_length=200, blank=True)
+    email = models.EmailField('uploader\'s email address', blank=True)
+    phone = PhoneNumberField('uploader\'s phone number', blank=True)
 
     # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
@@ -92,6 +103,17 @@ class Recording(models.Model):
         blank=True,
     )
     migrated = models.DateField(null=True, blank=True)
+    origin = models.CharField(
+        'speaker\'s village of origin',
+        blank=True,
+        max_length=200,
+    )
+    education = models.CharField(
+        'speaker\'s level of education',
+        blank=True,
+        max_length=1,
+        choices=education_choices,
+    )
 
     # the recording proper
     recording = models.FileField(
