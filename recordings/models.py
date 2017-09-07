@@ -89,12 +89,7 @@ class Recording(models.Model):
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
     age = models.ForeignKey(AgeCategory, blank=True, null=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
-    languages = models.ForeignKey(
-        Language,
-        on_delete="PROTECT",
-        blank=True,
-        null=True,
-    )
+    languages = models.ManyToManyField(Language, blank=True)
     dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
     generation = models.CharField(
         max_length=1,
