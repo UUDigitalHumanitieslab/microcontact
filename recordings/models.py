@@ -2,7 +2,10 @@ import os.path as op
 
 from django.db import models
 
-# Create your models here.
+from .validators import FileSizeValidator, MediaTypeValidator
+
+ACCEPTABLE_SIZE = 100 * 2**20  # 100MiB
+ACCEPTABLE_TYPES = ['audio/*', 'application/octet-stream']
 
 
 class ModelWithName:
@@ -70,7 +73,22 @@ class Recording(models.Model):
     speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True, blank=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
     year_migrated_to_americas = models.DateField(null=True, blank=True)
-    recording = models.FileField(upload_to='recordings', max_length=200)
+    recording = models.FileField(
+        upload_to='recordings',
+        max_length=200,
+        validators=[
+            FileSizeValidator(max_size=ACCEPTABLE_SIZE),
+            MediaTypeValidator(ACCEPTABLE_TYPES),
+        ],
+    )
+    recording_web = models.FileField(
+        upload_to='recordings',
+        max_length=200,
+        blank=True,
+    )
+    
+    def get_web_recording(self):
+        return self.recording_web or self.recording
     
     def __str__(self):
         return '{} ({})'.format(self.id, op.split(self.recording.name)[1])

@@ -5,3 +5,4 @@ django-auth-ldap
 djangorestframework
 psycopg2
 pytest
+python-magic
