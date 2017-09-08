@@ -7,7 +7,7 @@ INFILE = 'speech.amr'
 OUTFILE = 'speech.mp3'
 
 
-def test_conversion():
+def test_convert_to_mp3():
     infile = os.path.join(BASE, INFILE)
     convert_audio.convert_to_mp3(infile)
     assert(OUTFILE in os.listdir(BASE))
