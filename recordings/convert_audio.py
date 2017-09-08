@@ -4,8 +4,10 @@ import os
 
 def convert_to_mp3(infile):
     """
-    given an input file in any format supported by ffmpeg,
-    export to mp3
+    Given an input file in any format supported by ffmpeg, export to mp3.
+    
+    `infile` should be a file path. Return value is the same path, but
+    with the extension replaced by '.mp3'.
     """
     # possible to link to Recording object from models.py
     #infile = recording.recording_link

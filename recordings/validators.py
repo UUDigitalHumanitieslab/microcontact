@@ -101,6 +101,12 @@ class MediaTypeValidator(object):
     
     @staticmethod
     def match(pattern, guessed):
+        """
+        Return True if media type `guessed` matches `pattern`, False otherwise.
+        
+        `guessed` should be fully qualified media type such as 'audio/mpeg'.
+        `pattern` may contain wildcards, for example 'audio/*' or even '*/*'.
+        """
         for left, right in zip(pattern.split('/'), guessed.split('/')):
             if left.lower() not in ('*', right):
                 return False

@@ -11,7 +11,11 @@ WEB_SAFE = ('audio/mpeg', 'audio/aac', 'audio/mp4')
 
 
 def convert_web_recording(sender, **kwargs):
-    """ Set instance.recording_web if instance.recording is not MP3 or AAC. """
+    """
+    Set instance.recording_web if instance.recording is not MP3 or AAC.
+    
+    This is a signal handler for django.db.models.signals.post_save.
+    """
     update_fields = kwargs.get('update_fields', None)
     if (
         update_fields and
@@ -32,7 +36,11 @@ def convert_web_recording(sender, **kwargs):
 
 
 def remove_recording_files(sender, **kwargs):
-    """ Remove the audio files associated with the instance. """
+    """
+    Remove the audio files associated with the instance.
+    
+    This is a signal handler for django.db.models.signals.post_delete.
+    """
     instance = kwargs.get('instance')
     instance.recording_web.delete(save=False)
     instance.recording.delete(save=False)
