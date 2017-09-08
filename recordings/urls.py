@@ -7,7 +7,9 @@ from recordings import views
 
 router = routers.DefaultRouter()
 router.register(r'dialects', views.DialectViewSet)
+router.register(r'languages', views.LanguageViewSet)
 router.register(r'countries', views.CountryViewSet)
+router.register(r'age-categories', views.AgeCategoryViewSet)
 router.register(r'recordings', views.RecordingViewSet)
 
 urlpatterns = [

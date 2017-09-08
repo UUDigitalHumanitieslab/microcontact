@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import *
-from .models import Dialect, Country, Recording
+from .models import Dialect, Language, Country, AgeCategory, Recording
 # Create your views here.
 
 
@@ -10,9 +10,19 @@ class DialectViewSet(viewsets.ModelViewSet):
     serializer_class = DialectSerializer
 
 
+class LanguageViewSet(viewsets.ModelViewSet):
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer
+
+
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+
+
+class AgeCategoryViewSet(viewsets.ModelViewSet):
+    queryset = AgeCategory.objects.all()
+    serializer_class = AgeCategorySerializer
 
 
 class RecordingViewSet(viewsets.ModelViewSet):
