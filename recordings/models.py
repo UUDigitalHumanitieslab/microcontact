@@ -1,11 +1,16 @@
 import os.path as op
 
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 from .validators import FileSizeValidator, MediaTypeValidator
 
 ACCEPTABLE_SIZE = 100 * 2**20  # 100MiB
 ACCEPTABLE_TYPES = ['audio/*', 'application/octet-stream']
+TURN_OF_19TH_CENTURY = 1890
+END_OF_RESEARCH_PROJECT = 2021
 
 
 class ModelWithName:
@@ -46,33 +51,87 @@ class Place(models.Model):
         return '{}, {}'.format(self.name, self.country.code)
 
 
+class AgeCategory(models.Model):
+    least = models.IntegerField()
+    greatest = models.IntegerField()
+
+
 class Recording(models.Model):
+    CENSORED       = 'a'
+    REVIEWED       = 'b'
+    OPEN           = 'c'
+    MALE           = 'a'
+    FEMALE         = 'b'
+    OTHER          = 'c'
+    FIRST_GEN      = 'a'
+    SECOND_GEN     = 'b'
+    ELEMENTARY_EDU = 'e'
+    MIDDLE_EDU     = 'm'
+    HIGH_EDU       = 'h'
+    UNIVERSITY_EDU = 'u'
     status_choices = (
-        ('a', 'censored'),
-        ('b', 'reviewed'),
-        ('c', 'open')
+        (CENSORED, 'censored'),
+        (REVIEWED, 'reviewed'),
+        (OPEN, 'open')
     )
     sex_choices = (
-        ('a', 'male'),
-        ('b', 'female'),
-        ('c', '-')
+        (MALE, 'male'),
+        (FEMALE, 'female'),
+        (OTHER, '-')
     )
-    speaker_generation_choices = (
-        ('a', 'first'),
-        ('b', 'second')
+    generation_choices = (
+        (FIRST_GEN, 'first'),
+        (SECOND_GEN, 'second')
+    )
+    education_choices = (
+        (ELEMENTARY_EDU, 'elementary'),
+        (MIDDLE_EDU, 'middle'),
+        (HIGH_EDU, 'high'),
+        (UNIVERSITY_EDU, 'university'),
     )
 
-    id = models.AutoField(primary_key=True)
-    status = models.CharField(max_length=1, choices=status_choices, default='c')
+    # administrative fields
+    status = models.CharField(
+        max_length=1,
+        choices=status_choices,
+        default=OPEN,
+    )
+    public = models.BooleanField(default=False)
+
+    # details about the uploader
     name = models.CharField(max_length=200, blank=True)
+    email = models.EmailField('uploader\'s email address', blank=True)
+    phone = PhoneNumberField('uploader\'s phone number', blank=True)
+
+    # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
-    age = models.IntegerField(blank=True, null=True)
-    languages = models.ForeignKey(Language, on_delete="PROTECT", blank=True, null=True)
-    dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
-    is_public_recording = models.BooleanField(default=False)
-    speaker_generation = models.CharField(max_length=1, choices=speaker_generation_choices, null=True, blank=True)
+    age = models.ForeignKey(AgeCategory, blank=True, null=True)
     place = models.ForeignKey(Place, on_delete="PROTECT")
-    year_migrated_to_americas = models.DateField(null=True, blank=True)
+    languages = models.ManyToManyField(Language, blank=True)
+    dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
+    generation = models.CharField(
+        max_length=1,
+        choices=generation_choices,
+        null=True,
+        blank=True,
+    )
+    migrated = models.IntegerField(null=True, blank=True, validators=[
+        MinValueValidator(TURN_OF_19TH_CENTURY),
+        MaxValueValidator(END_OF_RESEARCH_PROJECT),
+    ])
+    origin = models.CharField(
+        'speaker\'s village of origin',
+        blank=True,
+        max_length=200,
+    )
+    education = models.CharField(
+        'speaker\'s level of education',
+        blank=True,
+        max_length=1,
+        choices=education_choices,
+    )
+
+    # the recording proper
     recording = models.FileField(
         upload_to='recordings',
         max_length=200,
