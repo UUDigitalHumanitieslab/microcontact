@@ -54,6 +54,9 @@ class Place(models.Model):
 class AgeCategory(models.Model):
     least = models.IntegerField()
     greatest = models.IntegerField()
+    
+    def __str__(self):
+        return '{}-{}'.format(self.least, self.greatest)
 
 
 class Recording(models.Model):
