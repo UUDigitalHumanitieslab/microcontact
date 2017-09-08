@@ -8,6 +8,7 @@ from .models import Dialect, Recording, Language, Place, Country
 
 class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
+    list_filter = (('country', admin.RelatedOnlyFieldListFilter),)
 
 
 class RecordingAdmin(admin.ModelAdmin):
@@ -30,6 +31,17 @@ class RecordingAdmin(admin.ModelAdmin):
                 ('origin', 'migrated'),
             ),
         }),
+    )
+    list_filter = (
+        'status',
+        'public',
+        ('dialect', admin.RelatedOnlyFieldListFilter),
+        ('place', admin.RelatedOnlyFieldListFilter),
+        'sex',
+        'education',
+        'generation',
+        ('age', admin.RelatedOnlyFieldListFilter),
+        'migrated',
     )
 
 
