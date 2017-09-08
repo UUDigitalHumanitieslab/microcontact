@@ -9,6 +9,7 @@ from .models import Dialect, Recording, Language, Place, Country
 class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
     list_filter = (('country', admin.RelatedOnlyFieldListFilter),)
+    search_fields = ('name',)
 
 
 class RecordingAdmin(admin.ModelAdmin):
@@ -43,6 +44,7 @@ class RecordingAdmin(admin.ModelAdmin):
         ('age', admin.RelatedOnlyFieldListFilter),
         'migrated',
     )
+    search_fields = ('recording', 'name', 'email', 'phone', 'origin')
 
 
 admin.site.register(Dialect)
