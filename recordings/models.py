@@ -57,29 +57,45 @@ class AgeCategory(models.Model):
 
 
 class Recording(models.Model):
+    CENSORED       = 'a'
+    REVIEWED       = 'b'
+    OPEN           = 'c'
+    MALE           = 'a'
+    FEMALE         = 'b'
+    OTHER          = 'c'
+    FIRST_GEN      = 'a'
+    SECOND_GEN     = 'b'
+    ELEMENTARY_EDU = 'e'
+    MIDDLE_EDU     = 'm'
+    HIGH_EDU       = 'h'
+    UNIVERSITY_EDU = 'u'
     status_choices = (
-        ('a', 'censored'),
-        ('b', 'reviewed'),
-        ('c', 'open')
+        (CENSORED, 'censored'),
+        (REVIEWED, 'reviewed'),
+        (OPEN, 'open')
     )
     sex_choices = (
-        ('a', 'male'),
-        ('b', 'female'),
-        ('c', '-')
+        (MALE, 'male'),
+        (FEMALE, 'female'),
+        (OTHER, '-')
     )
     generation_choices = (
-        ('a', 'first'),
-        ('b', 'second')
+        (FIRST_GEN, 'first'),
+        (SECOND_GEN, 'second')
     )
     education_choices = (
-        ('e', 'elementary'),
-        ('m', 'middle'),
-        ('h', 'high'),
-        ('u', 'university'),
+        (ELEMENTARY_EDU, 'elementary'),
+        (MIDDLE_EDU, 'middle'),
+        (HIGH_EDU, 'high'),
+        (UNIVERSITY_EDU, 'university'),
     )
 
     # administrative fields
-    status = models.CharField(max_length=1, choices=status_choices, default='c')
+    status = models.CharField(
+        max_length=1,
+        choices=status_choices,
+        default=OPEN,
+    )
     public = models.BooleanField(default=False)
 
     # details about the uploader
