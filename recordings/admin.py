@@ -10,6 +10,7 @@ class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
     list_filter = (('country', admin.RelatedOnlyFieldListFilter),)
     search_fields = ('name',)
+    list_display = ('name', 'country', 'latitude', 'longitude', 'placeID')
 
 
 class RecordingAdmin(admin.ModelAdmin):
@@ -45,6 +46,16 @@ class RecordingAdmin(admin.ModelAdmin):
         'migrated',
     )
     search_fields = ('recording', 'name', 'email', 'phone', 'origin')
+    list_display = ('id', 'uploader', 'dialect', 'place', 'status', 'public')
+    
+    def uploader(self, instance):
+        """
+        Return the name of the uploader from the Recording instance.
+        
+        This is basically a trick to rename the column in `list_display`,
+        see https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display.
+        """
+        return instance.name
 
 
 admin.site.register(Dialect)
