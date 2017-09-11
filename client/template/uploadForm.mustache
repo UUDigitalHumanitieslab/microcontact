@@ -1,35 +1,45 @@
 {{#place}}
 	<h2>{{name}}, {{countryName}}</h2>
 	<form>
-		<div class=form-group>
-			<label for=upload-file class=control-label>La tua registrazione</label>
-			<input id=upload-file name=recording type=file class=form-control>
-		</div>
-		<div class=form-group>
-			<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
-			<select id=upload-dialect name=dialect class=form-control>
-				{{#dialects}}<option value={{id}}>{{name}}</option>{{/dialects}}
-			</select>
-		</div>
-		<div class=form-group>
-			<label class=control-label>Nazione</label>
-			<p class=form-control-static>{{countryName}}</p>
-			<label class=control-label>Città</label>
-			<p class=form-control-static>{{name}}</p>
-			<input type=hidden name="place.placeID" value="{{placeID}}">
-			<input type=hidden name="place.name" value="{{name}}">
-			<input type=hidden name="place.country" value="{{country}}">
-			<input type=hidden name="place.latitude" value="{{latitude}}">
-			<input type=hidden name="place.longitude" value="{{longitude}}">
-		</div>
-		<div class=checkbox>
-			<label>
-				<input type="checkbox" name="consent" id=user-consent>
-				La persona la cui voce è registrata su questo file dichiara di aver letto e capito il Modulo Informativo del Partecipante e di accettare di partecipare a questo studio.
-			</label>
-		</div>
-		<div class=form-group>
-			<button type=submit class="btn btn-primary" id=submit-button disabled>Invia</button>
-		</div>
+		<fieldset>
+			<div class=form-group>
+				<label for=upload-file class=control-label>La tua registrazione</label>
+				<input id=upload-file name=recording type=file class=form-control>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>About the recording and the speaker</legend>
+			<div class=form-group>
+				<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
+				<select id=upload-dialect name=dialect class=form-control>
+					{{#dialects}}<option value={{id}}>{{name}}</option>{{/dialects}}
+				</select>
+			</div>
+			<div class=form-group>
+				<label class=control-label>Nazione</label>
+				<p class=form-control-static>{{countryName}}</p>
+				<label class=control-label>Città</label>
+				<p class=form-control-static>{{name}}</p>
+				<input type=hidden name="place.placeID" value="{{placeID}}">
+				<input type=hidden name="place.name" value="{{name}}">
+				<input type=hidden name="place.country" value="{{country}}">
+				<input type=hidden name="place.latitude" value="{{latitude}}">
+				<input type=hidden name="place.longitude" value="{{longitude}}">
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>About you, the uploader</legend>
+		</fieldset>
+		<fieldset>
+			<div class=checkbox>
+				<label>
+					<input type="checkbox" name="consent" id=user-consent>
+					La persona la cui voce è registrata su questo file dichiara di aver letto e capito il Modulo Informativo del Partecipante e di accettare di partecipare a questo studio.
+				</label>
+			</div>
+			<div class=form-group>
+				<button type=submit class="btn btn-primary" id=submit-button disabled>Invia</button>
+			</div>
+		</fieldset>
 	</form>
 {{/place}}
