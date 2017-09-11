@@ -26,9 +26,62 @@
 				<input type=hidden name="place.latitude" value="{{latitude}}">
 				<input type=hidden name="place.longitude" value="{{longitude}}">
 			</div>
+			<div class=form-group>
+				<label for=upload-age class=control-label>Age</label>
+				<select id=upload-age name=age class=form-control>
+					{{#ages}}<option value={{id}}>{{least}}&ndash;{{greatest}}</option>{{/ages}}
+				</select>
+			</div>
+			<div class=form-group>
+				<label for=upload-sex class=control-label>Sex</label>
+				<select id=upload-sex name=sex class=form-control>
+					<option value=a>male</option>
+					<option value=b>female</option>
+					<option value=c>other</option>
+				</select>
+			</div>
+			<div class=form-group>
+				<label for=upload-education class=control-label>Level of education</label>
+				<select id=upload-education name=education class=form-control>
+					<option value=e>elementary</option>
+					<option value=m>middle</option>
+					<option value=h>high</option>
+					<option value=u>university</option>
+				</select>
+			</div>
+			<div class=radio>
+				<label>
+					<input type=radio name=generation value=a>
+					First generation emigrant
+				</label>
+				<label>
+					<input type=radio name=generation value=b>
+					Second generation emigrant
+				</label>
+			</div>
+			<div class=form-group>
+				<label for=upload-emigrated class=control-label>First generation emigrated in</label>
+				<input id=upload-emigrated name=emigrated type=number class=form-control placeholder="1960">
+			</div>
+			<div class=form-group>
+				<label for=upload-origin class=control-label>First generation emigrated from</label>
+				<input id=upload-origin name=origin type=text class=form-control placeholder="Palermo">
+			</div>
 		</fieldset>
 		<fieldset>
 			<legend>About you, the uploader</legend>
+			<div class=form-group>
+				<label for=upload-name class=control-label>Name</label>
+				<input id=upload-name name=name type=text class=form-control required autocomplete=name spellcheck=false placeholder="Christina Alvarez">
+			</div>
+			<div class=form-group>
+				<label for=upload-email class=control-label>Email</label>
+				<input id=upload-email name=email type=email class=form-control autocomplete=email spellcheck=false placeholder="calvarez@example.com">
+			</div>
+			<div class=form-group>
+				<label for=upload-phone class=control-label>Phone</label>
+				<input id=upload-phone name=phone type=tel class=form-control autocomplete=tel placeholder="+1 123456789">
+			</div>
 		</fieldset>
 		<fieldset>
 			<div class=checkbox>

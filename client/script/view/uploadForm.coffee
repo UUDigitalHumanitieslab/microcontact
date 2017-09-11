@@ -4,8 +4,10 @@ define [
 	'underscore'
 	'templates'
 	'util/dialects'
+	'util/languages'
+	'util/ageCategories'
 	'util/csrf'
-], (bb, $, _, JST, dialects, getCSRFToken) ->
+], (bb, $, _, JST, dialects, languages, ages, getCSRFToken) ->
 	'use strict'
 	
 	class UploadFormView extends bb.View
@@ -17,7 +19,12 @@ define [
 			'submit form': 'submit'
 		
 		render: (place) ->
-			@$el.html @template {place: place.toInternal(), dialects}
+			@$el.html @template {
+				place: place.toInternal()
+				dialects
+				languages: languages.toJSON()
+				ages: ages.toJSON()
+			}
 			@
 		
 		submit: (event) ->
