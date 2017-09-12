@@ -3,10 +3,14 @@
 	Author: Julian Gonggrijp
 ###
 
-define ['backbone'], (bb) -> new bb.Collection [
-	{code: 'AR', name: 'Argentina'}
-	{code: 'BR', name: 'Brasile'}
-	{code: 'CA', name: 'Canada'}
-	{code: 'US', name: 'USA'}
-	{code: 'IT', name: 'Italia'}
-]
+define [
+	'backbone'
+], (bb) ->
+	'use strict'
+	
+	countries = new bb.Collection
+	countries.url = '/api/countries/'
+	countries.comparator = 'name'  # keep sorted by country name
+	countries.fetch()  # singleton instance that is fetched once is sufficient
+	
+	countries
