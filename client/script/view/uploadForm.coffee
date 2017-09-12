@@ -7,6 +7,7 @@ define [
 	'util/languages'
 	'util/ageCategories'
 	'util/csrf'
+	'select2'
 ], (bb, $, _, JST, dialects, languages, ages, getCSRFToken) ->
 	'use strict'
 	
@@ -25,6 +26,8 @@ define [
 				languages: languages.toJSON()
 				ages: ages.toJSON()
 			}
+			@$('#upload-languages').select2
+				width: '100%'
 			@
 		
 		submit: (event) ->

@@ -16,6 +16,12 @@
 				</select>
 			</div>
 			<div class=form-group>
+				<label for=upload-languages class=control-label>What other languages does the speaker know?</label>
+				<select multiple id=upload-languages name=languages class=form-control>
+					{{#languages}}<option value={{id}}>{{language}}</option>{{/languages}}
+				</select>
+			</div>
+			<div class=form-group>
 				<label class=control-label>Nazione</label>
 				<p class=form-control-static>{{countryName}}</p>
 				<label class=control-label>Città</label>
