@@ -17,7 +17,9 @@ define [
 			'submit form': 'submit'
 		
 		render: (place) ->
-			@$el.html @template {place: place.toInternal(), dialects}
+			@$el.html @template
+				place: place.toInternal()
+				dialects: dialects.toJSON()
 			@
 		
 		submit: (event) ->

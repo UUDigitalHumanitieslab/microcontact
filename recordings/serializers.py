@@ -8,7 +8,7 @@ class DialectSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
         model = Dialect
-        fields = ('id', 'dialect')
+        fields = ('id', 'dialect', 'color')
 
 
 class LanguageSerializer(serializers.ModelSerializer):
