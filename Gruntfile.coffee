@@ -245,6 +245,7 @@ module.exports = (grunt) ->
 						'handlebars.runtime': 'empty:'
 						async: 'empty:'
 						googlemaps: 'empty:'
+						select2: 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 
