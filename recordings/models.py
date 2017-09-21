@@ -1,7 +1,7 @@
 import os.path as op
 
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -19,7 +19,10 @@ class ModelWithName:
 
 
 class Dialect(models.Model):
-    dialect = models.CharField(max_length=200)
+    dialect = models.CharField(max_length=200, unique=True)
+    color = models.CharField(max_length=7, validators=[
+        RegexValidator('^#([0-9a-fA-F]{3})+$', 'Enter an RGB color code.'),
+    ])
 
     def __str__(self):
         return self.dialect

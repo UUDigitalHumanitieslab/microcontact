@@ -133,6 +133,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
         },
+        'rest_framework': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
         'microcontact': {
             'handlers': ['console'],
             'level': 'DEBUG',

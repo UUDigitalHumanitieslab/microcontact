@@ -105,7 +105,7 @@ define [
 
 		createLookup: (dialects) ->
 			@dialectsLookup = {}
-			@dialectsLookup[dialect["name"]] = dialect for dialect in dialects
+			@dialectsLookup[dialect["dialect"]] = dialect for dialect in dialects.toJSON()
 			@
 		createMarker: (pins) ->
 			pin = pins[0]			

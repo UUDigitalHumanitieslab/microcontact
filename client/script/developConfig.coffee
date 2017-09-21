@@ -12,6 +12,7 @@ require.config
 		bootstrap: '../bower_components/bootstrap-sass/assets/javascripts/bootstrap'
 		async: '../bower_components/requirejs-plugins/src/async'
 		'js.cookie': '../bower_components/js-cookie/src/js.cookie'
+		select2: '../bower_components/select2/dist/js/select2'
 	shim:
 		'bootstrap/transition': ['jquery']
 		'bootstrap/modal': ['jquery']      # has own CSS component

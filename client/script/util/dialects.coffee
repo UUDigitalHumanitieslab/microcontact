@@ -1,16 +1,16 @@
 ###
 	(c) 2017 Digital Humanities Lab, Utrecht University
-	Author: Sheean Spoel
+	Author: Julian Gonggrijp
 ###
 
-define [], -> [
-	{ id: 1, name: 'Abruzzese/Teatino', color: '#901' }
-	{ id: 2, name: 'Fiorentino', color: '#fff' }
-	{ id: 3, name: 'Napoletano (Campano)', color: '#d12' }
-	{ id: 4, name: 'Palermitano (Siciliano)', color: '#160' }
-	{ id: 5, name: 'Piemontese', color: '#04e' }
-	{ id: 6, name: 'Salentino', color: '#394' }
-	{ id: 7, name: 'Senese (Toscano)', color: '#bbb' }
-	{ id: 8, name: 'Veneto', color: '#223' }
-	{ id: 9, name: 'other', color: '#855' }
-]
+define [
+	'backbone'
+], (bb) ->
+	'use strict'
+	
+	dialects = new bb.Collection
+	dialects.url = '/api/dialects'
+	dialects.comparator = 'id'  # keep sorted by numerical id
+	dialects.fetch()  # singleton instance that is fetched once is sufficient
+	
+	dialects

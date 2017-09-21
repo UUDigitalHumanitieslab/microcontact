@@ -207,7 +207,7 @@ define [], -> [{
 , { address: 'Albuquerque, N.M.', dialect: 'Veneto', position: { lat:35.0833333333333, lng:-106.65}}
 , { address: 'Amarillo, Tex.', dialect: 'Veneto', position: { lat:35.1833333333333, lng:-101.833333333333}}
 , { address: 'Amarillo, Tex.', dialect: 'Piemontese', position: { lat:35.1833333333333, lng:-101.833333333333}}
-, { address: 'Amarillo, Tex.', dialect: 'other', position: { lat:35.1833333333333, lng:-101.833333333333}}
+, { address: 'Amarillo, Tex.', dialect: 'altro', position: { lat:35.1833333333333, lng:-101.833333333333}}
 , { address: 'Anchorage, Alaska', dialect: 'Veneto', position: { lat:61.2166666666667, lng:-149.9}}
 , { address: 'Atlanta, Ga.', dialect: 'Veneto', position: { lat:33.75, lng:-84.3833333333333}}
 , { address: 'Austin, Tex.', dialect: 'Abruzzese/Teatino', position: { lat:30.2666666666667, lng:-97.7333333333333}}
