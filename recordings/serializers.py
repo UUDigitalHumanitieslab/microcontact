@@ -68,6 +68,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             'languages',
             'age',
             'sex',
+            'education',
             'generation',
             'origin',
             'migrated',
@@ -83,6 +84,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
                 'required': False,
             },
             'sex': {'write_only': True},
+            'education': {'write_only': True},
             'generation': {'write_only': True},
             'origin': {'write_only': True},
             'migrated': {
