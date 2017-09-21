@@ -27,6 +27,7 @@ class RecordingAdmin(admin.ModelAdmin):
             'fields': (
                 'dialect',
                 'place',
+                'languages',
                 ('age', 'sex'),
                 'education',
                 'generation',
@@ -34,6 +35,7 @@ class RecordingAdmin(admin.ModelAdmin):
             ),
         }),
     )
+    filter_horizontal = ('languages',)
     list_filter = (
         'status',
         'public',
