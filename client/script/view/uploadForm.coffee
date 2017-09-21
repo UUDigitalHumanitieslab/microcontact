@@ -3,12 +3,12 @@ define [
 	'jquery'
 	'underscore'
 	'templates'
+	'model/contribution'
 	'util/dialects'
 	'util/languages'
 	'util/ageCategories'
-	'util/csrf'
 	'select2'
-], (bb, $, _, JST, dialects, languages, ages, getCSRFToken) ->
+], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
 	
 	class UploadFormView extends bb.View
@@ -37,20 +37,9 @@ define [
 			return unless @consentGiven
 			form = @$ 'form'
 			form.prop 'disabled', true
-			# TODO: we want the following to be a RecordingModel.create.
-			# In that case, it should not be necessary to explicitly import/call
-			# getCSRFToken, as it will defer to bb.sync, which we have
-			# overridden in util/csrf to always include the CSRF token.
-			@updateLanguages => $.ajax
-				url: '/api/recordings/'
-				type: 'POST'
-				data: new FormData form[0]
-				headers:
-					'X-CSRFToken': getCSRFToken()
-				cache: false
-				contentType: false
-				processData: false
-				success: => @$el.text 'Grazie!'
+			contribution = new Contribution
+			@updateLanguages =>
+				contribution.save(form[0]).done => @$el.text 'Grazie!'
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
