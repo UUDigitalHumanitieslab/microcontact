@@ -8,6 +8,7 @@ define [
 	'util/languages'
 	'util/ageCategories'
 	'select2'
+	'jquery.validation'
 ], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
 	
@@ -30,6 +31,7 @@ define [
 				width: '100%'
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
+			@$('form').validate()
 			@
 		
 		submit: (event) ->

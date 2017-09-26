@@ -11,3 +11,4 @@ require.config
 		'handlebars.runtime': '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.runtime.amd.min'
 		async: '//cdnjs.cloudflare.com/ajax/libs/requirejs-plugins/1.0.3/async.min'
 		select2: '//cdn.jsdelivr.net/npm/select2@4.0.3/dist/js/select2.min.js'
+		'jquery.validation': '//cdn.jsdelivr.net/jquery.validation/1.17.0/jquery.validate.min'
