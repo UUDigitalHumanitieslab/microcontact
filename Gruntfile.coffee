@@ -246,7 +246,8 @@ module.exports = (grunt) ->
 						async: 'empty:'
 						googlemaps: 'empty:'
 						select2: 'empty:'
-						'jquery.validation': 'empty:'
+						'jquery.validate': 'empty:'
+						'jquery.validate.additions': 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 

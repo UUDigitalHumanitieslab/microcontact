@@ -8,7 +8,8 @@ define [
 	'util/languages'
 	'util/ageCategories'
 	'select2'
-	'jquery.validation'
+	'jquery.validate'
+	'jquery.validate.additions'
 ], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
 	
@@ -33,7 +34,11 @@ define [
 			@$('form').validate
 				submitHandler: @submit
 				# invalidHandler: (event, validator) -> null
-				# rules:
+				rules:
+					email:
+						require_from_group: [1, '.upload-contact']
+					phone:
+						require_from_group: [1, '.upload-contact']
 				errorClass: 'has-error'
 				validClass: 'has-success'
 				highlight: (element, error, valid) ->

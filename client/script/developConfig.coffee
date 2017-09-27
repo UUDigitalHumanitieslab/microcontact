@@ -13,7 +13,8 @@ require.config
 		async: '../bower_components/requirejs-plugins/src/async'
 		'js.cookie': '../bower_components/js-cookie/src/js.cookie'
 		select2: '../bower_components/select2/dist/js/select2'
-		'jquery.validation': '../bower_components/jquery-validation/dist/jquery.validate'
+		'jquery.validate': '../bower_components/jquery-validation/dist/jquery.validate'
+		'jquery.validate.additions': '../bower_components/jquery-validation/dist/additional-methods'
 	shim:
 		'bootstrap/transition': ['jquery']
 		'bootstrap/modal': ['jquery']      # has own CSS component
