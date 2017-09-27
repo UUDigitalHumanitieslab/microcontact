@@ -14,7 +14,7 @@ define [
 	
 	bb.sync = (method, model, options) ->
 		unless method == 'read'
-			options.headers ?= []
+			options.headers ?= {}
 			options.headers['X-CSRFToken'] = getCSRFToken()
 		syncImplementation method, model, options
 	
