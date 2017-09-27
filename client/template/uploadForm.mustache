@@ -34,15 +34,15 @@
 				<input type=hidden name="place.longitude" value="{{longitude}}">
 			</div>
 			<div class=form-group>
-				<label for=upload-age class=control-label required>Age</label>
-				<select id=upload-age name=age class=form-control>
+				<label for=upload-age class=control-label>Age</label>
+				<select id=upload-age name=age class=form-control required>
 					<option></option>
 					{{#ages}}<option value={{id}}>{{least}}&ndash;{{greatest}}</option>{{/ages}}
 				</select>
 			</div>
 			<div class=form-group>
-				<label for=upload-sex class=control-label required>Sex</label>
-				<select id=upload-sex name=sex class=form-control>
+				<label for=upload-sex class=control-label>Sex</label>
+				<select id=upload-sex name=sex class=form-control required>
 					<option></option>
 					<option value=a>male</option>
 					<option value=b>female</option>
