@@ -12,6 +12,7 @@
 			<div class=form-group>
 				<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
 				<select id=upload-dialect name=dialect class=form-control required>
+					<option></option>
 					{{#dialects}}<option value={{id}}>{{dialect}}</option>{{/dialects}}
 				</select>
 			</div>
@@ -35,12 +36,14 @@
 			<div class=form-group>
 				<label for=upload-age class=control-label required>Age</label>
 				<select id=upload-age name=age class=form-control>
+					<option></option>
 					{{#ages}}<option value={{id}}>{{least}}&ndash;{{greatest}}</option>{{/ages}}
 				</select>
 			</div>
 			<div class=form-group>
 				<label for=upload-sex class=control-label required>Sex</label>
 				<select id=upload-sex name=sex class=form-control>
+					<option></option>
 					<option value=a>male</option>
 					<option value=b>female</option>
 					<option value=c>other</option>
@@ -49,6 +52,7 @@
 			<div class=form-group>
 				<label for=upload-education class=control-label>Level of education</label>
 				<select id=upload-education name=education class=form-control required>
+					<option></option>
 					<option value=e>elementary</option>
 					<option value=m>middle</option>
 					<option value=h>high</option>
