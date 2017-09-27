@@ -18,7 +18,6 @@ define [
 
 		events:
 			'click #user-consent': 'updateConsent'
-			'submit form': 'submit'
 		
 		render: (place) ->
 			@$el.html @template {
@@ -31,17 +30,26 @@ define [
 				width: '100%'
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
-			@$('form').validate()
+			@$('form').validate
+				submitHandler: @submit
+				# invalidHandler: (event, validator) -> null
+				# rules:
+				errorClass: 'has-error'
+				validClass: 'has-success'
+				highlight: (element, error, valid) ->
+					$(element).parent().removeClass(valid).addClass(error)
+				unhighlight: (element, error, valid) ->
+					$(element).parent().removeClass(error).addClass(valid)
+				# errorPlacement: (errorLabel, element) -> null
 			@
 		
-		submit: (event) ->
+		submit: (form, event) =>
 			event.preventDefault()
 			return unless @consentGiven
-			form = @$ 'form'
-			form.prop 'disabled', true
+			@$('fieldset').prop 'disabled', true
 			contribution = new Contribution
 			@updateLanguages =>
-				contribution.save(form[0]).done => @$el.text 'Grazie!'
+				contribution.save(form).done => @$el.text 'Grazie!'
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
