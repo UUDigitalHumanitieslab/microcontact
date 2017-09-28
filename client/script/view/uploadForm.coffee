@@ -51,10 +51,10 @@ define [
 		submit: (form, event) =>
 			event.preventDefault()
 			return unless @consentGiven
-			@$('fieldset').prop 'disabled', true
 			contribution = new Contribution
 			@updateLanguages =>
 				contribution.save(form).done => @$el.text 'Grazie!'
+				@$('fieldset').prop 'disabled', true
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
