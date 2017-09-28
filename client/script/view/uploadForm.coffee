@@ -43,9 +43,20 @@ define [
 				validClass: 'has-success'
 				highlight: (element, error, valid) ->
 					$(element).parent().removeClass(valid).addClass(error)
+					$(element).siblings('.glyphicon').removeClass(
+						'glyphicon-ok'
+					).addClass(
+						'glyphicon-remove'
+					).parent().addClass 'has-feedback'
 				unhighlight: (element, error, valid) ->
 					$(element).parent().removeClass(error).addClass(valid)
-				# errorPlacement: (errorLabel, element) -> null
+					$(element).siblings('.glyphicon').removeClass(
+						'glyphicon-remove'
+					).addClass('glyphicon-ok').parent().addClass 'has-feedback'
+				errorPlacement: (errorLabel, element) ->
+					$(errorLabel).addClass('help-block').appendTo(
+						$(element).parent()
+					)
 			@
 		
 		submit: (form, event) =>
