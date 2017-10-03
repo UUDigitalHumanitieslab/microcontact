@@ -34,7 +34,7 @@ define [
 				tokenSeparators: [',', ' ', '\n']
 			@validator = @$('form').validate
 				submitHandler: @submit
-				# invalidHandler: (event, validator) -> null
+				invalidHandler: @handleInvalid
 				rules:
 					email:
 						require_from_group: [1, '.upload-contact']
@@ -46,6 +46,10 @@ define [
 				unhighlight: @unhighlight
 				errorPlacement: @placeError
 			@
+
+		handleInvalid: (event, validator) ->
+			alert "#{validator.numberOfInvalids()} fields were filled out
+				incorrectly. Please review the form and try again."
 
 		highlight: (element, error, valid) ->
 			$(element).parent().removeClass(valid).addClass error
