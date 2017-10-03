@@ -71,7 +71,7 @@ define [
 		submit: (form, event) =>
 			event.preventDefault()
 			return unless @consentGiven
-			@$('#upload-status').text 'Uploading, please wait...'
+			@showStatus 'info', 'Uploading, please wait...'
 			contribution = new Contribution
 			@updateLanguages =>
 				contribution.save(form).then(@handleSuccess, @handleError)
@@ -97,19 +97,25 @@ define [
 						callback()
 
 		handleSuccess: (data, statusText, jqXHR) =>
-			@$('#upload-status').text 'Grazie!'
+			@showStatus 'success', 'Grazie!'
 
 		handleError: (jqXHR, statusText, thrownError) =>
 			@$('fieldset').prop 'disabled', false
 			if jqXHR.status == 400 and jqXHR.responseJSON?
 				wrong = _.mapValues jqXHR.responseJSON, _.partial _.join, _, ' '
-				@$('#upload-status').text "Some of the fields were invalid,
+				@showStatus 'warning', "Some of the fields were invalid,
 					please review. #{wrong.non_field_errors ? ''}"
 				@validator.showErrors wrong
 			else
-				@$('#upload-status').text 'Submission failed for technical
+				@showStatus 'danger', 'Submission failed for technical
 					reasons. Please try again later. If the problem persists,
 					please contact the researcher.'
+
+		# available levels: 'success', 'info', 'warning', 'danger'.
+		showStatus: (level, text) =>
+			@$('#upload-status').removeClass(
+				'alert-success alert-info alert-warning alert-danger'
+			).addClass("alert alert-#{level}").attr('role', 'alert').text text
 
 		updateConsent: ->
 			@consentGiven = @$('#user-consent').prop('checked')
