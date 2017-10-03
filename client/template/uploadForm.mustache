@@ -3,21 +3,21 @@
 	<form>
 		<fieldset>
 			<div class=form-group>
-				<label for=upload-file class=control-label>La tua registrazione</label>
+				<label for=upload-file class=control-label>La tua registrazione (required)</label>
 				<input id=upload-file name=recording type=file class=form-control accept="audio/*" required>
 			</div>
 		</fieldset>
 		<fieldset>
 			<legend>About the recording and the speaker</legend>
 			<div class=form-group>
-				<label for=upload-dialect class=control-label>Dialetto del paese di provenienza</label>
+				<label for=upload-dialect class=control-label>Dialetto del paese di provenienza (required)</label>
 				<select id=upload-dialect name=dialect class=form-control required>
 					<option></option>
 					{{#dialects}}<option value={{id}}>{{dialect}}</option>{{/dialects}}
 				</select>
 			</div>
 			<div class=form-group>
-				<label for=upload-languages class=control-label>What other languages does the speaker know?</label>
+				<label for=upload-languages class=control-label>What other languages does the speaker know? (required)</label>
 				<select multiple id=upload-languages name=languages class=form-control>
 					{{#languages}}<option value={{id}}>{{language}}</option>{{/languages}}
 				</select>
@@ -34,14 +34,14 @@
 				<input type=hidden name="place.longitude" value="{{longitude}}">
 			</div>
 			<div class=form-group>
-				<label for=upload-age class=control-label>Age</label>
+				<label for=upload-age class=control-label>Age (required)</label>
 				<select id=upload-age name=age class=form-control required>
 					<option></option>
 					{{#ages}}<option value={{id}}>{{least}}&ndash;{{greatest}}</option>{{/ages}}
 				</select>
 			</div>
 			<div class=form-group>
-				<label for=upload-sex class=control-label>Sex</label>
+				<label for=upload-sex class=control-label>Sex (required)</label>
 				<select id=upload-sex name=sex class=form-control required>
 					<option></option>
 					<option value=a>male</option>
@@ -50,7 +50,7 @@
 				</select>
 			</div>
 			<div class=form-group>
-				<label for=upload-education class=control-label>Level of education</label>
+				<label for=upload-education class=control-label>Level of education (required)</label>
 				<select id=upload-education name=education class=form-control required>
 					<option></option>
 					<option value=e>elementary</option>
@@ -82,17 +82,17 @@
 		<fieldset>
 			<legend>About you, the uploader</legend>
 			<div class=form-group>
-				<label for=upload-name class=control-label>Name</label>
+				<label for=upload-name class=control-label>Name (required)</label>
 				<input id=upload-name name=name type=text class=form-control required autocomplete=name spellcheck=false placeholder="Christina Alvarez" maxlength=200>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 			</div>
 			<div class=form-group>
-				<label for=upload-email class=control-label>Email</label>
+				<label for=upload-email class=control-label>Email (please provide at least one contact detail)</label>
 				<input id=upload-email name=email type=email class="form-control upload-contact" autocomplete=email spellcheck=false placeholder="calvarez@example.com" maxlength=254>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 			</div>
 			<div class=form-group>
-				<label for=upload-phone class=control-label>Phone</label>
+				<label for=upload-phone class=control-label>Phone (please provide at least one contact detail)</label>
 				<input id=upload-phone name=phone type=tel class="form-control upload-contact" autocomplete=tel placeholder="+1 123456789" maxlength=128 spellcheck=false>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 			</div>
