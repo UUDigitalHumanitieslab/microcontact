@@ -42,24 +42,28 @@ define [
 						require_from_group: [1, '.upload-contact']
 				errorClass: 'has-error'
 				validClass: 'has-success'
-				highlight: (element, error, valid) ->
-					$(element).parent().removeClass(valid).addClass(error)
-					$(element).siblings('.glyphicon').removeClass(
-						'glyphicon-ok'
-					).addClass(
-						'glyphicon-remove'
-					).parent().addClass 'has-feedback'
-				unhighlight: (element, error, valid) ->
-					$(element).parent().removeClass(error).addClass(valid)
-					$(element).siblings('.glyphicon').removeClass(
-						'glyphicon-remove'
-					).addClass('glyphicon-ok').parent().addClass 'has-feedback'
-				errorPlacement: (errorLabel, element) ->
-					$(errorLabel).addClass('help-block').appendTo(
-						$(element).parent()
-					)
+				highlight: @highlight
+				unhighlight: @unhighlight
+				errorPlacement: @placeError
 			@
-		
+
+		highlight: (element, error, valid) ->
+			$(element).parent().removeClass(valid).addClass error
+			$(element).siblings('.glyphicon').removeClass(
+				'glyphicon-ok'
+			).addClass(
+				'glyphicon-remove'
+			).parent().addClass 'has-feedback'
+
+		unhighlight: (element, error, valid) ->
+			$(element).parent().removeClass(error).addClass valid
+			$(element).siblings('.glyphicon').removeClass(
+				'glyphicon-remove'
+			).addClass('glyphicon-ok').parent().addClass 'has-feedback'
+
+		placeError: (errorLabel, element) ->
+			$(errorLabel).addClass('help-block').appendTo $(element).parent()
+
 		submit: (form, event) =>
 			event.preventDefault()
 			return unless @consentGiven
