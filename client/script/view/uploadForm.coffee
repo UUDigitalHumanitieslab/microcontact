@@ -62,9 +62,10 @@ define [
 		submit: (form, event) =>
 			event.preventDefault()
 			return unless @consentGiven
+			@$('#upload-status').text 'Uploading, please wait...'
 			contribution = new Contribution
 			@updateLanguages =>
-				contribution.save(form).done => @$el.text 'Grazie!'
+				contribution.save(form).done => @$('#upload-status').text 'Grazie!'
 				@$('fieldset').prop 'disabled', true
 
 		updateLanguages: (callback) ->
