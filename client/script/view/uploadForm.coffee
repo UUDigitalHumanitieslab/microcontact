@@ -47,9 +47,9 @@ define [
 				errorPlacement: @placeError
 			@
 
-		handleInvalid: (event, validator) ->
-			alert "#{validator.numberOfInvalids()} fields were filled out
-				incorrectly. Please review the form and try again."
+		handleInvalid: (event, validator) =>
+			@showStatus 'warning', "#{validator.numberOfInvalids()} fields were
+				filled out incorrectly. Please review the form and try again."
 
 		highlight: (element, error, valid) ->
 			$(element).parent().removeClass(valid).addClass error
