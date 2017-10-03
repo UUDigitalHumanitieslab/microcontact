@@ -21,6 +21,7 @@ define [
 			'click #user-consent': 'updateConsent'
 		
 		render: (place) ->
+			@validator?.destroy()
 			@$el.html @template {
 				place: place.toInternal()
 				dialects: dialects.toJSON()
@@ -31,7 +32,7 @@ define [
 				width: '100%'
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
-			@$('form').validate
+			@validator = @$('form').validate
 				submitHandler: @submit
 				# invalidHandler: (event, validator) -> null
 				rules:
@@ -65,7 +66,7 @@ define [
 			@$('#upload-status').text 'Uploading, please wait...'
 			contribution = new Contribution
 			@updateLanguages =>
-				contribution.save(form).done => @$('#upload-status').text 'Grazie!'
+				contribution.save(form).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
 
 		updateLanguages: (callback) ->
@@ -86,6 +87,21 @@ define [
 					@$('#upload-languages').trigger 'change.select2'
 					if --newLanguageCount == 0
 						callback()
+
+		handleSuccess: (data, statusText, jqXHR) =>
+			@$('#upload-status').text 'Grazie!'
+
+		handleError: (jqXHR, statusText, thrownError) =>
+			@$('fieldset').prop 'disabled', false
+			if jqXHR.status == 400 and jqXHR.responseJSON?
+				wrong = _.mapValues jqXHR.responseJSON, _.partial _.join, _, ' '
+				@$('#upload-status').text "Some of the fields were invalid,
+					please review. #{wrong.non_field_errors ? ''}"
+				@validator.showErrors wrong
+			else
+				@$('#upload-status').text 'Submission failed for technical
+					reasons. Please try again later. If the problem persists,
+					please contact the researcher.'
 
 		updateConsent: ->
 			@consentGiven = @$('#user-consent').prop('checked')
