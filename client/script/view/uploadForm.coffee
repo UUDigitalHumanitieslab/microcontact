@@ -40,6 +40,8 @@ define [
 						require_from_group: [1, '.upload-contact']
 					phone:
 						require_from_group: [1, '.upload-contact']
+				messages:
+					recording: 'Please upload an audio file of at most 100 MB.'
 				errorClass: 'has-error'
 				validClass: 'has-success'
 				highlight: @highlight
