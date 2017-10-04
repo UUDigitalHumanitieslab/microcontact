@@ -16,9 +16,9 @@ define [
 	sizePattern = /(\d+) *([kMG]B|bytes)?/i
 	baseSize =
 		bytes: 1
-		kb: 1000
-		mb: 1000000
-		gb: 1000000000
+		kb: 1024
+		mb: 1024 * 1024
+		gb: 1024 * 1024 * 1024
 	
 	# Convert strings such as '10 MB' to a number in bytes (10e6 in this case).
 	# See table above for available units; they are case-insensitive.
