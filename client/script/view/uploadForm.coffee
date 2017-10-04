@@ -142,6 +142,6 @@ define [
 
 		# available levels: 'success', 'info', 'warning', 'danger'.
 		showStatus: (level, text) =>
-			@$('#upload-status').removeClass(
+			@$('.upload-status').removeClass(
 				'alert-success alert-info alert-warning alert-danger'
 			).addClass("alert alert-#{level}").attr('role', 'alert').text text

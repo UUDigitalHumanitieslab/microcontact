@@ -1,6 +1,7 @@
 <div id=upload-form>{{#place}}
 	<h2>{{name}}, {{countryName}}</h2>
 	<form>
+		<div class=upload-status></div>
 		<fieldset>
 			<div class=form-group>
 				<label for=upload-file class=control-label>La tua registrazione (required)</label>
@@ -99,7 +100,7 @@
 		</fieldset>
 		<fieldset>
 			<div class=form-group>
-				<div id=upload-status></div>
+				<div class=upload-status></div>
 				<button type=submit class="btn btn-primary" id=submit-button>Invia</button>
 			</div>
 		</fieldset>
