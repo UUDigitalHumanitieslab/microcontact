@@ -89,18 +89,22 @@ define [
 
 		consent: (form, event) =>
 			event.preventDefault()
-			@$('#upload-form').hide()
-			@$('#upload-consent').show()
+			if @consentGiven
+				@submit(event)
+			else
+				@$('#upload-form').hide()
+				@$('#upload-consent').show()
 
 		submit: (event) ->
-			@$('#upload-consent').hide()
-			@$('#upload-form').show()
 			form = @$ 'form'
-			@showStatus 'info', 'Uploading, please wait...'
 			contribution = new Contribution
 			@updateLanguages =>
 				contribution.save(form[0]).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
+			@showStatus 'info', 'Uploading, please wait...'
+			@$('#upload-consent').hide()
+			@$('#upload-form').show()
+			@consentGiven = true
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
