@@ -10,8 +10,17 @@ define [
 	'select2'
 	'jquery.validate'
 	'jquery.validate.additions'
+	'util/fileSizeValidators'
 ], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
+	
+	recordingDefaultMessage = 'Please upload an audio file of 5 to 10 minutes.'
+	recordingMinSizeMessage = $.validator.format 'Your file is smaller than
+		{0}. Are you sure it is the correct recording?'
+	recordingMaxSizeMessage = $.validator.format 'Your file is very large.
+		Please use a compression format such as FLAC, reduce to CD quality if
+		you are using higher settings or try clipping silent segments out of
+		your recording, to get the file size under {0}.'
 	
 	class UploadFormView extends bb.View
 	
@@ -36,12 +45,19 @@ define [
 				submitHandler: @submit
 				invalidHandler: @handleInvalid
 				rules:
+					recording:
+						minFileSize: '100 kB'  # ~2 minute AMR at "tolerable" Q
+						maxFileSize: '100 MB'  # ~10 minute PCM at CD quality
 					email:
 						require_from_group: [1, '.upload-contact']
 					phone:
 						require_from_group: [1, '.upload-contact']
 				messages:
-					recording: 'Please upload an audio file of at most 100 MB.'
+					recording:
+						required: recordingDefaultMessage
+						accept: recordingDefaultMessage
+						minFileSize: recordingMinSizeMessage
+						maxFileSize: recordingMaxSizeMessage
 				errorClass: 'has-error'
 				validClass: 'has-success'
 				highlight: @highlight
