@@ -28,7 +28,7 @@ define [
 		template: JST['uploadForm']
 
 		events:
-			'click #user-consent': 'updateConsent'
+			'click #accept-button': 'submit'
 		
 		render: (place) ->
 			@validator?.destroy()
@@ -43,7 +43,7 @@ define [
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
 			@validator = @$('form').validate
-				submitHandler: @submit
+				submitHandler: @consent
 				invalidHandler: @handleInvalid
 				rules:
 					recording:
@@ -87,13 +87,19 @@ define [
 		placeError: (errorLabel, element) ->
 			$(errorLabel).addClass('help-block').appendTo $(element).parent()
 
-		submit: (form, event) =>
+		consent: (form, event) =>
 			event.preventDefault()
-			return unless @consentGiven
+			@$('#upload-form').hide()
+			@$('#upload-consent').show()
+
+		submit: (event) ->
+			@$('#upload-consent').hide()
+			@$('#upload-form').show()
+			form = @$ 'form'
 			@showStatus 'info', 'Uploading, please wait...'
 			contribution = new Contribution
 			@updateLanguages =>
-				contribution.save(form).then(@handleSuccess, @handleError)
+				contribution.save(form[0]).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
 
 		updateLanguages: (callback) ->
@@ -135,7 +141,3 @@ define [
 			@$('#upload-status').removeClass(
 				'alert-success alert-info alert-warning alert-danger'
 			).addClass("alert alert-#{level}").attr('role', 'alert').text text
-
-		updateConsent: ->
-			@consentGiven = @$('#user-consent').prop('checked')
-			@$('#submit-button').prop('disabled', !@consentGiven)
