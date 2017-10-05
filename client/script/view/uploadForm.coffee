@@ -29,6 +29,7 @@ define [
 
 		events:
 			'click #accept-button': 'submit'
+			'submit form': 'setOrigin'
 		
 		render: (place) ->
 			@validator?.destroy()
@@ -145,3 +146,12 @@ define [
 			@$('.upload-status').removeClass(
 				'alert-success alert-info alert-warning alert-danger'
 			).addClass("alert alert-#{level}").attr('role', 'alert').text text
+
+		setOrigin: (event) ->
+			placeField = @$ '#upload-origin-place'
+			maxLength = placeField.prop 'maxlength'
+			place = placeField.val()
+			province = @$('#upload-origin-province').val()
+			@$('#upload-origin').val "#{
+				place.slice 0, maxLength - province.length - 2
+			}, #{province}"
