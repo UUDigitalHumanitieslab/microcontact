@@ -15,6 +15,9 @@ define [
 ], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
 	
+	generationFieldSelector = '#upload-generation-field'
+	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
+	firstGenFieldsSelector = '#upload-firstgen-fields'
 	recordingDefaultMessage = 'Please upload an audio file of 5 to 10 minutes.'
 	recordingMinSizeMessage = $.validator.format 'Your file is smaller than
 		{0}. Are you sure it is the correct recording?'
@@ -30,11 +33,13 @@ define [
 		events:
 			'click #accept-button': 'submit'
 			'submit form': 'setOrigin'
+			"change #{generationFieldSelector} input": 'toggleFirstGenFields'
 		
 		render: (place) ->
+			place = place.toInternal()
 			@validator?.destroy()
 			@$el.html @template {
-				place: place.toInternal()
+				place
 				dialects: dialects.toJSON()
 				languages: languages.toJSON()
 				ages: ages.toJSON()
@@ -65,6 +70,9 @@ define [
 				highlight: @highlight
 				unhighlight: @unhighlight
 				errorPlacement: @placeError
+			@firstGenFields = @$ firstGenFieldsSelector
+			@firstGenFields.hide()
+			@$(generationFieldSelector).hide() if place.country == 'IT'
 			@
 
 		handleInvalid: (event, validator) =>
@@ -155,3 +163,10 @@ define [
 			@$('#upload-origin').val "#{
 				place.slice 0, maxLength - province.length - 2
 			}, #{province}"
+
+		toggleFirstGenFields: (event) ->
+			if $(generationFieldValueSelector).val() == 'a'
+				# Born in Italy
+				@firstGenFields.show()
+			else
+				@firstGenFields.hide()
