@@ -64,6 +64,7 @@ define [
 				highlight: @highlight
 				unhighlight: @unhighlight
 				errorPlacement: @placeError
+			@consentGiven = false
 			@
 
 		handleInvalid: (event, validator) =>
