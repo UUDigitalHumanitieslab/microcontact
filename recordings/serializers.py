@@ -85,8 +85,14 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             },
             'sex': {'write_only': True},
             'education': {'write_only': True},
-            'generation': {'write_only': True},
-            'origin': {'write_only': True},
+            'generation': {
+                'write_only': True,
+                'required': False,
+            },
+            'origin': {
+                'write_only': True,
+                'required': False,
+            },
             'migrated': {
                 'write_only': True,
                 'required': False,

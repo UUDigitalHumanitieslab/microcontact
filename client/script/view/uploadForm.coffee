@@ -8,8 +8,20 @@ define [
 	'util/languages'
 	'util/ageCategories'
 	'select2'
+	'jquery.validate'
+	'jquery.validate.additions'
+	'jquery.validate.messages.IT'
+	'util/fileSizeValidators'
 ], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
+	
+	recordingDefaultMessage = 'Please upload an audio file of 5 to 10 minutes.'
+	recordingMinSizeMessage = $.validator.format 'Your file is smaller than
+		{0}. Are you sure it is the correct recording?'
+	recordingMaxSizeMessage = $.validator.format 'Your file is very large.
+		Please use a compression format such as FLAC, reduce to CD quality if
+		you are using higher settings or try clipping silent segments out of
+		your recording, to get the file size under {0}.'
 	
 	class UploadFormView extends bb.View
 	
@@ -17,9 +29,9 @@ define [
 
 		events:
 			'click #user-consent': 'updateConsent'
-			'submit form': 'submit'
 		
 		render: (place) ->
+			@validator?.destroy()
 			@$el.html @template {
 				place: place.toInternal()
 				dialects: dialects.toJSON()
@@ -30,16 +42,59 @@ define [
 				width: '100%'
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
+			@validator = @$('form').validate
+				submitHandler: @submit
+				invalidHandler: @handleInvalid
+				rules:
+					recording:
+						minFileSize: '100 kB'  # ~2 minute AMR at "tolerable" Q
+						maxFileSize: '100 MB'  # ~10 minute PCM at CD quality
+					email:
+						require_from_group: [1, '.upload-contact']
+					phone:
+						require_from_group: [1, '.upload-contact']
+				messages:
+					recording:
+						required: recordingDefaultMessage
+						accept: recordingDefaultMessage
+						minFileSize: recordingMinSizeMessage
+						maxFileSize: recordingMaxSizeMessage
+				errorClass: 'has-error'
+				validClass: 'has-success'
+				highlight: @highlight
+				unhighlight: @unhighlight
+				errorPlacement: @placeError
 			@
-		
-		submit: (event) ->
+
+		handleInvalid: (event, validator) =>
+			@showStatus 'warning', "#{validator.numberOfInvalids()} fields were
+				filled out incorrectly. Please review the form and try again."
+
+		highlight: (element, error, valid) ->
+			$(element).parent().removeClass(valid).addClass error
+			$(element).siblings('.glyphicon').removeClass(
+				'glyphicon-ok'
+			).addClass(
+				'glyphicon-remove'
+			).parent().addClass 'has-feedback'
+
+		unhighlight: (element, error, valid) ->
+			$(element).parent().removeClass(error).addClass valid
+			$(element).siblings('.glyphicon').removeClass(
+				'glyphicon-remove'
+			).addClass('glyphicon-ok').parent().addClass 'has-feedback'
+
+		placeError: (errorLabel, element) ->
+			$(errorLabel).addClass('help-block').appendTo $(element).parent()
+
+		submit: (form, event) =>
 			event.preventDefault()
 			return unless @consentGiven
-			form = @$ 'form'
-			form.prop 'disabled', true
+			@showStatus 'info', 'Uploading, please wait...'
 			contribution = new Contribution
 			@updateLanguages =>
-				contribution.save(form[0]).done => @$el.text 'Grazie!'
+				contribution.save(form).then(@handleSuccess, @handleError)
+				@$('fieldset').prop 'disabled', true
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
@@ -59,6 +114,27 @@ define [
 					@$('#upload-languages').trigger 'change.select2'
 					if --newLanguageCount == 0
 						callback()
+
+		handleSuccess: (data, statusText, jqXHR) =>
+			@showStatus 'success', 'Grazie!'
+
+		handleError: (jqXHR, statusText, thrownError) =>
+			@$('fieldset').prop 'disabled', false
+			if jqXHR.status == 400 and jqXHR.responseJSON?
+				wrong = _.mapValues jqXHR.responseJSON, _.partial _.join, _, ' '
+				@showStatus 'warning', "Some of the fields were invalid,
+					please review. #{wrong.non_field_errors ? ''}"
+				@validator.showErrors wrong
+			else
+				@showStatus 'danger', 'Submission failed for technical
+					reasons. Please try again later. If the problem persists,
+					please contact the researcher.'
+
+		# available levels: 'success', 'info', 'warning', 'danger'.
+		showStatus: (level, text) =>
+			@$('#upload-status').removeClass(
+				'alert-success alert-info alert-warning alert-danger'
+			).addClass("alert alert-#{level}").attr('role', 'alert').text text
 
 		updateConsent: ->
 			@consentGiven = @$('#user-consent').prop('checked')
