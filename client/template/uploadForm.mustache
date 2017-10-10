@@ -1,6 +1,7 @@
-{{#place}}
+<div id=upload-form>{{#place}}
 	<h2>{{name}}, {{countryName}}</h2>
 	<form>
+		<div class=upload-status></div>
 		<fieldset>
 			<div class=form-group>
 				<label for=upload-file class=control-label>La tua registrazione (required)</label>
@@ -98,16 +99,15 @@
 			</div>
 		</fieldset>
 		<fieldset>
-			<div class=checkbox>
-				<label>
-					<input type="checkbox" name="consent" id=user-consent required>
-					La persona la cui voce è registrata su questo file dichiara di aver letto e capito il Modulo Informativo del Partecipante e di accettare di partecipare a questo studio.
-				</label>
-			</div>
 			<div class=form-group>
-				<div id=upload-status></div>
-				<button type=submit class="btn btn-primary" id=submit-button disabled>Invia</button>
+				<div class=upload-status></div>
+				<button type=submit class="btn btn-primary" id=submit-button>Invia</button>
 			</div>
 		</fieldset>
 	</form>
-{{/place}}
+{{/place}}</div>
+<div id=upload-consent style="display: none;">
+	<h2>Modulo Informativo del Partecipante</h2>
+	<p>This is a placeholder.</p>
+	<button type=submit class="btn btn-primary" id=accept-button>Accept</button>
+</div>
