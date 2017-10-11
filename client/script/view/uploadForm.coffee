@@ -19,12 +19,11 @@ define [
 	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
 	firstGenFieldsSelector = '#upload-firstgen-fields'
 	recordingDefaultMessage = 'Please upload an audio file of 5 to 10 minutes.'
-	recordingMinSizeMessage = $.validator.format 'Your file is smaller than
-		{0}. Are you sure it is the correct recording?'
-	recordingMaxSizeMessage = $.validator.format 'Your file is very large.
-		Please use a compression format such as FLAC, reduce to CD quality if
-		you are using higher settings or try clipping silent segments out of
-		your recording, to get the file size under {0}.'
+	recordingMaxSizeMessage = $.validator.format 'Your file is too large.
+		Alternatively, you can use a compressed format, for example FLAC,
+		reduce the file to CD quality (if you are using more advanced
+		resolutions), or try clipping silent segments out of your recording,
+		to get the file size under {0}.'
 	
 	class UploadFormView extends bb.View
 	
@@ -54,7 +53,6 @@ define [
 				invalidHandler: @handleInvalid
 				rules:
 					recording:
-						minFileSize: '100 kB'  # ~2 minute AMR at "tolerable" Q
 						maxFileSize: '100 MB'  # ~10 minute PCM at CD quality
 					generation:
 						required: generationRequired
@@ -72,7 +70,6 @@ define [
 					recording:
 						required: recordingDefaultMessage
 						accept: recordingDefaultMessage
-						minFileSize: recordingMinSizeMessage
 						maxFileSize: recordingMaxSizeMessage
 				errorClass: 'has-error'
 				validClass: 'has-success'
