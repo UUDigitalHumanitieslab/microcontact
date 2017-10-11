@@ -1,6 +1,7 @@
 define [
 	'backbone'
 	'templates'
+	'bootstrap/collapse'
 ], (bb, JST) ->
 	'use strict'
 	

@@ -15,6 +15,9 @@ define [
 ], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
 	'use strict'
 	
+	generationFieldSelector = '#upload-generation-field'
+	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
+	firstGenFieldsSelector = '#upload-firstgen-fields'
 	recordingDefaultMessage = 'Please upload an audio file of 5 to 10 minutes.'
 	recordingMinSizeMessage = $.validator.format 'Your file is smaller than
 		{0}. Are you sure it is the correct recording?'
@@ -29,11 +32,15 @@ define [
 
 		events:
 			'click #accept-button': 'submit'
+			'submit form': 'setOrigin'
+			"change #{generationFieldSelector} input": 'toggleFirstGenFields'
 		
 		render: (place) ->
+			place = place.toInternal()
+			generationRequired = (place.country != 'IT')
 			@validator?.destroy()
 			@$el.html @template {
-				place: place.toInternal()
+				place
 				dialects: dialects.toJSON()
 				languages: languages.toJSON()
 				ages: ages.toJSON()
@@ -49,6 +56,14 @@ define [
 					recording:
 						minFileSize: '100 kB'  # ~2 minute AMR at "tolerable" Q
 						maxFileSize: '100 MB'  # ~10 minute PCM at CD quality
+					generation:
+						required: generationRequired
+					migrated:
+						required: depends: @isFirstGeneration
+					'origin-place':
+						required: depends: @isFirstGeneration
+					'origin-province':
+						required: depends: @isFirstGeneration
 					email:
 						require_from_group: [1, '.upload-contact']
 					phone:
@@ -64,6 +79,9 @@ define [
 				highlight: @highlight
 				unhighlight: @unhighlight
 				errorPlacement: @placeError
+			@firstGenFields = @$ firstGenFieldsSelector
+			@firstGenFields.hide()
+			@$(generationFieldSelector).hide() unless generationRequired
 			@consentGiven = false
 			@
 
@@ -146,3 +164,20 @@ define [
 			@$('.upload-status').removeClass(
 				'alert-success alert-info alert-warning alert-danger'
 			).addClass("alert alert-#{level}").attr('role', 'alert').text text
+
+		setOrigin: (event) ->
+			placeField = @$ '#upload-origin-place'
+			maxLength = placeField.prop 'maxlength'
+			place = placeField.val()
+			province = @$('#upload-origin-province').val()
+			@$('#upload-origin').val "#{
+				place.slice 0, maxLength - province.length - 2
+			}, #{province}"
+
+		isFirstGeneration: => $(generationFieldValueSelector).val() == 'a'
+
+		toggleFirstGenFields: (event) ->
+			if @isFirstGeneration() # Born in Italy
+				@firstGenFields.show()
+			else
+				@firstGenFields.hide()

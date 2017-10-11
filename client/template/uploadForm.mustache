@@ -60,28 +60,39 @@
 					<option value=u>university</option>
 				</select>
 			</div>
-			<div class=radio>
-				<label>
-					<input type=radio name=generation value=a>
-					First generation emigrant
-				</label>
-				<label>
-					<input type=radio name=generation value=b>
-					Second generation emigrant
-				</label>
-			</div>
-			<div class=form-group>
-				<label for=upload-migrated class=control-label>First generation migrated in</label>
-				<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
-			</div>
-			<div class=form-group>
-				<label for=upload-origin class=control-label>First generation emigrated from</label>
-				<input id=upload-origin name=origin type=text class=form-control placeholder="Palermo" maxlength=200 spellcheck=false>
-				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-			</div>
+			<fieldset id=upload-generation-field>
+				<div class=radio>
+					<label>
+						<input type=radio name=generation value=a>
+						I was born in Italy.
+					</label><br>
+					<label>
+						<input type=radio name=generation value=b>
+						I was born in {{countryName}}.
+					</label>
+				</div>
+			</fieldset>
+			<fieldset id=upload-firstgen-fields>
+				<div class=form-group>
+					<label for=upload-migrated class=control-label>I immigrated in (required)</label>
+					<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
+				</div>
+				<div class=form-group>
+					<label for=upload-origin-place class=control-label>I came from (required)</label>
+					<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="Città/paese" maxlength=200 spellcheck=false>
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<input type=hidden id=upload-origin name=origin>
+				</div>
+				<div class=form-group>
+					<label for=upload-origin-province class=control-label>in (required)</label>
+					<input id=upload-origin-province name=origin-province type=text class=form-control placeholder="Provincia" maxlength=50 spellcheck=false>
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+				</div>
+			</fieldset>
 		</fieldset>
 		<fieldset>
 			<legend>About you, the uploader</legend>
+			<p class=text-success><strong>Your personal details will never be published.</strong></p>
 			<div class=form-group>
 				<label for=upload-name class=control-label>Name (required)</label>
 				<input id=upload-name name=name type=text class=form-control required autocomplete=name spellcheck=false placeholder="Christina Alvarez" maxlength=200>
