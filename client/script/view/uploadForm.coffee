@@ -37,6 +37,7 @@ define [
 		
 		render: (place) ->
 			place = place.toInternal()
+			generationRequired = (place.country != 'IT')
 			@validator?.destroy()
 			@$el.html @template {
 				place
@@ -55,6 +56,14 @@ define [
 					recording:
 						minFileSize: '100 kB'  # ~2 minute AMR at "tolerable" Q
 						maxFileSize: '100 MB'  # ~10 minute PCM at CD quality
+					generation:
+						required: generationRequired
+					migrated:
+						required: depends: @isFirstGeneration
+					'origin-place':
+						required: depends: @isFirstGeneration
+					'origin-province':
+						required: depends: @isFirstGeneration
 					email:
 						require_from_group: [1, '.upload-contact']
 					phone:
@@ -72,7 +81,7 @@ define [
 				errorPlacement: @placeError
 			@firstGenFields = @$ firstGenFieldsSelector
 			@firstGenFields.hide()
-			@$(generationFieldSelector).hide() if place.country == 'IT'
+			@$(generationFieldSelector).hide() unless generationRequired
 			@
 
 		handleInvalid: (event, validator) =>
@@ -164,9 +173,10 @@ define [
 				place.slice 0, maxLength - province.length - 2
 			}, #{province}"
 
+		isFirstGeneration: => $(generationFieldValueSelector).val() == 'a'
+
 		toggleFirstGenFields: (event) ->
-			if $(generationFieldValueSelector).val() == 'a'
-				# Born in Italy
+			if @isFirstGeneration() # Born in Italy
 				@firstGenFields.show()
 			else
 				@firstGenFields.hide()
