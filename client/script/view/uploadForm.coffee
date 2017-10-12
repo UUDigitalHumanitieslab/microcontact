@@ -18,12 +18,14 @@ define [
 	generationFieldSelector = '#upload-generation-field'
 	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
 	firstGenFieldsSelector = '#upload-firstgen-fields'
-	recordingDefaultMessage = 'Please upload an audio file of 5 to 10 minutes.'
-	recordingMaxSizeMessage = $.validator.format 'Your file is too large.
-		Alternatively, you can use a compressed format, for example FLAC,
-		reduce the file to CD quality (if you are using more advanced
-		resolutions), or try clipping silent segments out of your recording,
-		to get the file size under {0}.'
+	recordingDefaultMessage = 'Carica un file audio di 5 minuti (minimo) fino a
+		10 minuti (massimo).'
+	recordingMaxSizeMessage = $.validator.format 'Il tuo file è troppo grande.
+		Alternativamente, puoi usare un formato compresso, per esempio FLAC,
+		oppure puoi ridurre il file in qualità CD (se stai usando risoluzioni
+		più avanzate). Puoi anche provare a tagliare i segmenti silenziosi
+		della tua registrazione (pause, interruzioni, ecc...) per ottenere un
+		file più piccolo di {0}.'
 	
 	class UploadFormView extends bb.View
 	
@@ -83,8 +85,8 @@ define [
 			@
 
 		handleInvalid: (event, validator) =>
-			@showStatus 'warning', "#{validator.numberOfInvalids()} fields were
-				filled out incorrectly. Please review the form and try again."
+			@showStatus 'warning', "#{validator.numberOfInvalids()} campi sono
+				stati riempiti incorrettamente. Ricontrolla e prova di nuovo."
 
 		highlight: (element, error, valid) ->
 			$(element).parent().removeClass(valid).addClass error
@@ -117,7 +119,7 @@ define [
 			@updateLanguages =>
 				contribution.save(form[0]).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
-			@showStatus 'info', 'Uploading, please wait...'
+			@showStatus 'info', 'Caricamento in corso. Si prega di attendere...'
 			@$('#upload-consent').hide()
 			@$('#upload-form').show()
 			@consentGiven = true
@@ -148,13 +150,13 @@ define [
 			@$('fieldset').prop 'disabled', false
 			if jqXHR.status == 400 and jqXHR.responseJSON?
 				wrong = _.mapValues jqXHR.responseJSON, _.partial _.join, _, ' '
-				@showStatus 'warning', "Some of the fields were invalid,
-					please review. #{wrong.non_field_errors ? ''}"
+				@showStatus 'warning', "Alcuni campi non sono validi.
+					Ricontrolla. #{wrong.non_field_errors ? ''}"
 				@validator.showErrors wrong
 			else
-				@showStatus 'danger', 'Submission failed for technical
-					reasons. Please try again later. If the problem persists,
-					please contact the researcher.'
+				@showStatus 'danger', 'L’invio non è riuscito per problemi
+					tecnici. Riprova più tardi. Se il problema continua,
+					contatta un membro del gruppo di ricerca.'
 
 		# available levels: 'success', 'info', 'warning', 'danger'.
 		showStatus: (level, text) =>

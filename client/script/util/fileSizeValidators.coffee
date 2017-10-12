@@ -42,7 +42,7 @@ define [
 			return true unless size?
 			minimum = asBytes param
 			size >= minimum
-	), $.validator.format 'The file must be at least {0} in size.'
+	), $.validator.format 'Il file deve essere minimo di {0}.'
 	
 	# See minFileSize for documentation.
 	$.validator.addMethod 'maxFileSize', (
@@ -52,6 +52,6 @@ define [
 			return true unless size?
 			maximum = asBytes param
 			size <= maximum
-	), $.validator.format 'The file must be at most {0} in size.'
+	), $.validator.format 'Il file deve essere massimo di {0}.'
 	
 	asBytes
