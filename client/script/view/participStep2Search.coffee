@@ -23,6 +23,7 @@ define [
 			@$('#particip-step-content').html @template @model.attributes
 			@$('#particip-step-title').text 'Trova la località'
 			inputField = @$ '#particip-query'
+			inputField.focus()
 			@autocomplete = new gmaps.places.Autocomplete inputField[0],
 				types: ['(cities)']
 				componentRestrictions: country: @model.get 'country'
