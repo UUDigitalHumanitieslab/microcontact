@@ -49,7 +49,9 @@ define [
 		participate: (country, query) ->
 			@state.set mode: 'participate'
 			countryLong = (countries.find code: country)?.get 'name'
-			@participate.state.set {country, countryLong, query}
+			result = @participate.state.get 'result'
+			result = undefined unless query? and result?.name == query
+			@participate.state.set {country, countryLong, query, result}
 
 		contributions: ->
 			@state.set mode: 'contributions'
