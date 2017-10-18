@@ -26,7 +26,17 @@ define [
 		più avanzate). Puoi anche provare a tagliare i segmenti silenziosi
 		della tua registrazione (pause, interruzioni, ecc...) per ottenere un
 		file più piccolo di {0}.'
-	
+
+	# Retrieve containing div.form-group, div.radio for form element
+	getFormGroupElement = (element) -> $(element).parents('div').first()
+
+	# Toggle classes for form group and glyphicon of a given form field
+	setContextFeedback = (field, groupAdd, groupRemove, iconAdd, iconRemove) ->
+		getFormGroupElement(field).removeClass(groupRemove).addClass groupAdd
+		icon = $(field).siblings('.glyphicon')
+		icon.removeClass(iconRemove).addClass iconAdd
+		getFormGroupElement(icon).addClass 'has-feedback'
+
 	class UploadFormView extends bb.View
 	
 		template: JST['uploadForm']
@@ -89,21 +99,18 @@ define [
 				stati riempiti incorrettamente. Ricontrolla e prova di nuovo."
 
 		highlight: (element, error, valid) ->
-			$(element).parent().removeClass(valid).addClass error
-			$(element).siblings('.glyphicon').removeClass(
-				'glyphicon-ok'
-			).addClass(
-				'glyphicon-remove'
-			).parent().addClass 'has-feedback'
+			setContextFeedback(
+				element, error, valid, 'glyphicon-remove', 'glyphicon-ok'
+			)
 
 		unhighlight: (element, error, valid) ->
-			$(element).parent().removeClass(error).addClass valid
-			$(element).siblings('.glyphicon').removeClass(
-				'glyphicon-remove'
-			).addClass('glyphicon-ok').parent().addClass 'has-feedback'
+			setContextFeedback(
+				element, valid, error, 'glyphicon-ok', 'glyphicon-remove'
+			)
 
 		placeError: (errorLabel, element) ->
-			$(errorLabel).addClass('help-block').appendTo $(element).parent()
+			target = getFormGroupElement element
+			$(errorLabel).addClass('help-block').appendTo target
 
 		consent: (form, event) =>
 			event.preventDefault()
