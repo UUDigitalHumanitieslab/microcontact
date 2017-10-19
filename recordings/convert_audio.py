@@ -1,5 +1,31 @@
 import subprocess
 import os
+import sys
+
+
+if sys.version_info < (3, 5):
+    # Backport for older versions of python that lack subprocess.run
+    # Thanks to https://stackoverflow.com/a/40590445
+    def run(*popenargs, input=None, check=False, **kwargs):
+        if input is not None:
+            if 'stdin' in kwargs:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = subprocess.PIPE
+
+        process = subprocess.Popen(*popenargs, **kwargs)
+        try:
+            stdout, stderr = process.communicate(input)
+        except:
+            process.kill()
+            process.wait()
+            raise
+        retcode = process.poll()
+        if check and retcode:
+            raise subprocess.CalledProcessError(
+                retcode, process.args, output=stdout, stderr=stderr)
+        return retcode, stdout, stderr
+else:
+    run = subprocess.run
 
 
 def convert_to_mp3(infile):
@@ -19,5 +45,5 @@ def convert_to_mp3(infile):
     query_string = 'ffmpeg -i ' + infile + \
      ' -acodec mp3 -ac 1 -ab 128k -hide_banner -loglevel panic -y '\
       + outfile
-    subprocess.run(query_string, shell=True, check=True)
+    run(query_string, shell=True, check=True)
     return outfile
