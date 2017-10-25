@@ -17,30 +17,16 @@ define [
 	class MainRouter extends bb.Router
 		initialize: ->
 			@map = new Map
-			@map.render()
-			@participate = new Participate map: @map.map
-			@contributions = new Contributions map: @map.map
 			@menu = new Menu el: $ 'nav#nav-main'
 			@menu.listenTo @, 'route', @menu.update
 			@state = new bb.Model
 			@state.on 'change:mode', (state, newMode) =>
 				switch state.previous 'mode'
-					when 'participate' then @participate.remove()
-					when 'contributions' then @contributions.remove()
+					when 'participate' then @participateView.remove()
+					when 'contributions' then @contributionsView.remove()
 				switch newMode
-					when 'participate' then @participate.render()
-					when 'contributions' then @contributions.render()
-			@participate.state.on 'change', (state) =>
-				{country, query} = state.attributes
-				switch
-					# trigger: true to ensure that the route event is triggered
-					when query then @navigate "participate/#{country}/#{query}", trigger: true
-					when country
-						@participate.close()
-						@navigate "participate/#{country}", trigger: true
-					else
-						@participate.close()
-						@navigate 'participate'
+					when 'participate' then @lazyGetParticipate().render()
+					when 'contributions' then @lazyGetContributions().render()
 
 		routes:
 			'participate(/:country)(/:query)': 'participate'
@@ -49,10 +35,33 @@ define [
 		participate: (country, query) ->
 			@state.set mode: 'participate'
 			countryLong = (countries.find code: country)?.get 'name'
-			result = @participate.state.get 'result'
+			result = @lazyGetParticipate().state.get 'result'
 			result = undefined unless query? and result?.name == query
-			@participate.state.set {country, countryLong, query, result}
+			@participateView.state.set {country, countryLong, query, result}
 
 		contributions: ->
 			@state.set mode: 'contributions'
 			@navigate 'contributions'
+
+		lazyGetParticipate: ->
+			return @participateView if @participateView?
+			@map.render()
+			@participateView = new Participate map: @map.map
+			@participateView.state.on 'change', (state) =>
+				{country, query} = state.attributes
+				switch
+					# trigger: true to ensure that the route event is triggered
+					when query then @navigate "participate/#{country}/#{query}", trigger: true
+					when country
+						@participateView.close()
+						@navigate "participate/#{country}", trigger: true
+					else
+						@participateView.close()
+						@navigate 'participate'
+			@participateView
+
+		lazyGetContributions: ->
+			return @contributionsView if @contributionsView?
+			@map.render()
+			@contributionsView = new Contributions map: @map.map
+			@contributionsView

@@ -35,6 +35,7 @@ define [
 		template: JST['map']
 		el: 'main'
 		render: ->
+			return @ if @rendered
 			@$el.html @template {}
 			mapElem = @$ '#map'
 			@map = new gmaps.Map mapElem[0], mapSettings
@@ -42,4 +43,5 @@ define [
 			logo = $('<div>').html(@logoTemplate {})[0]
 			logo.index = 1
 			@map.controls[@logoPos].push logo
+			@rendered = true
 			@
