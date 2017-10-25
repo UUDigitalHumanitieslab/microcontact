@@ -42,8 +42,6 @@ define [
 		template: JST['uploadForm']
 
 		events:
-			'click #accept-button': 'submit'
-			'submit form': 'setOrigin'
 			"change #{generationFieldSelector} input": 'toggleFirstGenFields'
 		
 		render: (place) ->
@@ -61,7 +59,7 @@ define [
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
 			@validator = @$('form').validate
-				submitHandler: @consent
+				submitHandler: @submit
 				invalidHandler: @handleInvalid
 				rules:
 					recording:
@@ -91,7 +89,6 @@ define [
 			@firstGenFields = @$ firstGenFieldsSelector
 			@firstGenFields.hide()
 			@$(generationFieldSelector).hide() unless generationRequired
-			@consentGiven = false
 			@
 
 		handleInvalid: (event, validator) =>
@@ -112,24 +109,14 @@ define [
 			target = getFormGroupElement element
 			$(errorLabel).addClass('help-block').appendTo target
 
-		consent: (form, event) =>
+		submit: (form, event) =>
 			event.preventDefault()
-			if @consentGiven
-				@submit(event)
-			else
-				@$('#upload-form').hide()
-				@$('#upload-consent').show()
-
-		submit: (event) ->
-			form = @$ 'form'
+			@setOrigin event
 			contribution = new Contribution
 			@updateLanguages =>
-				contribution.save(form[0]).then(@handleSuccess, @handleError)
+				contribution.save(form).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
 			@showStatus 'info', 'Caricamento in corso. Si prega di attendere...'
-			@$('#upload-consent').hide()
-			@$('#upload-form').show()
-			@consentGiven = true
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
