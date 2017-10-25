@@ -10,8 +10,9 @@ define [
 	'view/menu'
 	'view/contributions'
 	'view/participate'
+	'view/informationForm'
 	'util/countries'
-], (bb, $, Map, Menu, Contributions, Participate, countries) ->
+], (bb, $, Map, Menu, Contributions, Participate, InfoForm, countries) ->
 	'use strict'
 	
 	class MainRouter extends bb.Router
@@ -31,6 +32,7 @@ define [
 		routes:
 			'participate(/:country)(/:query)': 'participate'
 			'(contributions)': 'contributions'
+			'participant-information': 'participantInformation'
 
 		participate: (country, query) ->
 			@state.set mode: 'participate'
@@ -42,6 +44,10 @@ define [
 		contributions: ->
 			@state.set mode: 'contributions'
 			@navigate 'contributions'
+
+		participantInformation: ->
+			@infoForm = new InfoForm el: $ 'main'
+			@infoForm.render()
 
 		lazyGetParticipate: ->
 			return @participateView if @participateView?

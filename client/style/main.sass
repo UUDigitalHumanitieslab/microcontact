@@ -67,3 +67,9 @@ main
 // help-block font weight as intended by the bootstrap designers
 label.help-block
 	font-weight: normal
+
+// variant of Bootstrap's .table without line dividers
+.contact-table
+	@extend .table
+	tbody > tr > td
+		border-top: 0
