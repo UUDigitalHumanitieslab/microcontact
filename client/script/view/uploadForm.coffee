@@ -18,6 +18,16 @@ define [
 	generationFieldSelector = '#upload-generation-field'
 	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
 	firstGenFieldsSelector = '#upload-firstgen-fields'
+	acceptedMediaTypes = 'audio/*'
+	# The following is a merger of a somewhat arbitrary selection out of
+	#  - ffmpeg -codecs
+	#  - https://fileinfo.com/filetypes/audio
+	#  - https://www.iana.org/assignments/media-types/media-types.xhtml#audio
+	# Criterion: name sounds familiar or like it may be associated with voice
+	# recorders.
+	# Order: most common or most likely to be associated with voice recorders
+	# first, otherwise alphabetical. There are three alphabetical subranges.
+	acceptedExtensions = 'mp3|mp4|m4a|aac|wav|aiff|aif|aifc|flac|alac|3g2|3gp|3gpp|3ga|amr|gsm|oga|ogg|opus|spx|vmf|vmo|vox|vpm|vpw|vqf|vrf|vsq|vsqx|vyf|aa|aa3|ac3|acm|acp|act|adf|adt|adts|ape|ast|at3|au|awb|boa|caf|caff|cdda|cdr|cpt|dff|dss|dts|dtshd|dvf|dwd|fzv|mp2|ics|iff|isma|la|lwv|mgv|mka|mo3|mpa|mpc|mpga|mpu|msv|narrative|ncw|nvf|odm|ofr|oma|omf|omg|pca|pho|ppc|ppcx|psf|pvc|qcp|r1m|ra|raw|rx2|s3z|ses|sesx|shn|snd|tak|tta|w64|wave|wv|zvd'
 	recordingDefaultMessage = 'Carica un file audio di 5 minuti (minimo) fino a
 		10 minuti (massimo).'
 	recordingMaxSizeMessage = $.validator.format 'Il tuo file è troppo grande.
@@ -64,6 +74,18 @@ define [
 				rules:
 					recording:
 						maxFileSize: '100 MB'  # ~10 minute PCM at CD quality
+						accept:
+							param: acceptedMediaTypes
+							depends: (elem) =>
+								not $.validator.methods.extension.call @validator, $(elem).val(), elem, acceptedExtensions
+						# The extension rule is only here as a fallback for
+						# browsers that fail to recognize an audio file format.
+						# May still fail, since it is impossible to list all
+						# existing file extensions.
+						extension:
+							param: acceptedExtensions
+							depends: (elem) =>
+								not $.validator.methods.accept.call @validator, $(elem).val(), elem, acceptedMediaTypes
 					generation:
 						required: generationRequired
 					migrated:
@@ -80,6 +102,7 @@ define [
 					recording:
 						required: recordingDefaultMessage
 						accept: recordingDefaultMessage
+						extension: recordingDefaultMessage
 						maxFileSize: recordingMaxSizeMessage
 				errorClass: 'has-error'
 				validClass: 'has-success'
