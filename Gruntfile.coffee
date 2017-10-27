@@ -20,6 +20,7 @@ module.exports = (grunt) ->
 		style: 'style'
 		template: 'template'
 		templateSrc: '<%= source %>/<%= template %>'
+		image: 'image'
 		functional: 'functional-tests'
 		stage: '.tmp'
 		dist: 'dist'
@@ -123,12 +124,15 @@ module.exports = (grunt) ->
 				ext: '.css'
 
 		symlink:
-			compile:
-				expand: true
-				src: [
-					'bower_components'
-				]
-				dest: '<%= stage %>'
+			base:
+				src: ['bower_components']
+				dest: '<%= stage %>/bower_components'
+			develop:
+				src: ['<%= source %>/<%= image %>']
+				dest: '<%= stage %>/<%= image %>'
+			dist:
+				src: ['<%= source %>/<%= image %>']
+				dest: '<%= dist %>/<%= image %>'
 
 		shell:
 			backend:
@@ -224,6 +228,7 @@ module.exports = (grunt) ->
 				files: [
 					'<%= script %>/**/*.js'
 					'<%= style %>/*.css'
+					'<%= image %>/*'
 					'*.html'
 					'!_SpecRunner.html'
 				]
@@ -303,15 +308,17 @@ module.exports = (grunt) ->
 		'newer:coffee:compile'
 		'sass:compile'
 		'postcss:compile'
-		'symlink:compile'
+		'symlink:base'
 	]
 	grunt.registerTask 'compile', [
 		'compile-base'
+		'symlink:develop'
 		'clean:develop'
 		'compile-handlebars:develop'
 	]
 	grunt.registerTask 'dist', [
 		'compile-base'
+		'symlink:dist'
 		'clean:dist'
 		'compile-handlebars:dist'
 		'requirejs:dist'

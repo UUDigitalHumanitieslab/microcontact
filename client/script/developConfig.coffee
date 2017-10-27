@@ -35,4 +35,5 @@ require.config
 		]
 		'bootstrap/carousel': ['jquery']   # has own CSS component
 		'bootstrap/affix': ['jquery']
+		'jquery.validate.messages.IT': ['jquery', 'jquery.validate']
 
