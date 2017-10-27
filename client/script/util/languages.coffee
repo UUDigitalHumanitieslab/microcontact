@@ -5,12 +5,14 @@
 
 define [
 	'backbone'
-], (bb) ->
+	'json!/api/languages/'
+], (bb, apiLanguages) ->
 	'use strict'
 	
 	languages = new bb.Collection
 	languages.url = '/api/languages/'
 	languages.comparator = 'language'  # keep sorted by language name
-	languages.fetch()  # singleton instance that is fetched once is sufficient
+	languages.reset apiLanguages
+	# singleton instance that is fetched once is sufficient
 	
 	languages

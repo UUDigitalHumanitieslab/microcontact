@@ -5,12 +5,14 @@
 
 define [
 	'backbone'
-], (bb) ->
+	'json!/api/countries/'
+], (bb, apiCountries) ->
 	'use strict'
 	
 	countries = new bb.Collection
 	countries.url = '/api/countries/'
 	countries.comparator = 'name'  # keep sorted by country name
-	countries.fetch()  # singleton instance that is fetched once is sufficient
+	countries.reset apiCountries
+	# singleton instance that is fetched once is sufficient
 	
 	countries
