@@ -12,6 +12,10 @@ require.config
 		bootstrap: '../bower_components/bootstrap-sass/assets/javascripts/bootstrap'
 		async: '../bower_components/requirejs-plugins/src/async'
 		'js.cookie': '../bower_components/js-cookie/src/js.cookie'
+		select2: '../bower_components/select2/dist/js/select2'
+		'jquery.validate': '../bower_components/jquery-validation/dist/jquery.validate'
+		'jquery.validate.additions': '../bower_components/jquery-validation/dist/additional-methods'
+		'jquery.validate.messages.IT': '../bower_components/jquery-validation/src/localization/messages_it'
 	shim:
 		'bootstrap/transition': ['jquery']
 		'bootstrap/modal': ['jquery']      # has own CSS component
@@ -31,4 +35,5 @@ require.config
 		]
 		'bootstrap/carousel': ['jquery']   # has own CSS component
 		'bootstrap/affix': ['jquery']
+		'jquery.validate.messages.IT': ['jquery', 'jquery.validate']
 

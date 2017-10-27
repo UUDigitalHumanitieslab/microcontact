@@ -20,6 +20,7 @@ module.exports = (grunt) ->
 		style: 'style'
 		template: 'template'
 		templateSrc: '<%= source %>/<%= template %>'
+		image: 'image'
 		functional: 'functional-tests'
 		stage: '.tmp'
 		dist: 'dist'
@@ -123,12 +124,15 @@ module.exports = (grunt) ->
 				ext: '.css'
 
 		symlink:
-			compile:
-				expand: true
-				src: [
-					'bower_components'
-				]
-				dest: '<%= stage %>'
+			base:
+				src: ['bower_components']
+				dest: '<%= stage %>/bower_components'
+			develop:
+				src: ['<%= source %>/<%= image %>']
+				dest: '<%= stage %>/<%= image %>'
+			dist:
+				src: ['<%= source %>/<%= image %>']
+				dest: '<%= dist %>/<%= image %>'
 
 		shell:
 			backend:
@@ -144,7 +148,10 @@ module.exports = (grunt) ->
 						#
 			pytest:
 				files: [{
-					src: ['microcontact/**/*_test.py']
+					src: [
+						'microcontact/**/*_test.py'
+						'recordings/**/*_test.py'
+					]
 				}]
 				command: ->
 					files = (o.src for o in grunt.config 'shell.pytest.files')
@@ -207,7 +214,7 @@ module.exports = (grunt) ->
 				]
 				tasks: ['clean:develop', 'compile-handlebars:develop']
 			python:
-				files: 'microcontact/**/*.py'
+				files: ['microcontact/**/*.py', 'recordings/**/*.py']
 				tasks: 'newer:shell:pytest'
 			functional:
 				files: '<%= coffee.functional.src %>'
@@ -221,6 +228,7 @@ module.exports = (grunt) ->
 				files: [
 					'<%= script %>/**/*.js'
 					'<%= style %>/*.css'
+					'<%= image %>/*'
 					'*.html'
 					'!_SpecRunner.html'
 				]
@@ -242,6 +250,9 @@ module.exports = (grunt) ->
 						'handlebars.runtime': 'empty:'
 						async: 'empty:'
 						googlemaps: 'empty:'
+						select2: 'empty:'
+						'jquery.validate': 'empty:'
+						'jquery.validate.additions': 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 
@@ -267,6 +278,8 @@ module.exports = (grunt) ->
 					if info.task == 'shell' and info.target == 'pytest'
 						source = info.path.replace /_test\.py$/, '.py'
 						fs.stat source, (error, stats) ->
+							if error?.code
+								grunt.log.error "#{error.code} #{error.path} (#{error.syscall})"
 							if stats.mtime.getTime() > info.time.getTime()
 								include yes
 							else
@@ -295,15 +308,17 @@ module.exports = (grunt) ->
 		'newer:coffee:compile'
 		'sass:compile'
 		'postcss:compile'
-		'symlink:compile'
+		'symlink:base'
 	]
 	grunt.registerTask 'compile', [
 		'compile-base'
+		'symlink:develop'
 		'clean:develop'
 		'compile-handlebars:develop'
 	]
 	grunt.registerTask 'dist', [
 		'compile-base'
+		'symlink:dist'
 		'clean:dist'
 		'compile-handlebars:dist'
 		'requirejs:dist'

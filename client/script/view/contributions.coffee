@@ -12,8 +12,8 @@ define [
 	'view/participWelcome'
 ], (bb, gmaps, dialects, pins, ContribListView, Welcome) ->
 	'use strict'
-	iconSize = 32
-	iconOpacity = 0.7
+	iconSize = 24
+	iconOpacity = 0.9
 	iconLogScale = 1.1
 
 	class ContributionsView extends bb.View
@@ -105,7 +105,7 @@ define [
 
 		createLookup: (dialects) ->
 			@dialectsLookup = {}
-			@dialectsLookup[dialect["name"]] = dialect for dialect in dialects
+			@dialectsLookup[dialect["dialect"]] = dialect for dialect in dialects.toJSON()
 			@
 		createMarker: (pins) ->
 			pin = pins[0]			

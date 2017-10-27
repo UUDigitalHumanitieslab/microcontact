@@ -36,14 +36,14 @@ define [
 			@places = new Places null, map: @map
 			@state = new bb.Model country: false, query: false
 			@guide = new Guide
-			@step1 = new Step1Country el: @guide.el
+			@step1 = new Step1Country el: @guide.el, model: @state
 			@step2 = new Step2Search el: @guide.el, model: @state
 			@step3 = new Step3Choose el: @guide.el, model: @state
 			@uploadForm = new UploadForm
 			@places.on 'reset update', @resetPins
 			@places.on 'error', (places, error) => @step2.renderError error
-			@state.on 'change', @updateStep
-			@listenTo @step1, 'select', @updateCountry
+			@state.on 'change:result', @updateResult
+			@state.on 'change:country', @updateCountry
 
 		render:  ->
 			@addControl @guide, @guidePos, 1
@@ -57,6 +57,7 @@ define [
 		# Close the popup of the currently running participation.
 		close: ->		
 			@popup.close()
+			$('#participate-guide').show()
 
 		remove: ->
 			@popup.close()
@@ -96,10 +97,13 @@ define [
 				@listenToOnce place, 'change', finish
 				place.fetch()
 		
-		updateStep: (state) =>
+		updateResult: (state) =>
 			# it might have been hidden once a marker was selected
-			$('#participate-guide').show()
+			result = state.get 'result'
 			switch
+				when result?.geometry
+					@step3.render()
+					@places.reset [result]
 				when state.has 'query' then @places.fetch
 					method: 'textSearch'
 					query:
@@ -109,6 +113,10 @@ define [
 					callback:
 						'OK': => @step3.render()
 						'ZERO_RESULTS': => @step2.renderMiss()
+				else @updateCountry state
+		
+		updateCountry: (state) =>
+			switch
 				when state.has 'country' then @placesService.textSearch({
 						query: "#{state.get 'country'}"
 						types: ['country']
@@ -119,10 +127,4 @@ define [
 						@map.fitBounds(countryData.geometry.viewport)
 						@step2.render())
 				else @step1.render()
-		
-		updateCountry: (country) ->
-			@state.set
-				country: country.get 'code'
-				countryLong: country.get 'name'
-				query: null
 

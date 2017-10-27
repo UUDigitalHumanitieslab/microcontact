@@ -59,3 +59,17 @@ main
 		.active a
 			color: #555	
 			pointer-events: none
+
+// vertical alignment fix for the form feedback glyphicons
+.gm-style-iw .has-feedback label ~ .form-control-feedback
+	top: 21px
+
+// help-block font weight as intended by the bootstrap designers
+label.help-block
+	font-weight: normal
+
+// variant of Bootstrap's .table without line dividers
+.contact-table
+	@extend .table
+	tbody > tr > td
+		border-top: 0

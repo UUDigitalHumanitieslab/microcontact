@@ -3,7 +3,9 @@
   "private": true,
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
-    "js-cookie": "^2.1.4"
+    "js-cookie": "^2.1.4",
+    "select2": "^4.0.3",
+    "jquery-validation": "^1.17.0"
   },
   "devDependencies": {
     "handlebars": "^4.0.5",

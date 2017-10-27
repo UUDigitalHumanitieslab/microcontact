@@ -206,6 +206,8 @@ define [], -> [{
 , { address: 'Albany, N.Y.', dialect: 'Veneto', position: { lat:42.6666666666667, lng:-73.75}}
 , { address: 'Albuquerque, N.M.', dialect: 'Veneto', position: { lat:35.0833333333333, lng:-106.65}}
 , { address: 'Amarillo, Tex.', dialect: 'Veneto', position: { lat:35.1833333333333, lng:-101.833333333333}}
+, { address: 'Amarillo, Tex.', dialect: 'Piemontese', position: { lat:35.1833333333333, lng:-101.833333333333}}
+, { address: 'Amarillo, Tex.', dialect: 'altro', position: { lat:35.1833333333333, lng:-101.833333333333}}
 , { address: 'Anchorage, Alaska', dialect: 'Veneto', position: { lat:61.2166666666667, lng:-149.9}}
 , { address: 'Atlanta, Ga.', dialect: 'Veneto', position: { lat:33.75, lng:-84.3833333333333}}
 , { address: 'Austin, Tex.', dialect: 'Abruzzese/Teatino', position: { lat:30.2666666666667, lng:-97.7333333333333}}
@@ -231,6 +233,8 @@ define [], -> [{
 , { address: 'Dallas, Tex.', dialect: 'Abruzzese/Teatino', position: { lat:32.7666666666667, lng:-96.7666666666667}}
 , { address: 'Denver, Colo.', dialect: 'Abruzzese/Teatino', position: { lat:39.75, lng:-105}}
 , { address: 'Des Moines, Iowa', dialect: 'Napoletano (Campano)', position: { lat:41.5833333333333, lng:-93.6166666666667}}
+, { address: 'Des Moines, Iowa', dialect: 'Senese (Toscano)', position: { lat:41.5833333333333, lng:-93.6166666666667}}
+, { address: 'Des Moines, Iowa', dialect: 'Piemontese', position: { lat:41.5833333333333, lng:-93.6166666666667}}
 , { address: 'Detroit, Mich.', dialect: 'Palermitano (Siciliano)', position: { lat:42.3333333333333, lng:-83.05}}
 , { address: 'Dubuque, Iowa', dialect: 'Palermitano (Siciliano)', position: { lat:42.5166666666667, lng:-90.6666666666667}}
 , { address: 'Duluth, Minn.', dialect: 'Fiorentino', position: { lat:46.8166666666667, lng:-92.0833333333333}}

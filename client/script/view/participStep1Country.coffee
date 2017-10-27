@@ -20,6 +20,12 @@ define [
 				parent: @
 			@$list = $ '<div class="list-group lead">'
 			@$list.append item.render().el for item in @items
+			@on 'select', (country) ->
+				@model.set
+					country: country.get 'code'
+					countryLong: country.get 'name'
+					query: null
+					result: null
 		
 		render: ->
 			@$('#particip-step-content').html @$list

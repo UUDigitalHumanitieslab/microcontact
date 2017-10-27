@@ -6,7 +6,8 @@
 define [
 	'backbone'
 	'templates'
-], (bb, JST) ->
+	'googlemaps'
+], (bb, JST, gmaps) ->
 	'use strict'
 	
 	class ParticipStep2View extends bb.View
@@ -21,6 +22,12 @@ define [
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
 			@$('#particip-step-title').text 'Trova la località'
+			inputField = @$ '#particip-query'
+			inputField.focus()
+			@autocomplete = new gmaps.places.Autocomplete inputField[0],
+				types: ['(cities)']
+				componentRestrictions: country: @model.get 'country'
+			@autocomplete.addListener 'place_changed', @select
 			@isRendered = true
 			@
 		
@@ -46,3 +53,9 @@ define [
 		search: (event) ->
 			event.preventDefault()
 			@model.set query: @query
+		
+		select: =>
+			result = @autocomplete.getPlace()
+			@model.set
+				result: result
+				query: result.name
