@@ -32,7 +32,7 @@ define [
 		initialize: (options) ->
 			@map = options.map
 			@popup = new gmaps.InfoWindow()
-			@placesService = new gmaps.places.PlacesService options.map
+			@countries = new Places null, map: @map
 			@places = new Places null, map: @map
 			@state = new bb.Model country: false, query: false
 			@guide = new Guide
@@ -117,14 +117,15 @@ define [
 		
 		updateCountry: (state) =>
 			switch
-				when state.has 'country' then @placesService.textSearch({
-						query: "#{state.get 'country'}"
+				when state.has 'country' then @countries.fetch
+					method: 'textSearch'
+					query:
+						query: "#{state.get 'countryLong'}"
 						types: ['country']
-					},					
-					(data) =>
+					callback: (data) =>
 						# assume one country is returned for the country code
 						countryData = data[0]
 						@map.fitBounds(countryData.geometry.viewport)
-						@step2.render())
+						@step2.render()
 				else @step1.render()
 
