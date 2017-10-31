@@ -8,7 +8,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from .validators import FileSizeValidator, MediaTypeValidator
 
 ACCEPTABLE_SIZE = 100 * 2**20  # 100MiB
-ACCEPTABLE_TYPES = ['audio/*', 'application/octet-stream']
+ACCEPTABLE_TYPES = ['audio/*', 'video/mp4', 'application/octet-stream']
 TURN_OF_19TH_CENTURY = 1890
 END_OF_RESEARCH_PROJECT = 2021
 
