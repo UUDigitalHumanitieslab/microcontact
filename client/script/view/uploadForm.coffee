@@ -28,14 +28,8 @@ define [
 	# Order: most common or most likely to be associated with voice recorders
 	# first, otherwise alphabetical. There are three alphabetical subranges.
 	acceptedExtensions = 'mp3|mp4|m4a|aac|wav|aiff|aif|aifc|flac|alac|3g2|3gp|3gpp|3ga|amr|gsm|oga|ogg|opus|spx|vmf|vmo|vox|vpm|vpw|vqf|vrf|vsq|vsqx|vyf|aa|aa3|ac3|acm|acp|act|adf|adt|adts|ape|ast|at3|au|awb|boa|caf|caff|cdda|cdr|cpt|dff|dss|dts|dtshd|dvf|dwd|fzv|mp2|ics|iff|isma|la|lwv|mgv|mka|mo3|mpa|mpc|mpga|mpu|msv|narrative|ncw|nvf|odm|ofr|oma|omf|omg|pca|pho|ppc|ppcx|psf|pvc|qcp|r1m|ra|raw|rx2|s3z|ses|sesx|shn|snd|tak|tta|w64|wave|wv|zvd'
-	recordingDefaultMessage = 'Carica un file audio di 5 minuti (minimo) fino a
-		10 minuti (massimo).'
-	recordingMaxSizeMessage = $.validator.format 'Il tuo file è troppo grande.
-		Alternativamente, puoi usare un formato compresso, per esempio FLAC,
-		oppure puoi ridurre il file in qualità CD (se stai usando risoluzioni
-		più avanzate). Puoi anche provare a tagliare i segmenti silenziosi
-		della tua registrazione (pause, interruzioni, ecc...) per ottenere un
-		file più piccolo di {0}.'
+	recordingDefaultMessage = 'i18n recordingGeneralError'
+	recordingMaxSizeMessage = $.validator.format 'i18n recordingMaxSizeError'
 
 	# Retrieve containing div.form-group, div.radio for form element
 	getFormGroupElement = (element) -> $(element).parents('div').first()
@@ -115,8 +109,7 @@ define [
 			@
 
 		handleInvalid: (event, validator) =>
-			@showStatus 'warning', "#{validator.numberOfInvalids()} campi sono
-				stati riempiti incorrettamente. Ricontrolla e prova di nuovo."
+			@showStatus 'warning', $.validator.format 'i18n invalidFieldsWarning', validator.numberOfInvalids()
 
 		highlight: (element, error, valid) ->
 			setContextFeedback(
@@ -139,7 +132,7 @@ define [
 			@updateLanguages =>
 				contribution.save(form).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
-			@showStatus 'info', 'Caricamento in corso. Si prega di attendere...'
+			@showStatus 'info', 'i18n uploadInProgressMsg'
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
@@ -161,19 +154,16 @@ define [
 						callback()
 
 		handleSuccess: (data, statusText, jqXHR) =>
-			@showStatus 'success', 'Grazie!'
+			@showStatus 'success', 'i18n uploadSuccessMsg'
 
 		handleError: (jqXHR, statusText, thrownError) =>
 			@$('fieldset').prop 'disabled', false
 			if jqXHR.status == 400 and jqXHR.responseJSON?
 				wrong = _.mapValues jqXHR.responseJSON, _.partial _.join, _, ' '
-				@showStatus 'warning', "Alcuni campi non sono validi.
-					Ricontrolla. #{wrong.non_field_errors ? ''}"
+				@showStatus 'warning', $.validator.format 'i18n serverRejectMsg', (wrong.non_field_errors ? '')
 				@validator.showErrors wrong
 			else
-				@showStatus 'danger', 'L’invio non è riuscito per problemi
-					tecnici. Riprova più tardi. Se il problema continua,
-					contatta un membro del gruppo di ricerca.'
+				@showStatus 'danger', 'i18n serverErrorMsg'
 
 		# available levels: 'success', 'info', 'warning', 'danger'.
 		showStatus: (level, text) =>

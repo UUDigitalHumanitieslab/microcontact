@@ -14,5 +14,5 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text 'Scegli la località tra i risultati'
+			@$('#particip-step-title').text 'i18n pickPlaceTitle'
 			@

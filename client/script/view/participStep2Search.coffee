@@ -21,7 +21,7 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text 'Trova la località'
+			@$('#particip-step-title').text 'i18n searchPlaceTitle'
 			inputField = @$ '#particip-query'
 			inputField.focus()
 			@autocomplete = new gmaps.places.Autocomplete inputField[0],

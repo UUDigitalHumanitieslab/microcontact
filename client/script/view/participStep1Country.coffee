@@ -29,5 +29,5 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @$list
-			@$('#particip-step-title').text 'Seleziona il tuo Paese'
+			@$('#particip-step-title').text 'i18n chooseCountryTitle'
 			@
