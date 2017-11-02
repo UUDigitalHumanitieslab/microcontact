@@ -1,3 +1,8 @@
+# Please update the next few lines if you are starting a new translation.
+# This is the ENGLISH text for the Microcontact website.
+# It was mostly written by JULIAN GONGGRIJP.
+# It was translated from ENGLISH.
+
 # Countries
 AR: 'Argentina'
 BR: 'Brazil'
