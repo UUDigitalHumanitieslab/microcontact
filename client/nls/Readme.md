@@ -70,3 +70,8 @@ In case of doubt, compare the English and Italian versions to see which parts sh
 String values are delimited by straight quotes (`'`) or by triple straight quotes (`'''`). Since computers take everything literally, a string value cannot contain the character(s) it is delimited by (so a value delimited by `'` cannot itself contain `'`). At first sight, this may seem limiting, but in practice, you should prefer to use *typographical quotes*, anyway. Typographical quotes are the asymmetrical ones, `‘` and `’` or their double variants `“` and `”`, also called “educated quotes” or “curvy quotes”. Straight quotes are for computers while typographical quotes are for human readers. Since you are translating for human readers, typographical quotes are what should appear inside your string values.
 
 Unfortunately, only straight quotes are easily accessible from the keyboard. Every system has ways to type them, but this manual cannot cover the myriad of ways this has been solved. If necessary, you can copy them from this manual instead. Here is a quick palette: `“”‘’‛‟‚„«»‹›`.
+
+
+## Language variants
+
+When you create a translation for French, in principle this means that you are writing *international French*. You can, however, specify that some strings would be different in (for example) Canadian French. In order to do this, start from the international version as if you are creating a new translation. In the copied translation file, simply delete all strings that are equal between the international language variant and the national variant. Finally, change the values of the strings that differ.
