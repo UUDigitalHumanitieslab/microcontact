@@ -20,6 +20,7 @@ module.exports = (grunt) ->
 		style: 'style'
 		template: 'template'
 		templateSrc: '<%= source %>/<%= template %>'
+		i18n: 'nls'
 		image: 'image'
 		functional: 'functional-tests'
 		stage: '.tmp'
@@ -60,11 +61,25 @@ module.exports = (grunt) ->
 			options:
 				bare: true
 			compile:
-				expand: true
-				cwd: '<%= source %>/<%= script %>'
-				src: ['**/*.coffee']
-				dest: '<%= stage %>/<%= script %>/'
-				ext: '.js'
+				files: [{
+					expand: true
+					cwd: '<%= source %>/<%= script %>'
+					src: ['**/*.coffee']
+					dest: '<%= stage %>/<%= script %>/'
+					ext: '.js'
+				}, {
+					expand: true
+					cwd: '<%= source %>/<%= i18n %>'
+					src: ['!root/*.coffee', '**/*.coffee']
+					dest: '<%= stage %>/<%= i18n %>/'
+					ext: '.js.pre'
+				}, {
+					expand: true
+					cwd: '<%= source %>/<%= i18n %>'
+					src: ['root/*.coffee']
+					dest: '<%= stage %>/<%= i18n %>/'
+					ext: '.js'
+				}]
 			functional:
 				expand: true
 				cwd: '<%= functional %>'
