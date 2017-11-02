@@ -7,7 +7,7 @@ Manual for translators
 
 These files are directly fed into the Microcontact web application. For this reason, they are made computer-friendly and they have to stay that way. This means that you have to follow some strict rules. The following rules are particularly important in order to ensure that files stay computer-readable and that special characters will show correctly on the web:
 
- - When creating a new translation, **always** start by copying an existing translation file on disk, *then* change the name of the copy and *finally* edit the new copy. **Never** open an existing file and tell your editor to “Save as...” or “Export”.
+ - When creating a new translation, **always** start by copying an existing translation file on disk, *then* change the name of the copy and *finally* edit the new copy.
  - **Always** edit the translation files with a proper, computer-language-aware plain text editor. Examples that are available free of charge include *[Notepad++][1]* (Windows), *[Sublime Text][2]* (cross-platform) and *[TextMate][3]* (macOS). Linux systems tend to have *gedit* or *gvim* installed by default, both of which are acceptable.
  - **Never** edit the translation files with standard office software such as *Notepad* or *WordPad* on Windows, *TextEdit* or *Pages* on macOS, or anything that has “Office” in the name, such as *Microsoft Office* (*Word*), *LibreOffice*, *OpenOffice*, etcetera. In case of doubt, contact the developer.
  - If the choice is presented to you, **always** select **UTF-8** as the text encoding.
@@ -69,4 +69,4 @@ In case of doubt, compare the English and Italian versions to see which parts sh
 
 String values are delimited by straight quotes (`'`) or by triple straight quotes (`'''`). Since computers take everything literally, a string value cannot contain the character(s) it is delimited by (so a value delimited by `'` cannot itself contain `'`). At first sight, this may seem limiting, but in practice, you should prefer to use *typographical quotes*, anyway. Typographical quotes are the asymmetrical ones, `‘` and `’` or their double variants `“` and `”`, also called “educated quotes” or “curvy quotes”. Straight quotes are for computers while typographical quotes are for human readers. Since you are translating for human readers, typographical quotes are what should appear inside your string values.
 
-Unfortunately, only straight quotes are easily accessible from the keyboard. Every system has ways to type them, but this manual cannot cover the myriad of ways this has been solved. If necessary, you can copy them from this manual instead. Here is a quick palette: `“”‘’‛‟‚„`.
+Unfortunately, only straight quotes are easily accessible from the keyboard. Every system has ways to type them, but this manual cannot cover the myriad of ways this has been solved. If necessary, you can copy them from this manual instead. Here is a quick palette: `“”‘’‛‟‚„«»‹›`.
