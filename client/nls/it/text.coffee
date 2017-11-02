@@ -1,3 +1,20 @@
+# Countries
+AR: 'Argentina'
+BR: 'Brasile'
+CA: 'Canada'
+US: 'USA'
+IT: 'Italia'
+
+# Italian languages
+Abruzzese: 'Abruzzese/Teatino'
+Florentine: 'Fiorentino'
+Neapolitan: 'Napoletano (Campano)'
+Palermitan: 'Palermitano (Siciliano)'
+Piedmontese: 'Piemontese'
+Salentino: 'Salentino'
+Sienese: 'Senese (Toscano)'
+Venetan: 'Veneto'
+
 # General buttons etcetera
 closeButtonLabel: 'Close'
 fieldRequired: '(obbligatorio)'
@@ -106,13 +123,13 @@ provincePlaceholder: 'Provincia'
 # Upload form, uploader contact section
 uploaderLegend: 'Informazioni sulla persona che effettua il caricamento del file.'
 uploaderPrivacyNote: 'I tuoi dati personali non saranno mai resi pubblici.'
-nameFieldLabel: 'Nome e Cognome'
+nameFieldLabel: 'Nome e Cognome'  # should be a full name
 namePlaceholder: 'Christina Alvarez'
 atleastOneContactDetail: '(dare almeno un tipo di contatto)'
 emailFieldLabel: 'Email'
 emailPlaceholder: 'calvarez@example.com'
 telephoneFieldLabel: 'Telefono'
-telephonePlaceholder: '+1 123456789'
+telephonePlaceholder: '+1 123456789'  # please localize
 
 # Upload form, bottom section
 uploadButton: 'Invia'
