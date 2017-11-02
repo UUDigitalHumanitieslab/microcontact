@@ -3,6 +3,11 @@
 # It was mostly written by JULIAN GONGGRIJP.
 # It was translated from ENGLISH.
 
+# This is a comment. Comments are not visible to the visitors of the website.
+# Comments should not be translated. You only need to translate the pieces of
+# text between quotes. Also, please skip everything that looks like computer
+# code.
+
 # Countries
 AR: 'Argentina'
 BR: 'Brazil'
