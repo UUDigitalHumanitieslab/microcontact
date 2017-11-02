@@ -29,7 +29,7 @@ Strings look like this:
 
     theName: 'Here comes some text that should be translated.'
 
-`theName` is the key and `Here comes some text that should be translated.` is the value. There is always a colon (`:`) between the key and the value and the value is always between straight quotes. More about quotes below. The string value may contain arbitrary amounts of whitespace, including line endings, but all whitespace is contracted to single spaces before website visitors get to see them.
+`theName` is the key and `Here comes some text that should be translated.` is the value. There is always a colon (`:`) between the key and the value and the value is always between straight quotes. More about quotes below. The string value may contain arbitrary amounts of whitespace, including line endings, but all whitespace is contracted to single spaces before website visitors get to see them (we have computer code for actual line breaks).
 
 Values may sometimes contain computer code. You can recognize computer code because it contains unusual character sequences and/or strangely spelled (English) words. Some examples:
 
