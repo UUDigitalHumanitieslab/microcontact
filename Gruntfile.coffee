@@ -87,6 +87,16 @@ module.exports = (grunt) ->
 				dest: '.<%= functional %>/'
 				ext: '.js'
 
+		'hash-handlebars':
+			compile:
+				expand: true
+				cwd: '<%= stage %>/<%= i18n %>'
+				src: ['**/*.js.pre']
+				dest: '<%= stage %>/<%= i18n %>'
+				ext: '.js'
+				options:
+					processFile: eval  # JS object literal, *not* JSON
+
 		'compile-handlebars':
 			develop:
 				src: '<%= source %>/<%= template %>/index.mustache'
@@ -319,6 +329,7 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-contrib-requirejs'
 	grunt.loadNpmTasks 'grunt-contrib-cssmin'
 	grunt.loadNpmTasks 'grunt-newer'
+	grunt.loadTasks 'grunt-tasks'  # these are our own
 
 	grunt.registerTask 'compile-base', [
 		'handlebars:compile'
