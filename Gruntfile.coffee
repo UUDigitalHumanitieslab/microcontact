@@ -102,6 +102,7 @@ module.exports = (grunt) ->
 				templateData:
 					production: true
 					gmapikey: googleMapsAPIKey
+
 		sass:
 			compile:
 				options:
