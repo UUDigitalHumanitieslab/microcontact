@@ -98,6 +98,7 @@ module.exports = (grunt) ->
 					processFile: eval  # JS object literal, *not* JSON
 					wrapStart: 'define({\n'
 					wrapEnd: '\n});'
+					hbsOptions: '<%= handlebars.options.compilerOptions %>'
 
 		'compile-handlebars':
 			develop:

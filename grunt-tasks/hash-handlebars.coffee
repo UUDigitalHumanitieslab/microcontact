@@ -15,6 +15,7 @@ module.exports = (grunt) ->
 	grunt.registerMultiTask name, description, ->
 		options = this.options
 			processFile: (text) -> text
+			hbsOptions: {}
 			wrapStart: '{\n'
 			wrapEnd: '\n}'
 			indent: '    '
@@ -28,7 +29,7 @@ module.exports = (grunt) ->
 			entries = for key, value of content
 				"#{options.indent}#{options.quoteKey}#{key}#{options.quoteKey}#{
 					options.keyValueSeparator
-				}#{Handlebars.precompile value}"
+				}#{Handlebars.precompile value, options.hbsOptions}"
 			result = [
 				options.wrapStart
 				entries.join options.entrySeparator
