@@ -13,6 +13,7 @@ require.config
 		async: '../bower_components/requirejs-plugins/src/async'
 		text: '../bower_components/requirejs-plugins/lib/text'
 		json: '../bower_components/requirejs-plugins/src/json'
+		i18n: '../bower_components/i18n/i18n'
 		'js.cookie': '../bower_components/js-cookie/src/js.cookie'
 		select2: '../bower_components/select2/dist/js/select2'
 		'jquery.validate': '../bower_components/jquery-validation/dist/jquery.validate'
