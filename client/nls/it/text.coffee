@@ -34,7 +34,7 @@ placeFieldPlaceholder: 'Città/paese'
 dhLabLogoHoverText: 'Digital Humanities Lab at Utrecht University'
 
 # Navigation menu
-navParticipateLink: 'Partecipa'
+navParticipateLink: 'Partecipate'
 navContributionsLink: 'Mostra le registrazioni'
 
 # Welcome panel
@@ -43,7 +43,7 @@ welcomeLead: 'Partecipa anche tu alla documentazione e alla valorizzazione
 	delle varietà italiane parlate nelle Americhe!'
 welcomeShowMoreButton: 'Continua a leggere...'
 welcomeCollapsedText: '''
-	<p class="collapse welcome-more">Vai da un membro anziano della tua famiglia che parla il dialetto.<br>Registra con il tuo telefonino il parlante. Poi carica il file audio sul sito. Il racconto registrato può essere lungo fino a un massimo di 10 minuti. Il parlante può racontare un evento della sua infanzia, la sua giovinezza, un viaggio, la guerra, un ricordo passato, ecc.</p>
+	<p class="collapse welcome-more">Vai da un membro anziano della tua famiglia che parla il dialetto.<br>Registra con il tuo telefonino il parlante. Poi carica il file audio sul sito. Il racconto registrato può essere lungo fino a un massimo di 10 minuti. Il parlante può raccontare un evento della sua infanzia, la sua giovinezza, un viaggio, la guerra, un ricordo passato, ecc.</p>
 	<p class="collapse welcome-more">Quando la registrazione è pronta, cerca sulla mappa la città/paese in cui vive ora il parlante. Clicca sulla città/paese per cominciare il caricamento della registrazione.</p>
 '''
 welcomeThankYou: 'Grazie per la collaborazione!'
