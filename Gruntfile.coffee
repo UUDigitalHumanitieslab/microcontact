@@ -96,6 +96,8 @@ module.exports = (grunt) ->
 				ext: '.js'
 				options:
 					processFile: eval  # JS object literal, *not* JSON
+					wrapStart: 'define({\n'
+					wrapEnd: '\n});'
 
 		'compile-handlebars':
 			develop:
