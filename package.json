@@ -25,6 +25,7 @@
     "grunt-sass": "^2.0.0",
     "grunt-shell": "^2.0.0",
     "grunt-template-jasmine-requirejs": "^0.2.3",
+    "handlebars": "^4.0.11",
     "http-proxy": "^1.15.1"
   }
 }
