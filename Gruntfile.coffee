@@ -225,11 +225,11 @@ module.exports = (grunt) ->
 				files: '<%= handlebars.compile.src %>'
 				tasks: 'handlebars:compile'
 			scripts:
-				files: '<%= coffee.compile.src %>'
-				options:
-					cwd:
-						files: '<%= coffee.compile.cwd %>'
+				files: '<%= source %>/**/*.coffee'
 				tasks: ['newer:coffee:compile', 'jasmine:test']
+			i18n:
+				files: '<%= stage %>/<%= i18n %>/**/*.js.pre'
+				tasks: 'newer:hash-handlebars:compile'
 			sass:
 				files: '<%= sass.compile.src %>'
 				options:
