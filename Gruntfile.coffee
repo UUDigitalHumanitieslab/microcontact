@@ -337,6 +337,7 @@ module.exports = (grunt) ->
 	grunt.registerTask 'compile-base', [
 		'handlebars:compile'
 		'newer:coffee:compile'
+		'newer:hash-handlebars:compile'
 		'sass:compile'
 		'postcss:compile'
 		'symlink:base'
