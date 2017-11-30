@@ -1,13 +1,13 @@
-<p class="lead">i18n searchPlaceLead</p>
+<p class="lead">{{>searchPlaceLead}}</p>
 <form class=form-inline>
 	<div class=form-group>
-		<label for="particip-query">i18n searchPlaceFieldLabel</label>
+		<label for="particip-query">{{>searchPlaceFieldLabel}}</label>
 		<input
 			type=text
 			id=particip-query
 			class=form-control
-			placeholder="i18n placeFieldPlaceholder"
+			placeholder="{{>placeFieldPlaceholder}}"
 			value="{{query}}" />
 	</div>
-	<button type=submit class="btn btn-primary">i18n searchPlaceButtonText</button>
+	<button type=submit class="btn btn-primary">{{>searchPlaceButtonText}}</button>
 </form>

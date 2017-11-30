@@ -70,13 +70,13 @@ module.exports = (grunt) ->
 				}, {
 					expand: true
 					cwd: '<%= source %>/<%= i18n %>'
-					src: ['!root/*.coffee', '**/*.coffee']
+					src: ['!text.coffee', '**/*.coffee']
 					dest: '<%= stage %>/<%= i18n %>/'
 					ext: '.js.pre'
 				}, {
 					expand: true
 					cwd: '<%= source %>/<%= i18n %>'
-					src: ['root/*.coffee']
+					src: ['text.coffee']
 					dest: '<%= stage %>/<%= i18n %>/'
 					ext: '.js'
 				}]
