@@ -1,6 +1,6 @@
 <div class="alert alert-warning alert-dismissible" role="alert">
-	<button type="button" class="close" aria-label="Close">
+	<button type="button" class="close" aria-label="{{>closeButtonLabel}}">
 		<span aria-hidden="true">&times;</span>
 	</button>
-	Non ci sono risultati per &ldquo;{{query}}&rdquo;. Controlla se hai scritto corettamente la località e prova di nuovo.
+	{{>searchPlaceNothingFound}}
 </div>

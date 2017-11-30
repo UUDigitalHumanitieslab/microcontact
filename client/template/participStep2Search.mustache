@@ -1,13 +1,13 @@
-<p class="lead">Inserisci il nome della località in <em>{{countryLong}}</em>.</p>
+<p class="lead">{{>searchPlaceLead}}</p>
 <form class=form-inline>
 	<div class=form-group>
-		<label for="particip-query">Località:</label>
+		<label for="particip-query">{{>searchPlaceFieldLabel}}</label>
 		<input
 			type=text
 			id=particip-query
 			class=form-control
-			placeholder="Città/paese"
+			placeholder="{{>placeFieldPlaceholder}}"
 			value="{{query}}" />
 	</div>
-	<button type=submit class="btn btn-primary">Cerca</button>
+	<button type=submit class="btn btn-primary">{{>searchPlaceButtonText}}</button>
 </form>

@@ -11,7 +11,7 @@ define [
 
 	class ContributionModel extends bb.Model
 
-		url: '/api/recordings/'
+		url: 'api/recordings/'
 
 		# Override bb.Model::save to permit forms with file fields
 		save: (attributes, options = {}, more) ->

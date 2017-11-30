@@ -4,4 +4,8 @@
 
 define [
 	'handlebars.runtime'
-], (hbsRuntime) -> hbsRuntime.default
+	'util/i18nTemplate'
+], (hbsRuntime, partialTemplates) ->
+	Handlebars = hbsRuntime.default
+	Handlebars.registerPartial partialTemplates
+	Handlebars
