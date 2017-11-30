@@ -82,6 +82,21 @@ pickPlaceLead: 'Sotto trovi i risultati della ricerca di
 # General validators
 minFileSizeMsg: 'Il file deve essere minimo di {0}.'
 maxFileSizeMsg: 'Il file deve essere massimo di {0}.'
+fieldRequiredWarning: "Campo obbligatorio"
+fixFieldWarning: "Controlla questo campo"
+invalidEmailWarning: "Inserisci un indirizzo email valido"
+invalidUrlWarning: "Inserisci un indirizzo web valido"
+invalidDateWarning: "Inserisci una data valida"
+invalidNumberWarning: "Inserisci un numero valido"
+invalidDigitsWarning: "Inserisci solo numeri"
+invalidEqualToWarning: "Il valore non corrisponde"
+invalidExtensionWarning: "Inserisci un valore con un’estensione valida"
+tooLongWarning: "Non inserire più di {0} caratteri"
+tooShortWarning:  "Inserisci almeno {0} caratteri"
+invalidLengthWarning: "Inserisci un valore compreso tra {0} e {1} caratteri"
+invalidValueRangeWarning: "Inserisci un valore compreso tra {0} e {1}"
+tooHighWarning: "Inserisci un valore minore o uguale a {0}" 
+tooLowWarning: "Inserisci un valore maggiore o uguale a {0}"
 
 # Upload form, top/bottom status messages
 invalidFieldsWarning: '{0} campi sono stati riempiti incorrettamente.

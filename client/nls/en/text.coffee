@@ -83,6 +83,21 @@ pickPlaceLead: 'Below are the search results for
 # General validators
 minFileSizeMsg: 'The file must be at least {0} in size.'
 maxFileSizeMsg: 'The file must be at most {0} in size.'
+fieldRequiredWarning: "This field is required."
+fixFieldWarning: "Please fix this field."
+invalidEmailWarning: "Please enter a valid email address."
+invalidUrlWarning: "Please enter a valid URL."
+invalidDateWarning: "Please enter a valid date."
+invalidNumberWarning: "Please enter a valid number."
+invalidDigitsWarning: "Please enter only digits."
+invalidEqualToWarning: "Please enter the same value again."
+invalidExtensionWarning: "Please enter a value with a valid extension."
+tooLongWarning: "Please enter no more than {0} characters."
+tooShortWarning: "Please enter at least {0} characters."
+invalidLengthWarning: "Please enter a value between {0} and {1} characters long."
+invalidValueRangeWarning: "Please enter a value between {0} and {1}."
+tooHighWarning: "Please enter a value less than or equal to {0}."
+tooLowWarning: "Please enter a value greater than or equal to {0}."
 
 # Upload form, top/bottom status messages
 invalidFieldsWarning: '{0} fields were filled out incorrectly.
