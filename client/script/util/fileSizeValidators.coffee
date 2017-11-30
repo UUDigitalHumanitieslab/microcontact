@@ -7,6 +7,7 @@ define [
 	'jquery'
 	'underscore'
 	'util/i18nText'
+	'util/i18nJQueryValidate'
 	'jquery.validate'
 ], ($, _, i18n) ->
 	'use strict'

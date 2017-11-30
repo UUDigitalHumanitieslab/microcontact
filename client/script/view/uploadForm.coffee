@@ -11,8 +11,8 @@ define [
 	'select2'
 	'jquery.validate'
 	'jquery.validate.additions'
-	'jquery.validate.messages.IT'
 	'util/fileSizeValidators'
+	'util/i18nJQueryValidate'
 ], (bb, $, _, JST, Contribution, i18n, dialects, languages, ages) ->
 	'use strict'
 	
