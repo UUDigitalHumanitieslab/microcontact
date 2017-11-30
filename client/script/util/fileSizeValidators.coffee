@@ -6,8 +6,9 @@
 define [
 	'jquery'
 	'underscore'
+	'util/i18nText'
 	'jquery.validate'
-], ($, _) ->
+], ($, _, i18n) ->
 	'use strict'
 	
 	# This module adds two methods to jQuery.validate: minFileSize, maxFileSize.
@@ -42,7 +43,7 @@ define [
 			return true unless size?
 			minimum = asBytes param
 			size >= minimum
-	), $.validator.format 'i18n minFileSizeMsg'
+	), $.validator.format i18n.minFileSizeMsg
 	
 	# See minFileSize for documentation.
 	$.validator.addMethod 'maxFileSize', (
@@ -52,6 +53,6 @@ define [
 			return true unless size?
 			maximum = asBytes param
 			size <= maximum
-	), $.validator.format 'i18n maxFileSizeMsg'
+	), $.validator.format i18n.maxFileSizeMsg
 	
 	asBytes

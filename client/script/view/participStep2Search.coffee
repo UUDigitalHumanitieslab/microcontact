@@ -7,7 +7,8 @@ define [
 	'backbone'
 	'templates'
 	'googlemaps'
-], (bb, JST, gmaps) ->
+	'util/i18nText'
+], (bb, JST, gmaps, i18n) ->
 	'use strict'
 	
 	class ParticipStep2View extends bb.View
@@ -21,7 +22,7 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text 'i18n searchPlaceTitle'
+			@$('#particip-step-title').text i18n.searchPlaceTitle
 			inputField = @$ '#particip-query'
 			inputField.focus()
 			@autocomplete = new gmaps.places.Autocomplete inputField[0],

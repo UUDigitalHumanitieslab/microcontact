@@ -8,7 +8,8 @@ define [
 	'jquery'
 	'view/participStep1CountryItem'
 	'util/countries'
-], (bb, $, Item, countries) ->
+	'util/i18nText'
+], (bb, $, Item, countries, i18n) ->
 	'use strict'
 	
 	class ParticipStep1View extends bb.View
@@ -29,5 +30,5 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @$list
-			@$('#particip-step-title').text 'i18n chooseCountryTitle'
+			@$('#particip-step-title').text i18n.chooseCountryTitle
 			@

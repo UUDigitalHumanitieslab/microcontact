@@ -4,6 +4,7 @@ define [
 	'underscore'
 	'templates'
 	'model/contribution'
+	'util/i18nText'
 	'util/dialects'
 	'util/languages'
 	'util/ageCategories'
@@ -12,7 +13,7 @@ define [
 	'jquery.validate.additions'
 	'jquery.validate.messages.IT'
 	'util/fileSizeValidators'
-], (bb, $, _, JST, Contribution, dialects, languages, ages) ->
+], (bb, $, _, JST, Contribution, i18n, dialects, languages, ages) ->
 	'use strict'
 	
 	generationFieldSelector = '#upload-generation-field'
@@ -28,8 +29,8 @@ define [
 	# Order: most common or most likely to be associated with voice recorders
 	# first, otherwise alphabetical. There are three alphabetical subranges.
 	acceptedExtensions = 'mp3|mp4|m4a|aac|wav|aiff|aif|aifc|flac|alac|3g2|3gp|3gpp|3ga|amr|gsm|oga|ogg|opus|spx|vmf|vmo|vox|vpm|vpw|vqf|vrf|vsq|vsqx|vyf|aa|aa3|ac3|acm|acp|act|adf|adt|adts|ape|ast|at3|au|awb|boa|caf|caff|cdda|cdr|cpt|dff|dss|dts|dtshd|dvf|dwd|fzv|mp2|ics|iff|isma|la|lwv|mgv|mka|mo3|mpa|mpc|mpga|mpu|msv|narrative|ncw|nvf|odm|ofr|oma|omf|omg|pca|pho|ppc|ppcx|psf|pvc|qcp|r1m|ra|raw|rx2|s3z|ses|sesx|shn|snd|tak|tta|w64|wave|wv|zvd'
-	recordingDefaultMessage = 'i18n recordingGeneralError'
-	recordingMaxSizeMessage = $.validator.format 'i18n recordingMaxSizeError'
+	recordingDefaultMessage = i18n.recordingGeneralError
+	recordingMaxSizeMessage = $.validator.format i18n.recordingMaxSizeError
 
 	# Retrieve containing div.form-group, div.radio for form element
 	getFormGroupElement = (element) -> $(element).parents('div').first()
@@ -109,7 +110,7 @@ define [
 			@
 
 		handleInvalid: (event, validator) =>
-			@showStatus 'warning', $.validator.format 'i18n invalidFieldsWarning', validator.numberOfInvalids()
+			@showStatus 'warning', $.validator.format i18n.invalidFieldsWarning, validator.numberOfInvalids()
 
 		highlight: (element, error, valid) ->
 			setContextFeedback(
@@ -132,7 +133,7 @@ define [
 			@updateLanguages =>
 				contribution.save(form).then(@handleSuccess, @handleError)
 				@$('fieldset').prop 'disabled', true
-			@showStatus 'info', 'i18n uploadInProgressMsg'
+			@showStatus 'info', i18n.uploadInProgressMsg
 
 		updateLanguages: (callback) ->
 			chosenLanguages = @$('#upload-languages').select2 'data'
@@ -154,16 +155,16 @@ define [
 						callback()
 
 		handleSuccess: (data, statusText, jqXHR) =>
-			@showStatus 'success', 'i18n uploadSuccessMsg'
+			@showStatus 'success', i18n.uploadSuccessMsg
 
 		handleError: (jqXHR, statusText, thrownError) =>
 			@$('fieldset').prop 'disabled', false
 			if jqXHR.status == 400 and jqXHR.responseJSON?
 				wrong = _.mapValues jqXHR.responseJSON, _.partial _.join, _, ' '
-				@showStatus 'warning', $.validator.format 'i18n serverRejectMsg', (wrong.non_field_errors ? '')
+				@showStatus 'warning', $.validator.format i18n.serverRejectMsg, (wrong.non_field_errors ? '')
 				@validator.showErrors wrong
 			else
-				@showStatus 'danger', 'i18n serverErrorMsg'
+				@showStatus 'danger', i18n.serverErrorMsg
 
 		# available levels: 'success', 'info', 'warning', 'danger'.
 		showStatus: (level, text) =>
