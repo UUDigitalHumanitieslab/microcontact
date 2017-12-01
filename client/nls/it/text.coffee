@@ -83,6 +83,7 @@ pickPlaceLead: 'Sotto trovi i risultati della ricerca di
 minFileSizeMsg: 'Il file deve essere minimo di {0}.'
 maxFileSizeMsg: 'Il file deve essere massimo di {0}.'
 fieldRequiredWarning: "Campo obbligatorio"
+fillFieldsWarning: "Please fill at least {0} of these fields."
 fixFieldWarning: "Controlla questo campo"
 invalidEmailWarning: "Inserisci un indirizzo email valido"
 invalidUrlWarning: "Inserisci un indirizzo web valido"

@@ -10,11 +10,12 @@ define [
 
 	$.extend $.validator.messages, {
 		required: i18n.fieldRequiredWarning
+		require_from_group: $.validator.format(i18n.fillFieldsWarning)
 		remote: i18n.fixFieldWarning
 		email: i18n.invalidEmailWarning
 		url: i18n.invalidUrlWarning
 		date: i18n.invalidDateWarning
-		dateISO: i1n.invalidDateWarning # as if people would be helped by saying "ISO"
+		dateISO: i18n.invalidDateWarning # as if people would be helped by saying "ISO"
 		number: i18n.invalidNumberWarning
 		digits: i18n.invalidDigitsWarning
 		equalTo: i18n.invalidEqualToWarning
