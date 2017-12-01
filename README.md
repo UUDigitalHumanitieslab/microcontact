@@ -9,8 +9,7 @@ For local development use, create a Python module in the project root that start
 
 For production use, copy `microcontact/settings.py` to a separate file. Put this file elsewhere in the filesystem under restrictive access rights, then modify its contents. There are many settings that need to be overridden because of security considerations; please see the comments.
 
-In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the path to your customized settings module in order to use it. For documentation, see the [Django documentation on settings][1].
-
+In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the path to your customized settings module in order to use it. For documentation, see the [Django documentation on settings][1]. When using virtualenvwrapper this export can be set in the [postactivate hook][23].
 Google Maps API key
 -------------------
 You need to obtain an API key for Google Maps in order for the frontend application to work. Save the key (with nothing else) in a file named `.gmapikey` in the project root directory. This file is ignored by Git.
@@ -142,3 +141,4 @@ Directory reference
 [20]: https://docs.djangoproject.com/en/1.8/howto/deployment/
 [21]: https://github.com/adaptlearning/adapt_authoring/wiki/installing-ffmpeg
 [22]: https://github.com/ahupp/python-magic
+[23]: https://stackoverflow.com/questions/9554087/setting-an-environment-variable-in-virtualenv

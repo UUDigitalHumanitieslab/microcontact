@@ -23,6 +23,8 @@ class GetAbsolutePathTestCase(TestCase):
         assert get_absolute_path(__file__) == __file__
     
     def test_get_from_django_File(self):
+        if not op.exists(settings.MEDIA_ROOT):
+            os.makedirs(settings.MEDIA_ROOT)
         with NamedTemporaryFile(dir=settings.MEDIA_ROOT) as temp:
             django_file = File(temp)
             absolute_path = get_absolute_path(django_file)
