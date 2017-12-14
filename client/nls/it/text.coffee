@@ -112,6 +112,7 @@ recordingMaxSizeError: 'Il tuo file è troppo grande.
 sociolinguisticLegend: 'Informazioni sulla registrazione e sul parlante'
 dialectFieldLabel: 'Dialetto del paese di provenienza'
 otherLanguagesFieldLabel: 'Quali altre lingue conosce il parlante?'
+otherLanguagesPlaceholder: 'nessuna'
 countryFieldLabel: 'Nazione'
 placeFieldLabel: 'Città'
 ageFieldLabel: 'Età'

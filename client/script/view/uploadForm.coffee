@@ -63,6 +63,7 @@ define [
 				width: '100%'
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
+				placeholder: i18n.otherLanguagesPlaceholder
 			@validator = @$('form').validate
 				submitHandler: @submit
 				invalidHandler: @handleInvalid
