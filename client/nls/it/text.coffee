@@ -51,8 +51,8 @@ welcomeSignature: 'Il gruppo di ricerca'
 welcomeParticipateButton: 'Partecipa'
 
 # Contributions, place listing
-justAnExampleMsg: 'Il sito è ancora in costruzione. Questo è solo un esempio.
-	I contributi non sono ancora presenti.'
+justAnExampleMsg: 'Stiamo controllando le registrazioni,
+	che appariranno on line al più presto.'
 numberOfContributions: '{{pins.length}} contribution(s)'
 	# {{pins.length}} is a number
 
