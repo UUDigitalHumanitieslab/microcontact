@@ -23,5 +23,5 @@ define [], -> [{
 # Canada
 , { address: 'Calgary, Alba., Can.', dialect: 'Fiorentino', position: { lat:51.0166666666667, lng:-114.016666666667}}
 # Italy
-, { address: 'Molfetta', dialect: 'Palermitano (Siciliano)', position: { lat:41.2, lng:16.6}}
+, { address: 'Palermo', dialect: 'Palermitano (Siciliano)', position: { lat:38.12, lng:13.35}}
 ]
