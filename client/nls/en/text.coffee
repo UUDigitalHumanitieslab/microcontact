@@ -48,6 +48,7 @@ welcomeCollapsedText: '''
 '''
 welcomeThankYou: 'Grazie per la collaborazione!'
 welcomeSignature: 'Il gruppo di ricerca'
+welcomeLink: 'Il sito web del nostro progetto'
 welcomeParticipateButton: 'Partecipate'
 
 # Contributions, place listing
