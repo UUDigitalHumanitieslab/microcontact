@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins
 from .serializers import *
-from .models import Dialect, Language, Country, AgeCategory, Recording
+from .models import Dialect, Language, Country, Place, AgeCategory, Recording
 
 
 class CreateReadModelViewSet(
@@ -37,6 +37,11 @@ class LanguageViewSet(CreateReadModelViewSet):
 class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+
+
+class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Place.objects.all()
+    serializer_class = PlaceRecordingsSerializer
 
 
 class AgeCategoryViewSet(viewsets.ReadOnlyModelViewSet):

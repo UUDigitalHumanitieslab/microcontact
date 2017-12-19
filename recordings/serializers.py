@@ -44,7 +44,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
     dialect = serializers.PrimaryKeyRelatedField(
         queryset=Dialect.objects.all(),
     )
-    place = PlaceSerializer()
+    place = PlaceSerializer(write_only=True)
     languages = serializers.PrimaryKeyRelatedField(
         queryset=Language.objects.all(),
         many=True,
@@ -118,3 +118,23 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
         )
         validated_data['place'] = place
         return super().create(validated_data)
+
+
+class PlaceRecordingsSerializer(serializers.ModelSerializer):
+    country = serializers.SlugRelatedField(
+        slug_field='code',
+        queryset=Country.objects.all(),
+    )
+    recordings = RecordingSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Place
+        fields = (
+            'id',
+            'placeID',
+            'name',
+            'latitude',
+            'longitude',
+            'country',
+            'recordings',
+        )
