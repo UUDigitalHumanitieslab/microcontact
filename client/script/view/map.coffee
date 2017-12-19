@@ -31,7 +31,6 @@ define [
 	
 	class MapView extends bb.View
 		logoPos: gmaps.ControlPosition.BOTTOM_LEFT
-		logoTemplate: JST['logo']
 		template: JST['map']
 		el: 'main'
 		render: ->
@@ -40,8 +39,13 @@ define [
 			mapElem = @$ '#map'
 			@map = new gmaps.Map mapElem[0], mapSettings
 			@map.fitBounds bounds
-			logo = $('<div>').html(@logoTemplate {})[0]
-			logo.index = 1
-			@map.controls[@logoPos].push logo
+			@addLogo 'logoERC', 1
+			@addLogo 'logoLab', 2
 			@rendered = true
 			@
+
+		addLogo: (templateName, index, data = {}) ->
+			template = JST[templateName]
+			logo = $('<div>').html(template data)[0]
+			logo.index = index
+			@map.controls[@logoPos].push logo
