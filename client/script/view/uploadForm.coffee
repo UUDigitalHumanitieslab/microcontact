@@ -68,6 +68,10 @@ define [
 				width: '100%'
 				tags: true
 				tokenSeparators: [',', ' ', '\n']
+				placeholder: 'nessuna'
+			# Workaround for a bug that causes the placeholder to be invisible,
+			# see https://github.com/select2/select2/issues/155#issuecomment-243093331
+			@$('.select2-search__field').css width: ''
 			@validator = @$('form').validate
 				submitHandler: @submit
 				invalidHandler: @handleInvalid
