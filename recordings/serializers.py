@@ -41,6 +41,10 @@ class AgeCategorySerializer(serializers.ModelSerializer):
 
 
 class RecordingSerializer(serializers.HyperlinkedModelSerializer):
+    recording_web = serializers.FileField(
+        read_only=True,
+        source='get_web_recording',
+    )
     dialect = serializers.PrimaryKeyRelatedField(
         queryset=Dialect.objects.all(),
     )
@@ -60,6 +64,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'url',
             'recording',
+            'recording_web',
             'name',
             'email',
             'phone',
