@@ -5,10 +5,11 @@
 
 define [
 	'backbone'
+	'underscore'
 	'googlemaps'
 	'templates'
 	'util/dialects'
-], (bb, gmaps, JST, dialects) ->
+], (bb, _, gmaps, JST, dialects) ->
 	'use strict'
 
 	iconSize = 24
@@ -20,34 +21,27 @@ define [
 
 		render: ->
 			totalCount = @model.recordings.length
-			scale = iconSize * (1 + iconLogScale * Math.log(totalCount))
 			dialectsHistogram = @model.recordings.countBy 'dialect'
+			# by using _.toPairs below, we guarantee same order in both arrays
+			[dialectIDs, counts] = _.unzip _.toPairs dialectsHistogram
+			fractions = _.map counts, (count) -> count / totalCount
+			cumuFractions = _.reduce fractions, ((accumulator, fraction) ->
+				accumulator.push _.last(accumulator) + fraction
+				accumulator
+			), [0]
+			console.assert (_.last(cumuFractions) == 1)
+			positions = _.map cumuFractions, (fraction) ->
+				circleFraction = 2 * Math.PI * fraction
+				{x: Math.cos(circleFraction), y: Math.sin(circleFraction)}
 
-			# convert to list, to make it easily iterable in the template
-			x = 1
-			y = 0
-			
-			currentFraction = 0
-			updateX = (fraction) ->
-				currentFraction += fraction
-			
-				x = Math.cos(2 * Math.PI * currentFraction)
-				y = Math.sin(2 * Math.PI * currentFraction)
-				x
-
-			half = totalCount / 2
-			getPiePiece = (dialectID) ->
+			pieces = _.zipWith dialectIDs, fractions, _.initial(positions), _.tail(positions), (dialectID, fraction, start, end) ->
 				dialect: dialects.get(dialectID).get 'dialect'
 				color: dialects.get(dialectID).get 'color'
-				fraction: dialectsHistogram[dialectID]
-				startX: x
-				startY: y
-				largeArcFlag: if dialectsHistogram[dialectID] > 0.5 then 1 else 0
-				endX: updateX(dialectsHistogram[dialectID])
-				endY: y
+				largeArcFlag: if fraction > 0.5 then 1 else 0
+				fraction: fraction
+				startX: start.x, startY: start.y
+				endX: end.x, endY: end.y
 
-			pieces = (getPiePiece(dialect) for dialect of dialectsHistogram)
-			
 			@size = Math.floor(iconSize * (1 + iconLogScale * Math.log(totalCount)))			
 			@$el.html @template {pieces, @size, opacity: iconOpacity}
 			@
