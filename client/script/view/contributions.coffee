@@ -11,7 +11,7 @@ define [
 	'view/contributionList'
 	'view/contributionPie'
 	'view/participWelcome'
-], (bb, gmaps, dialects, places, ContribListView, ContribPie, Welcome) ->
+], (bb, gmaps, dialects, places, ContribList, ContribPie, Welcome) ->
 	'use strict'
 
 	class ContributionsView extends bb.View
@@ -19,33 +19,11 @@ define [
 
 		initialize: (options) ->
 			@map = options.map
-			@createLookup(dialects)
 			@pies = places.map (place) -> new ContribPie model: place
 			@markers = @pies.map @createMarker
 			@popup = new gmaps.InfoWindow
-			@contribList = new ContribListView
+			@contribList = new ContribList
 			@welcome = new Welcome
-		# Group the contributions by dialects.
-		# Returns:
-		# 	Array with each element containing { dialect, color, pins[] }
-		groupContributionsByDialect: (pins) ->		
-			groupedDialects = {}
-			addPin = (dialect, pin) ->
-				if !groupedDialects[dialect]
-					groupedDialects[dialect] = []
-				groupedDialects[dialect].push(pin)
-			addPin(pin.dialect, pin) for pin in pins
-			dialectsLookup = @dialectsLookup
-			{
-				dialect: dialect,
-				color: dialectsLookup[dialect].color,
-				pins: groupedDialects[dialect]
-			} for dialect in Object.keys(groupedDialects).sort()
-
-		createLookup: (dialects) ->
-			@dialectsLookup = {}
-			@dialectsLookup[dialect['id']] = dialect for dialect in dialects.toJSON()
-			@
 
 		createMarker: (pie) =>
 			place = pie.model
@@ -59,10 +37,7 @@ define [
 				icon: pie.render().asIcon()
 			marker.addListener 'click', =>
 				@popup.setPosition position
-				@popup.setContent @contribList.render(
-					address,
-					@groupContributionsByDialect(place)
-				).el
+				@popup.setContent @contribList.render(place).el
 				@popup.open @map, marker
 			marker		
 
