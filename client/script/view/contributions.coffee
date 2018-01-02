@@ -49,6 +49,7 @@ define [
 		remove: ->
 			@map.controls[@welcomePos].pop()
 			@popup.close()
+			@contribList.remove()
 			marker.setMap undefined for marker in @markers if @markers
 			super()
 

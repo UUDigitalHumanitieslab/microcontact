@@ -19,5 +19,14 @@ define [
 				color: dialects.get(id).get 'color'
 				recordings: list
 			@$el.html @template {city: place.get('name'), sections}
+			@cleanup()
 			@players = plyr.setup @$('audio').get()
 			@
+
+		remove: ->
+			@cleanup()
+			super()
+
+		cleanup: ->
+			if @players?
+				_.forEach @players, (player) -> player.destroy()
