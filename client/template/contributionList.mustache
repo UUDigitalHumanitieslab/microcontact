@@ -2,7 +2,9 @@
 {{#sections}}
 	<div class="dialect" style="border-left-color: {{color}}">
 		<h3>{{dialect}}</h3>
-		<p>Stiamo controllando le registrazioni, che appariranno on line al più presto.</p>
 		<p class="contributions-count">{{recordings.length}} contribution(s)</p>
+		<ul>
+			{{#recordings}}<li>{{url}}<br>{{recording_web}}{{/recordings}}
+		</ul>
 	</div>
 {{/sections}}
