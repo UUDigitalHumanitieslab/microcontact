@@ -19,7 +19,9 @@ define [
 
 		initialize: (options) ->
 			@map = options.map
-			@pies = places.map (place) -> new ContribPie model: place
+			@pies = places.filter((place) ->
+				!place.recordings.isEmpty()
+			).map (place) -> new ContribPie model: place
 			@markers = @pies.map @createMarker
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribList
