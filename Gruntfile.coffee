@@ -92,6 +92,7 @@ module.exports = (grunt) ->
 				options:
 					includePaths: [
 						'bower_components/bootstrap-sass/assets/stylesheets'
+						'bower_components/plyr/src/scss'
 					]
 					sourceComments: true
 				expand: true
@@ -254,6 +255,7 @@ module.exports = (grunt) ->
 						select2: 'empty:'
 						'jquery.validate': 'empty:'
 						'jquery.validate.additions': 'empty:'
+						plyr: 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 

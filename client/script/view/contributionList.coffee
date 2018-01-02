@@ -1,9 +1,10 @@
 define [
 	'backbone'
 	'underscore'
+	'plyr'
 	'templates'
 	'util/dialects'
-], (bb, _, JST, dialects) ->
+], (bb, _, plyr, JST, dialects) ->
 	'use strict'
 	
 	class ContributionListView extends bb.View
@@ -18,4 +19,5 @@ define [
 				color: dialects.get(id).get 'color'
 				recordings: list
 			@$el.html @template {city: place.get('name'), sections}
+			@players = plyr.setup @$('audio').get()
 			@

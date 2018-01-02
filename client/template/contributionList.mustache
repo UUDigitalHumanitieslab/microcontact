@@ -3,8 +3,8 @@
 	<div class="dialect" style="border-left-color: {{color}}">
 		<h3>{{dialect}}</h3>
 		<p class="contributions-count">{{recordings.length}} contribution(s)</p>
-		<ul>
-			{{#recordings}}<li>{{url}}<br>{{recording_web}}{{/recordings}}
-		</ul>
+		{{#recordings}}<audio controls>
+			<source src="{{recording_web}}" type="audio/mp3">
+		</audio>{{/recordings}}
 	</div>
 {{/sections}}

@@ -13,3 +13,4 @@ require.config
 		select2: '//cdn.jsdelivr.net/npm/select2@4.0.3/dist/js/select2.min'
 		'jquery.validate': '//cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min'
 		'jquery.validate.additions': '//cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods'
+		plyr: '//cdn.plyr.io/2.0.18/plyr'
