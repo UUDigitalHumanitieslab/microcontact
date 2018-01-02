@@ -130,7 +130,19 @@ class PlaceRecordingsSerializer(serializers.ModelSerializer):
         slug_field='code',
         queryset=Country.objects.all(),
     )
-    recordings = RecordingSerializer(many=True, read_only=True)
+    recordings = serializers.SerializerMethodField()
+
+    # credits to https://stackoverflow.com/a/25313145/
+    def get_recordings(self, place):
+        recordings = Recording.objects.filter(place=place, public=True)
+        serializer = RecordingSerializer(
+            many=True,
+            instance=recordings,
+            # context is needed for its 'request' field because of
+            # RecordingSerializer's HyperlinkedIdentityFields
+            context=self.context,
+        )
+        return serializer.data
 
     class Meta:
         model = Place
