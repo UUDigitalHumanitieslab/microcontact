@@ -19,15 +19,17 @@ def convert_web_recording(sender, **kwargs):
     update_fields = kwargs.get('update_fields', None)
     if (
         update_fields and
-        len(update_fields) == 1 and
-        'recording_web' in update_fields
+        len(update_fields) >= 1 and (
+            'recording_web' in update_fields or
+            'recording' not in update_fields
+        )
     ):
-        return  # this prevents infinite recursion
+        return  # this prevents infinite recursion and saves work
     instance = kwargs.get('instance')
-    instance.recording_web.delete(save=False)
     recording = instance.recording
     mime_type = guess_type(recording.name)
-    if mime_type not in WEB_SAFE:
+    if mime_type not in WEB_SAFE and recording != instance.recording_web:
+        instance.recording_web.delete(save=False)
         full_path = get_absolute_path(recording)
         converted_mp3 = convert_to_mp3(full_path)
         relative_path = op.relpath(converted_mp3, settings.MEDIA_ROOT)
