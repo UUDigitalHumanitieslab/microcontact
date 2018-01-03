@@ -5,7 +5,7 @@
 
 define [
 	'backbone'
-	'json!api/countries/'
+	'json!api/countries'
 ], (bb, apiCountries) ->
 	'use strict'
 	

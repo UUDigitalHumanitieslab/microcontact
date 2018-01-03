@@ -128,8 +128,13 @@ module.exports = (grunt) ->
 				src: ['bower_components']
 				dest: '<%= stage %>/bower_components'
 			develop:
-				src: ['<%= source %>/<%= image %>']
-				dest: '<%= stage %>/<%= image %>'
+				files: [{
+					src: ['<%= source %>/<%= image %>']
+					dest: '<%= stage %>/<%= image %>'
+				}, {
+					src: ['<%= source %>/<%= script %>/mock/api']
+					dest: '<%= stage %>/<%= script %>/mock/api'
+				}]
 			dist:
 				src: ['<%= source %>/<%= image %>']
 				dest: '<%= dist %>/<%= image %>'
@@ -175,6 +180,7 @@ module.exports = (grunt) ->
 						requireConfig:
 							baseUrl: '<%= script %>'
 							paths:
+								api: 'mock/api'
 								'google-maps-mock': '../bower_components/google-maps-mock/google-maps-mock'
 								googlemaps: 'mock/google-maps'
 							shim:

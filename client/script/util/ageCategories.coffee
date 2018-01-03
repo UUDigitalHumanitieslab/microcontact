@@ -5,7 +5,7 @@
 
 define [
 	'backbone'
-	'json!api/age-categories/'
+	'json!api/age-categories'
 ], (bb, apiAges) ->
 	'use strict'
 	

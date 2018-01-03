@@ -5,7 +5,7 @@
 
 define [
 	'backbone'
-	'json!api/languages/'
+	'json!api/languages'
 ], (bb, apiLanguages) ->
 	'use strict'
 	
