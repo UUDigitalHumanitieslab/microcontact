@@ -5,6 +5,7 @@
 require.config
 	baseUrl: 'static'
 	paths:
+		api: '../api'
 		jquery: '//code.jquery.com/jquery-3.1.1.min'
 		backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min'
 		underscore: '//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.1/lodash.min'

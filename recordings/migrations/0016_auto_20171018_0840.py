@@ -14,7 +14,7 @@ COUNTRY_DEFAULTS_ITALIAN = (
 LANGUAGE_DEFAULTS_ITALIAN = (
     'italiano',
     'francese',
-    'spangolo',
+    'spagnolo',
     'portoghese',
     'inglese',
 )

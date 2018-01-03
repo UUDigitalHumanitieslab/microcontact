@@ -5,12 +5,12 @@
 
 define [
 	'backbone'
-	'json!/api/age-categories/'
+	'json!api/age-categories'
 ], (bb, apiAges) ->
 	'use strict'
 	
 	ageCategories = new bb.Collection
-	ageCategories.url = '/api/age-categories/'
+	ageCategories.url = 'api/age-categories/'
 	ageCategories.comparator = 'least'  # keep sorted by low end of age range
 	ageCategories.reset apiAges
 	# singleton instance that is fetched once
