@@ -53,3 +53,4 @@ define [
 			origin: new gmaps.Point(0,0)
 			anchor: new gmaps.Point(@size / 2, @size / 2)
 			size: new gmaps.Size(@size, @size)
+			scaledSize: new gmaps.Size(@size, @size)

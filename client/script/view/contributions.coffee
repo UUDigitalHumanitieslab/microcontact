@@ -37,6 +37,7 @@ define [
 				position: position
 				title: address
 				icon: pie.render().asIcon()
+				optimized: false
 			marker.addListener 'click', =>
 				@popup.setPosition position
 				@popup.setContent @contribList.render(place).el
