@@ -27,9 +27,9 @@ define [
 				(memo, num) -> memo  + num.length
 				0)
 
-			expect(getControlsCount()).toBe(1, 'Only the logo control should be rendered at first')
+			expect(getControlsCount()).toBe(2, 'Only two logo controls should be rendered at first')
 			@participate.render()
 			div = $ 'div[id="participate-guide"]'
 
 			# did we add controls?
-			expect(getControlsCount()).toBeGreaterThan(1, 'Controls should be added')
+			expect(getControlsCount()).toBeGreaterThan(2, 'More controls should be added')
