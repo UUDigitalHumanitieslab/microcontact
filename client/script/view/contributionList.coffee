@@ -20,7 +20,8 @@ define [
 				recordings: list
 			@$el.html @template {city: place.get('name'), sections}
 			@cleanup()
-			@players = plyr.setup @$('audio').get()
+			@players = plyr.setup @$('audio').get(),
+				displayDuration: false
 			@
 
 		remove: ->
