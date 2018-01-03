@@ -1,8 +1,9 @@
 define [
 	'backbone'
+	'plyr'
 	'templates'
 	'bootstrap/collapse'
-], (bb, JST) ->
+], (bb, plyr, JST) ->
 	'use strict'
 	
 	class ParticipWelcomeView extends bb.View
@@ -12,4 +13,5 @@ define [
 		
 		render: ->
 			@$el.html @template {}
+			plyr.setup @$('#welcome-video-container').get()
 			@
