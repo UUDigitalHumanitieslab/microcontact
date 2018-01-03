@@ -6,7 +6,8 @@
     "js-cookie": "^2.1.4",
     "select2": "^4.0.3",
     "requirejs-plugins": "^1.0.3",
-    "jquery-validation": "^1.17.0"
+    "jquery-validation": "^1.17.0",
+    "plyr": "^2.0.18"
   },
   "devDependencies": {
     "handlebars": "^4.0.5",
