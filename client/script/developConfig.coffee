@@ -1,5 +1,6 @@
 ###
 	(c) 2016 Julian Gonggrijp
+	(c) 2017-2018 Digital Humanities Lab, Utrecht University
 ###
 
 require.config
@@ -19,6 +20,7 @@ require.config
 		'jquery.validate': '../bower_components/jquery-validation/dist/jquery.validate'
 		'jquery.validate.additions': '../bower_components/jquery-validation/dist/additional-methods'
 		'jquery.validate.messages.IT': '../bower_components/jquery-validation/src/localization/messages_it'
+		plyr: '../bower_components/plyr/src/js/plyr'
 	shim:
 		'bootstrap/transition': ['jquery']
 		'bootstrap/modal': ['jquery']      # has own CSS component
