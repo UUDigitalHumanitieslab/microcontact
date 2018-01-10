@@ -60,6 +60,26 @@
 				<option value=u>università</option>
 			</select>
 		</div>
+		{{#fromItaly}}
+		<fieldset id=upload-generation-field>
+			<div class=radio>
+				<label>
+					<input type=radio name=generation value=a>
+					Sono emigrato dal mio città/paese di origine.
+				</label><br>
+				<label>
+					<input type=radio name=generation value=b>
+					Sono sempre vissuto a {{name}}.
+				</label>
+			</div>
+		</fieldset>
+		<fieldset id=upload-firstgen-fields>
+			<div class=form-group>
+				<label for=upload-migrated class=control-label>Sono emigrato dal mio città/paese di origine nell'anno (obbligatorio)</label>
+				<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
+			</div>
+		{{/fromItaly}}
+		{{^fromItaly}}
 		<fieldset id=upload-generation-field>
 			<div class=radio>
 				<label>
@@ -77,6 +97,7 @@
 				<label for=upload-migrated class=control-label>Sono emigrato dall'Italia nell'anno (obbligatorio)</label>
 				<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
 			</div>
+		{{/fromItaly}}
 			<div class=form-group>
 				<label for=upload-origin-place class=control-label>Sono nato a (obbligatorio)</label>
 				<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="Città/paese" maxlength=200 spellcheck=false>
