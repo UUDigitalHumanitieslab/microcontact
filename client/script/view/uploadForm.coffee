@@ -56,10 +56,10 @@ define [
 		
 		render: (place) ->
 			place = place.toInternal()
-			generationRequired = (place.country != 'IT')
+			fromItaly = (place.country == 'IT')
 			@validator?.destroy()
 			@$el.html @template {
-				place
+				place, fromItaly
 				dialects: dialects.toJSON()
 				languages: languages.toJSON()
 				ages: ages.toJSON()
@@ -91,7 +91,7 @@ define [
 							depends: (elem) =>
 								not $.validator.methods.accept.call @validator, $(elem).val(), elem, acceptedMediaTypes
 					generation:
-						required: generationRequired
+						required: true
 					migrated:
 						required: depends: @isFirstGeneration
 					'origin-place':
@@ -115,7 +115,6 @@ define [
 				errorPlacement: @placeError
 			@firstGenFields = @$ firstGenFieldsSelector
 			@firstGenFields.hide()
-			@$(generationFieldSelector).hide() unless generationRequired
 			@
 
 		handleInvalid: (event, validator) =>

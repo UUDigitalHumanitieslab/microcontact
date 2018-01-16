@@ -60,6 +60,38 @@
 				<option value=u>università</option>
 			</select>
 		</div>
+		{{#fromItaly}}
+		<fieldset id=upload-generation-field>
+			<div class=radio>
+				<label>
+					<input type=radio name=generation value=b>
+					Ho sempre vissuto a {{name}}.
+				</label><br>
+				<label>
+					<input type=radio name=generation value=a>
+					Mi sono trasferito a {{name}}.
+				</label>
+			</div>
+		</fieldset>
+		<fieldset id=upload-firstgen-fields>
+			<div class=form-group>
+				<label for=upload-origin-place class=control-label>Mi sono trasferito da (obbligatorio)</label>
+				<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="Città di origine" maxlength=200 spellcheck=false>
+				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+				<input type=hidden id=upload-origin name=origin>
+			</div>
+			<div class=form-group>
+				<label for=upload-origin-province class=control-label>in provincia di (obbligatorio)</label>
+				<input id=upload-origin-province name=origin-province type=text class=form-control placeholder="Provincia" maxlength=50 spellcheck=false>
+				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+			</div>
+			<div class=form-group>
+				<label for=upload-migrated class=control-label>nell'anno (obbligatorio)</label>
+				<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
+			</div>
+		</fieldset>
+		{{/fromItaly}}
+		{{^fromItaly}}
 		<fieldset id=upload-generation-field>
 			<div class=radio>
 				<label>
@@ -89,6 +121,7 @@
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 			</div>
 		</fieldset>
+		{{/fromItaly}}
 	</fieldset>
 	<fieldset>
 		<legend>Informazioni sulla persona che effettua il caricamento del file.</legend>
