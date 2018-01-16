@@ -29,7 +29,7 @@ class DialectViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = DialectSerializer
 
 
-class LanguageViewSet(CreateReadModelViewSet):
+class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
 
