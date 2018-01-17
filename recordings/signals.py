@@ -7,7 +7,7 @@ from django.conf import settings
 from .convert_audio import convert_to_mp3
 from .utils import get_absolute_path
 
-WEB_SAFE = ('audio/mpeg', 'audio/aac', 'audio/mp4')
+WEB_SAFE = ('audio/mpeg', 'audio/mp4a-latm', 'video/mp4', 'audio/mp4')
 
 
 def convert_web_recording(sender, **kwargs):
@@ -27,7 +27,7 @@ def convert_web_recording(sender, **kwargs):
         return  # this prevents infinite recursion and saves work
     instance = kwargs.get('instance')
     recording = instance.recording
-    mime_type = guess_type(recording.name)
+    mime_type, encoding = guess_type(recording.name)
     if mime_type not in WEB_SAFE and recording != instance.recording_web:
         instance.recording_web.delete(save=False)
         full_path = get_absolute_path(recording)
@@ -60,5 +60,5 @@ def connect_signals(app_instance):
     post_delete.connect(
         remove_recording_files,
         sender=Recording,
-        dispatch_uid='recordings.models.Recording#convert_web_recording',
+        dispatch_uid='recordings.models.Recording#remove_recording_files',
     )
