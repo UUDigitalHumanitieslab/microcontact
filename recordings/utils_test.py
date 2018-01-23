@@ -7,8 +7,9 @@ from django.core.files import File
 from django.conf import settings
 
 from .utils import *
+from .conftest import TESTCASE_DIR
 
-TEST_FILE = op.join('recordings', 'testcases', 'speech.amr')
+TEST_FILE = op.join(TESTCASE_DIR, 'speech.amr')
 TEST_FILE_SIZE = 8838
 
 
