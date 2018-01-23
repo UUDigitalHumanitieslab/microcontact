@@ -56,17 +56,16 @@ define [
 		
 		render: (place) ->
 			place = place.toInternal()
-			generationRequired = (place.country != 'IT')
+			fromItaly = (place.country == 'IT')
 			@validator?.destroy()
 			@$el.html @template {
-				place
+				place, fromItaly
 				dialects: dialects.toJSON()
 				languages: languages.toJSON()
 				ages: ages.toJSON()
 			}
 			@$('#upload-languages').select2
 				width: '100%'
-				tags: true
 				tokenSeparators: [',', ' ', '\n']
 				placeholder: 'nessuna'
 			# Workaround for a bug that causes the placeholder to be invisible,
@@ -91,7 +90,7 @@ define [
 							depends: (elem) =>
 								not $.validator.methods.accept.call @validator, $(elem).val(), elem, acceptedMediaTypes
 					generation:
-						required: generationRequired
+						required: true
 					migrated:
 						required: depends: @isFirstGeneration
 					'origin-place':
@@ -115,7 +114,6 @@ define [
 				errorPlacement: @placeError
 			@firstGenFields = @$ firstGenFieldsSelector
 			@firstGenFields.hide()
-			@$(generationFieldSelector).hide() unless generationRequired
 			@
 
 		handleInvalid: (event, validator) =>
@@ -140,29 +138,9 @@ define [
 			event.preventDefault()
 			@setOrigin event
 			contribution = new Contribution
-			@updateLanguages =>
-				contribution.save(form).then(@handleSuccess, @handleError)
-				@$('fieldset').prop 'disabled', true
+			contribution.save(form).then(@handleSuccess, @handleError)
+			@$('fieldset').prop 'disabled', true
 			@showStatus 'info', 'Caricamento in corso. Si prega di attendere...'
-
-		updateLanguages: (callback) ->
-			chosenLanguages = @$('#upload-languages').select2 'data'
-			newLanguages = (
-				# preexisting languages have a numerical id, new ones don't
-				lang for lang in chosenLanguages when lang.id == lang.text
-			)
-			newLanguageCount = newLanguages.length
-			callback() if newLanguageCount == 0
-			for {text, element} in newLanguages
-				newModel = languages.add language: text
-				newModel.save().done(
-					(data) => $(element).val data.id
-				).fail(
-					=> $(element).remove()
-				).always =>
-					@$('#upload-languages').trigger 'change.select2'
-					if --newLanguageCount == 0
-						callback()
 
 		handleSuccess: (data, statusText, jqXHR) =>
 			@showStatus 'success', 'Grazie!'

@@ -122,6 +122,9 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             defaults=place_data,
         )
         validated_data['place'] = place
+        # Italian speakers are always first generation even if not migrated
+        if place.country.code == 'IT':
+            validated_data['generation'] = Recording.FIRST_GEN
         return super().create(validated_data)
 
 
