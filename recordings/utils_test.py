@@ -6,10 +6,10 @@ from django.test import TestCase
 from django.core.files import File
 from django.conf import settings
 
+from conftest import use_adapted_fixtures
 from .utils import *
-from .conftest import TESTCASE_DIR
 
-TEST_FILE = op.join(TESTCASE_DIR, 'speech.amr')
+TEST_FILE = 'speech.amr'
 TEST_FILE_SIZE = 8838
 
 
@@ -31,11 +31,12 @@ class GetAbsolutePathTestCase(TestCase):
             assert op.isfile(absolute_path)
 
 
+@use_adapted_fixtures('testcase_dir')
 class GetFileSizeTestCase(TestCase):
     """ Using a unittest-style TestCase because of Django settings. """
     
     def setUp(self):
-        self.full_path = op.join(settings.BASE_DIR, TEST_FILE)
+        self.full_path = op.abspath(op.join(self.testcase_dir, TEST_FILE))
     
     def test_get_from_string(self):
         assert get_file_size(self.full_path) == TEST_FILE_SIZE
