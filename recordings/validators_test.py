@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 
 from .validators import *
 
-TEST_FILE = 'speech.amr'
 TEST_FILE_SIZE = 8838
 
 FILE_SIZE_SCENARIOS = {
@@ -106,17 +105,12 @@ MEDIA_TYPE_SCENARIOS = {
 }
 
 
-@pytest.fixture
-def audio_file(testcase_dir):
-    return op.join(testcase_dir, TEST_FILE)
-
-
 @pytest.fixture(
     params=FILE_SIZE_SCENARIOS.values(),
     ids=list(FILE_SIZE_SCENARIOS.keys()),
 )
-def file_size_fix(request, audio_file):
-    return dict(file=audio_file, **request.param)
+def file_size_fix(request, amr_file):
+    return dict(file=amr_file.name, **request.param)
 
 
 def test_FileSizeValidator(file_size_fix):
@@ -132,8 +126,8 @@ def test_FileSizeValidator(file_size_fix):
     params=MEDIA_TYPE_SCENARIOS.values(),
     ids=list(MEDIA_TYPE_SCENARIOS.keys()),
 )
-def media_type_fix(request, audio_file):
-    return dict(file=audio_file, **request.param)
+def media_type_fix(request, amr_file):
+    return dict(file=amr_file.name, **request.param)
 
 
 def test_MediaTypeValidator(media_type_fix):
