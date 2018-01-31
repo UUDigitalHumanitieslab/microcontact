@@ -8,7 +8,7 @@ from django.conf import settings
 from .convert_audio import convert_to_mp3
 from .utils import get_absolute_path
 
-WEB_SAFE = ('audio/mpeg', 'audio/mp4a-latm', 'video/mp4', 'audio/mp4')
+WEB_SAFE = ('audio/mpeg',)
 FILENAME_FORMAT = 'microcontact_{id:07}{extension}'
 
 
