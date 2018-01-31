@@ -151,9 +151,10 @@ class Recording(models.Model):
         max_length=200,
         blank=True,
     )
+    recording_original_name = models.CharField(blank=True, max_length=200)
     
     def get_web_recording(self):
         return self.recording_web or self.recording
     
     def __str__(self):
-        return '{} ({})'.format(self.id, op.split(self.recording.name)[1])
+        return '{.id}'.format(self)

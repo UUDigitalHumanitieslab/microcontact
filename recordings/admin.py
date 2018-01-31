@@ -15,10 +15,15 @@ class PlaceAdmin(admin.ModelAdmin):
 
 class RecordingAdmin(admin.ModelAdmin):
     """ Customizations to the default ModelAdmin. """
-    readonly_fields = ('recording_web',)
+    readonly_fields = ('recording_web', 'recording_original_name')
     fieldsets = (
         (None, {
-            'fields': (('status', 'public'), 'recording', 'recording_web'),
+            'fields': (
+                ('status', 'public'),
+                'recording',
+                'recording_web',
+                'recording_original_name',
+            ),
         }),
         ('Information about the uploader', {
             'fields': ('name', 'email', 'phone'),
@@ -48,7 +53,15 @@ class RecordingAdmin(admin.ModelAdmin):
         'migrated',
     )
     search_fields = ('recording', 'name', 'email', 'phone', 'origin')
-    list_display = ('id', 'uploader', 'dialect', 'place', 'status', 'public')
+    list_display = (
+        'id',
+        'formerly',
+        'uploader',
+        'dialect',
+        'place',
+        'status',
+        'public',
+    )
     
     def uploader(self, instance):
         """
@@ -58,6 +71,10 @@ class RecordingAdmin(admin.ModelAdmin):
         see https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display.
         """
         return instance.name
+    
+    def formerly(self, instance):
+        """ A renaming trick just like `uploader`. """
+        return instance.recording_original_name
 
 
 admin.site.register(Dialect)

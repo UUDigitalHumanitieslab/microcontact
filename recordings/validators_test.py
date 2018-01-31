@@ -5,9 +5,7 @@ import pytest
 from django.core.exceptions import ValidationError
 
 from .validators import *
-
-TEST_FILE = op.join('recordings', 'testcases', 'speech.amr')
-TEST_FILE_SIZE = 8838
+from .utils_test import TEST_FILE_SIZE
 
 FILE_SIZE_SCENARIOS = {
     'allpass': {
@@ -111,16 +109,16 @@ MEDIA_TYPE_SCENARIOS = {
     ids=list(FILE_SIZE_SCENARIOS.keys()),
 )
 def file_size_fix(request):
-    return dict(file=TEST_FILE, **request.param)
+    return request.param
 
 
-def test_FileSizeValidator(file_size_fix):
+def test_FileSizeValidator(file_size_fix, amr_file):
     validate = FileSizeValidator(file_size_fix['min'], file_size_fix['max'])
     if file_size_fix['pass']:
-        assert validate(file_size_fix['file']) is None
+        assert validate(amr_file.name) is None
     else:
         with pytest.raises(ValidationError):
-            validate(file_size_fix['file'])
+            validate(amr_file.name)
 
 
 @pytest.fixture(
@@ -128,16 +126,16 @@ def test_FileSizeValidator(file_size_fix):
     ids=list(MEDIA_TYPE_SCENARIOS.keys()),
 )
 def media_type_fix(request):
-    return dict(file=TEST_FILE, **request.param)
+    return request.param
 
 
-def test_MediaTypeValidator(media_type_fix):
+def test_MediaTypeValidator(media_type_fix, amr_file):
     validate = MediaTypeValidator(
         media_type_fix['accept'],
         media_type_fix['reject'],
     )
     if media_type_fix['pass']:
-        assert validate(media_type_fix['file']) is None
+        assert validate(amr_file.name) is None
     else:
         with pytest.raises(ValidationError):
-            validate(media_type_fix['file'])
+            validate(amr_file.name)
