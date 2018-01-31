@@ -9,13 +9,13 @@ from .models import Recording
 def test_standardize_filename(dummy):
     dummy.id = 3
     assert standardize_filename(dummy, 'banana.mp3') == \
-        ('microcontact_0000003.mp3', 'audio/mpeg')
+        ('microcontact_0000003.mp3', '.mp3')
     assert standardize_filename(dummy, 'banana.m4a') == \
-        ('microcontact_0000003.m4a', 'audio/mp4a-latm')
+        ('microcontact_0000003.m4a', '.m4a')
     assert standardize_filename(dummy, 'banana.mp4') == \
-        ('microcontact_0000003.mp4', 'video/mp4')
-    assert standardize_filename(dummy, 'banana.amr')[0] == \
-        'microcontact_0000003.amr'  # mime may be unrecognized, does not matter
+        ('microcontact_0000003.mp4', '.mp4')
+    assert standardize_filename(dummy, 'banana.amr') == \
+        ('microcontact_0000003.amr', '.amr')
 
 
 @pytest.fixture

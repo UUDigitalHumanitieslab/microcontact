@@ -27,6 +27,7 @@ def rename_existing_files(apps, schema_editor):
             op.splitext(recording.recording_web.name)[0] != op.splitext(recording.recording.name)[0]
         ):
             recording.recording_web.name = ''
+            recording.save(update_fields=('recording_web',))
             # we could delete instead, but we won't do it just in case
 
 

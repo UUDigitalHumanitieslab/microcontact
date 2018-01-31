@@ -1,4 +1,3 @@
-from mimetypes import guess_type
 import os
 import os.path as op
 
@@ -8,7 +7,7 @@ from django.conf import settings
 from .convert_audio import convert_to_mp3
 from .utils import get_absolute_path
 
-WEB_SAFE = ('audio/mpeg',)
+WEB_SAFE = ('.mp3',)
 FILENAME_FORMAT = 'microcontact_{id:07}{extension}'
 
 
@@ -23,7 +22,7 @@ def store_recording_files(sender, **kwargs):
     instance = kwargs.get('instance')
     old_path = get_absolute_path(instance.recording)
     directory, old_name = op.split(old_path)
-    new_name, mime_type = standardize_filename(instance, old_name)
+    new_name, extension = standardize_filename(instance, old_name)
     new_path = op.join(directory, new_name)
     # import pdb; pdb.set_trace()
     if old_name != new_name:
@@ -43,7 +42,7 @@ def store_recording_files(sender, **kwargs):
     ):
         return  # this prevents infinite recursion and saves work
     assert instance.recording != instance.recording_web
-    if mime_type not in WEB_SAFE:
+    if extension not in WEB_SAFE:
         instance.recording_web.delete(save=False)
         converted_mp3 = convert_to_mp3(new_path)
         relative_path = op.relpath(converted_mp3, settings.MEDIA_ROOT)
@@ -63,11 +62,10 @@ def standardize_filename(recording, current_name):
         
         `recording`: instance of .models.Recording.
     """
-    mime_type, encoding = guess_type(current_name)
     std_extension = op.splitext(current_name)[1].lower()
     directory = op.dirname(current_name)
     std_name = FILENAME_FORMAT.format(id=recording.id, extension=std_extension)
-    return op.join(directory, std_name), mime_type
+    return op.join(directory, std_name), std_extension
 
 
 def remove_recording_files(sender, **kwargs):
