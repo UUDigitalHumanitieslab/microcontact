@@ -157,4 +157,4 @@ class Recording(models.Model):
         return self.recording_web or self.recording
     
     def __str__(self):
-        return '{} ({})'.format(self.id, op.split(self.recording.name)[1])
+        return '{.id}'.format(self)

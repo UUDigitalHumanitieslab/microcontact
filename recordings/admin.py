@@ -15,10 +15,15 @@ class PlaceAdmin(admin.ModelAdmin):
 
 class RecordingAdmin(admin.ModelAdmin):
     """ Customizations to the default ModelAdmin. """
-    readonly_fields = ('recording_web',)
+    readonly_fields = ('recording_web', 'recording_original_name')
     fieldsets = (
         (None, {
-            'fields': (('status', 'public'), 'recording', 'recording_web'),
+            'fields': (
+                ('status', 'public'),
+                'recording',
+                'recording_web',
+                'recording_original_name',
+            ),
         }),
         ('Information about the uploader', {
             'fields': ('name', 'email', 'phone'),
