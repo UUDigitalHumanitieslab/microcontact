@@ -22,7 +22,7 @@ if sys.version_info < (3, 5):
         retcode = process.poll()
         if check and retcode:
             raise subprocess.CalledProcessError(
-                retcode, process.args, output=stdout, stderr=stderr)
+                retcode, process.args, output=stdout)
         return retcode, stdout, stderr
 else:
     run = subprocess.run
