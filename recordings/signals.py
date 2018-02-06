@@ -42,7 +42,7 @@ def store_recording_files(sender, **kwargs):
     ):
         return  # this prevents infinite recursion and saves work
     assert instance.recording != instance.recording_web
-    if extension not in WEB_SAFE:
+    if extension.lower() not in WEB_SAFE:
         instance.recording_web.delete(save=False)
         converted_mp3 = convert_to_mp3(new_path)
         relative_path = op.relpath(converted_mp3, settings.MEDIA_ROOT)
