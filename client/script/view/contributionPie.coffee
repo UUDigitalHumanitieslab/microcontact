@@ -12,9 +12,19 @@ define [
 ], (bb, _, gmaps, JST, dialects) ->
 	'use strict'
 
-	iconSize = 24
 	iconOpacity = 0.9
-	iconLogScale = 1.1
+
+	###
+	The following constants were chosen such, that a pie representing 1
+	contribution has a diameter of about 16 pixels and a pie with 100
+	contributions has a diameter of about 80 pixels. The numbers were found by
+	solving the following simple system of linear equations (and rounding a
+	bit):
+		iconLogScale * ln 2   + iconSizeConstant == 16
+		iconLogScale * ln 101 + iconSizeConstant == 80
+	###
+	iconLogScale = 16.3
+	iconSizeConstant = 4.7
 
 	class ContributionPieView extends bb.View
 		template: JST['contributionPie']
@@ -42,7 +52,9 @@ define [
 				startX: start.x, startY: start.y
 				endX: end.x, endY: end.y
 
-			@size = Math.floor(iconSize * (1 + iconLogScale * Math.log(totalCount)))			
+			@size = Math.round(
+				iconLogScale * Math.log(totalCount + 1) + iconSizeConstant
+			)
 			@$el.html @template {pieces, @size, opacity: iconOpacity}
 			@
 
