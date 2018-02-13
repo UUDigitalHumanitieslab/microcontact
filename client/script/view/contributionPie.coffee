@@ -34,28 +34,31 @@ define [
 			dialectsHistogram = @model.recordings.countBy 'dialect'
 			# by using _.toPairs below, we guarantee same order in both arrays
 			[dialectIDs, counts] = _.unzip _.toPairs dialectsHistogram
-			fractions = _.map counts, (count) -> count / totalCount
-			cumuFractions = _.reduce fractions, ((accumulator, fraction) ->
-				accumulator.push _.last(accumulator) + fraction
-				accumulator
-			), [0]
-			console.assert (_.last(cumuFractions) == 1)
-			positions = _.map cumuFractions, (fraction) ->
-				circleFraction = 2 * Math.PI * fraction
-				{x: Math.cos(circleFraction), y: Math.sin(circleFraction)}
+			if dialectIDs.length > 1
+				fractions = _.map counts, (count) -> count / totalCount
+				cumuFractions = _.reduce fractions, ((accumulator, fraction) ->
+					accumulator.push _.last(accumulator) + fraction
+					accumulator
+				), [0]
+				console.assert (_.last(cumuFractions) == 1)
+				positions = _.map cumuFractions, (fraction) ->
+					circleFraction = 2 * Math.PI * fraction
+					{x: Math.cos(circleFraction), y: Math.sin(circleFraction)}
 
-			pieces = _.zipWith dialectIDs, fractions, _.initial(positions), _.tail(positions), (dialectID, fraction, start, end) ->
-				dialect: dialects.get(dialectID).get 'dialect'
-				color: dialects.get(dialectID).get 'color'
-				largeArcFlag: if fraction > 0.5 then 1 else 0
-				fraction: fraction
-				startX: start.x, startY: start.y
-				endX: end.x, endY: end.y
+				pieces = _.zipWith dialectIDs, fractions, _.initial(positions), _.tail(positions), (dialectID, fraction, start, end) ->
+					dialect: dialects.get(dialectID).get 'dialect'
+					color: dialects.get(dialectID).get 'color'
+					largeArcFlag: if fraction > 0.5 then 1 else 0
+					fraction: fraction
+					startX: start.x, startY: start.y
+					endX: end.x, endY: end.y
+			else  # only one segment
+				color = dialects.get(dialectIDs[0]).get 'color'
 
 			@size = Math.round(
 				iconLogScale * Math.log(totalCount + 1) + iconSizeConstant
 			)
-			@$el.html @template {pieces, @size, opacity: iconOpacity}
+			@$el.html @template {pieces, color, @size, opacity: iconOpacity}
 			@
 
 		# For use as a Google Maps marker
