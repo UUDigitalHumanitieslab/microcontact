@@ -14,15 +14,13 @@ define [
 
 	iconOpacity = 0.9
 
-	###
-	The following constants were chosen such, that a pie representing 1
-	contribution has a diameter of about 16 pixels and a pie with 100
-	contributions has a diameter of about 80 pixels. The numbers were found by
-	solving the following simple system of linear equations (and rounding a
-	bit):
-		iconLogScale * ln 2   + iconSizeConstant == 16
-		iconLogScale * ln 101 + iconSizeConstant == 80
-	###
+	# The following constants were chosen such, that a pie representing 1
+	# contribution has a diameter of about 16 pixels and a pie with 100
+	# contributions has a diameter of about 80 pixels. The numbers were found by
+	# solving the following simple system of linear equations (and rounding a
+	# bit):
+	#    iconLogScale * ln 2   + iconSizeConstant == 16
+	#    iconLogScale * ln 101 + iconSizeConstant == 80
 	iconLogScale = 16.3
 	iconSizeConstant = 4.7
 
@@ -34,29 +32,36 @@ define [
 			dialectsHistogram = @model.recordings.countBy 'dialect'
 			# by using _.toPairs below, we guarantee same order in both arrays
 			[dialectIDs, counts] = _.unzip _.toPairs dialectsHistogram
-			fractions = _.map counts, (count) -> count / totalCount
-			cumuFractions = _.reduce fractions, ((accumulator, fraction) ->
-				accumulator.push _.last(accumulator) + fraction
-				accumulator
-			), [0]
-			console.assert (_.last(cumuFractions) == 1)
-			positions = _.map cumuFractions, (fraction) ->
-				circleFraction = 2 * Math.PI * fraction
-				{x: Math.cos(circleFraction), y: Math.sin(circleFraction)}
 
-			pieces = _.zipWith dialectIDs, fractions, _.initial(positions), _.tail(positions), (dialectID, fraction, start, end) ->
-				dialect: dialects.get(dialectID).get 'dialect'
-				color: dialects.get(dialectID).get 'color'
-				largeArcFlag: if fraction > 0.5 then 1 else 0
-				fraction: fraction
-				startX: start.x, startY: start.y
-				endX: end.x, endY: end.y
+			if dialectIDs.length > 1
+				fractions = _.map counts, (count) -> count / totalCount
+				cumuFractions = _.reduce fractions, ((accumulator, fraction) ->
+					accumulator.push _.last(accumulator) + fraction
+					accumulator
+				), [0]
+				console.assert (_.last(cumuFractions) == 1)
+				positions = _.map cumuFractions, (fraction) ->
+					circleFraction = 2 * Math.PI * fraction
+					{x: Math.cos(circleFraction), y: Math.sin(circleFraction)}
+				init = _.initial(positions)
+				tail = _.tail(positions)
+				slices = _.zipWith dialectIDs, fractions, init, tail, @svgSlice
+			else  # only one slice (full circle)
+				color = dialects.get(dialectIDs[0]).get 'color'
 
 			@size = Math.round(
 				iconLogScale * Math.log(totalCount + 1) + iconSizeConstant
 			)
-			@$el.html @template {pieces, @size, opacity: iconOpacity}
+			@$el.html @template {slices, color, @size, opacity: iconOpacity}
 			@
+
+		svgSlice: (dialectID, fraction, start, end) ->
+			dialect: dialects.get(dialectID).get 'dialect'
+			color: dialects.get(dialectID).get 'color'
+			largeArcFlag: if fraction > 0.5 then 1 else 0
+			fraction: fraction
+			startX: start.x, startY: start.y
+			endX: end.x, endY: end.y
 
 		# For use as a Google Maps marker
 		asIcon: ->
