@@ -12,8 +12,8 @@ define [
 	'use strict'
 	
 	center =
-		lat:  47
-		lng:   5
+		lat:  42
+		lng:   6
 	zoom = 4
 	mapSettings = {
 		center
@@ -24,10 +24,10 @@ define [
 	}
 	# Fit Italy-in-context into the viewport.
 	bounds =
-		north:  56
-		east:   30
-		south:  39
-		west:  -19
+		north:  48
+		east:   19
+		south:  36
+		west:   -7
 	
 	class MapView extends bb.View
 		logoPos: gmaps.ControlPosition.BOTTOM_LEFT
