@@ -12,9 +12,9 @@ define [
 	'use strict'
 	
 	center =
-		lat:   7.5
-		lng: -96
-	zoom = 3
+		lat:  47
+		lng:   5
+	zoom = 4
 	mapSettings = {
 		center
 		zoom
@@ -22,12 +22,12 @@ define [
 		streetViewControl: false
 		mapTypeControl: false
 	}
-	# Below is a cropped union of geometry.viewport for Canada and Argentina.
+	# Fit Italy-in-context into the viewport.
 	bounds =
-		north:  60
-		east:  -50
-		south: -50
-		west: -142
+		north:  56
+		east:   30
+		south:  39
+		west:  -19
 	
 	class MapView extends bb.View
 		logoPos: gmaps.ControlPosition.BOTTOM_LEFT
