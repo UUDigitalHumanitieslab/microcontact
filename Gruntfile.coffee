@@ -32,6 +32,7 @@ module.exports = (grunt) ->
 			all: [
 				'<%= stage %>'
 				'<%= dist %>'
+				'.grunt'
 				'.<%= functional %>'
 				'.*cache'
 				'**/__pycache__'
@@ -175,7 +176,7 @@ module.exports = (grunt) ->
 						'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
 					]
 # host: 'http://localhost:8000/'
-					template: require 'grunt-template-jasmine-requirejs'
+					template: require '@radum/grunt-template-jasmine-requirejs'
 					templateOptions:
 						requireConfigFile: '<%= stage %>/<%= script %>/developConfig.js'
 						requireConfig:
