@@ -26,7 +26,7 @@ Sienese: 'Senese (Toscano)'
 Venetan: 'Veneto'
 
 # General buttons etcetera
-closeButtonLabel: 'Close'
+closeButtonLabel: 'Chiudi'
 fieldRequired: '(obbligatorio)'
 placeFieldPlaceholder: 'Città/paese'
 
@@ -54,7 +54,7 @@ welcomeParticipateButton: 'Partecipa'
 # Contributions, place listing
 justAnExampleMsg: 'Stiamo controllando le registrazioni,
 	che appariranno on line al più presto.'
-numberOfContributions: '{{recordings.length}} contribution(s)'
+numberOfContributions: '{{recordings.length}} registrazione/i'
 	# {{recordings.length}} is a number
 
 # Participate, choose country

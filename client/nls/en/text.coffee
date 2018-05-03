@@ -39,16 +39,16 @@ navContributionsLink: 'Show recordings'
 
 # Welcome panel
 welcomeTitle: 'Welcome to Microcontact'
-welcomeLead: 'Partecipa anche tu alla documentazione e alla valorizzazione delle varietà italiane parlate nelle Americhe!<br>
-	(Come fare: <a href="https://www.youtube.com/watch?v=VXLl2HPWdiM" target=_blank>video</a>).'
-welcomeShowMoreButton: 'Continua a leggere...'
+welcomeLead: 'Participate to the documentation and preservation of the Italian dialects spoken in the Americas!<br>
+	(How to: <a href="https://www.youtube.com/watch?v=VXLl2HPWdiM" target=_blank>video</a>).'
+welcomeShowMoreButton: 'Read more...'
 welcomeCollapsedText: '''
-	<p class="collapse welcome-more">Vai da un membro anziano della tua famiglia che parla il dialetto.<br>Registra con il tuo telefonino il parlante. Poi carica il file audio sul sito. Il racconto registrato può essere lungo fino a un massimo di 10 minuti. Il parlante può racontare un evento della sua infanzia, la sua giovinezza, un viaggio, la guerra, un ricordo passato, ecc.</p>
-	<p class="collapse welcome-more">Quando la registrazione è pronta, cerca sulla mappa la città/paese in cui vive ora il parlante. Clicca sulla città/paese per cominciare il caricamento della registrazione.</p>
+	<p class="collapse welcome-more">Go to an older member of your family who speaks the dialect.<br>Record the speaker with your phone. Then upload the audio file on our website. The recording can be max. 10-minute long, or less. The speaker can talk about an event of his/her childhood or youth, describe the war, tell a short story or a past memory, etc.</p>
+<p class="collapse welcome-more">When the recording is ready, please find on the map the town/village where the speaker currently lives. Click on the town/village to start uploading the recording.</p>
 '''
-welcomeThankYou: 'Grazie per la collaborazione!'
-welcomeSignature: 'Il gruppo di ricerca'
-welcomeLink: 'Il sito web del nostro progetto'
+welcomeThankYou: 'Thank you for your cooperation!'
+welcomeSignature: 'The research team'
+welcomeLink: 'The website of our project'
 welcomeParticipateButton: 'Partecipate'
 
 # Contributions, place listing
@@ -109,7 +109,7 @@ recordingMaxSizeError: 'Your file is too large.
 
 # Upload form, sociolinguistic variables section
 sociolinguisticLegend: 'About the recording and the speaker'
-dialectFieldLabel: 'Dialetto del paese di provenienza'
+dialectFieldLabel: 'Dialect of the hometown in Italy'
 otherLanguagesFieldLabel: 'What other languages does the speaker know?'
 otherLanguagesPlaceholder: 'none'
 countryFieldLabel: 'Country'
