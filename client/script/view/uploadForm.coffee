@@ -11,11 +11,11 @@ define [
 	'select2'
 	'jquery.validate'
 	'jquery.validate.additions'
-	'jquery.validate.messages.IT'
+	'i18n!nls/validation'
 	'util/fileSizeValidators'
 ], (bb, $, _, JST, Contribution, i18n, dialects, languages, ages) ->
 	'use strict'
-	
+
 	generationFieldSelector = '#upload-generation-field'
 	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
 	firstGenFieldsSelector = '#upload-firstgen-fields'
@@ -43,12 +43,12 @@ define [
 		getFormGroupElement(icon).addClass 'has-feedback'
 
 	class UploadFormView extends bb.View
-	
+
 		template: JST['uploadForm']
 
 		events:
 			"change #{generationFieldSelector} input": 'toggleFirstGenFields'
-		
+
 		render: (place) ->
 			place = place.toInternal()
 			fromItaly = (place.country == 'IT')
