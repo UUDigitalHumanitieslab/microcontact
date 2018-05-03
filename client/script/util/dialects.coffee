@@ -5,7 +5,7 @@
 
 define [
 	'backbone'
-	'json!api/dialects/'
+	'json!api/dialects'
 ], (bb, apiDialects) ->
 	'use strict'
 	

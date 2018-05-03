@@ -34,7 +34,7 @@ For file type detection we use the [python-magic][22] package, which depends on 
 
 Database
 --------
-The default configuration in `microcontact.settings` assumes a SQLite database. SQLite and PostgreSQL are also the only database backends supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. See the [Django settings reference][2] for instructions on setting `DATABASES`.
+The default configuration in `microcontact.settings` assumes a SQLite database. SQLite and PostgreSQL are also the only database backends supported by the `requirements.txt`. If you choose a different backend, you will need to install additional libraries. For most backends, including PostgreSQL, you will also need to create a dedicated database and a dedicated user with all privileges on that database. For local development, the database user should also be able to create new databases in order to enable testing. See the [Django settings reference][2] for instructions on setting `DATABASES`.
 
 In order to bootstrap your local database before first running the application, run `python manage.py migrate`. Run this command again after defining new migrations. In order to define a new migration (after modifying the database schema), run `python manage.py makemigrations` and edit the generated file. See the [Django documentation on migrations][14] for details.
 

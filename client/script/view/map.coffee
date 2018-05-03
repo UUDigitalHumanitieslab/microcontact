@@ -12,9 +12,9 @@ define [
 	'use strict'
 	
 	center =
-		lat:   7.5
-		lng: -96
-	zoom = 3
+		lat:  42
+		lng:   6
+	zoom = 4
 	mapSettings = {
 		center
 		zoom
@@ -22,16 +22,15 @@ define [
 		streetViewControl: false
 		mapTypeControl: false
 	}
-	# Below is a cropped union of geometry.viewport for Canada and Argentina.
+	# Fit Italy-in-context into the viewport.
 	bounds =
-		north:  60
-		east:  -50
-		south: -50
-		west: -142
+		north:  48
+		east:   19
+		south:  36
+		west:   -7
 	
 	class MapView extends bb.View
 		logoPos: gmaps.ControlPosition.BOTTOM_LEFT
-		logoTemplate: JST['logo']
 		template: JST['map']
 		el: 'main'
 		render: ->
@@ -40,8 +39,13 @@ define [
 			mapElem = @$ '#map'
 			@map = new gmaps.Map mapElem[0], mapSettings
 			@map.fitBounds bounds
-			logo = $('<div>').html(@logoTemplate {})[0]
-			logo.index = 1
-			@map.controls[@logoPos].push logo
+			@addLogo 'logoERC', 1
+			@addLogo 'logoLab', 2
 			@rendered = true
 			@
+
+		addLogo: (templateName, index, data = {}) ->
+			template = JST[templateName]
+			logo = $('<div>').html(template data)[0]
+			logo.index = index
+			@map.controls[@logoPos].push logo

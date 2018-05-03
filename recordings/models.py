@@ -112,7 +112,7 @@ class Recording(models.Model):
     # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
     age = models.ForeignKey(AgeCategory, blank=True, null=True)
-    place = models.ForeignKey(Place, on_delete="PROTECT")
+    place = models.ForeignKey(Place, on_delete="PROTECT", related_name='recordings')
     languages = models.ManyToManyField(Language, blank=True)
     dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
     generation = models.CharField(
@@ -151,9 +151,10 @@ class Recording(models.Model):
         max_length=200,
         blank=True,
     )
+    recording_original_name = models.CharField(blank=True, max_length=200)
     
     def get_web_recording(self):
         return self.recording_web or self.recording
     
     def __str__(self):
-        return '{} ({})'.format(self.id, op.split(self.recording.name)[1])
+        return '{.id}'.format(self)

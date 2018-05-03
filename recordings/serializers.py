@@ -41,10 +41,14 @@ class AgeCategorySerializer(serializers.ModelSerializer):
 
 
 class RecordingSerializer(serializers.HyperlinkedModelSerializer):
+    recording_web = serializers.FileField(
+        read_only=True,
+        source='get_web_recording',
+    )
     dialect = serializers.PrimaryKeyRelatedField(
         queryset=Dialect.objects.all(),
     )
-    place = PlaceSerializer()
+    place = PlaceSerializer(write_only=True)
     languages = serializers.PrimaryKeyRelatedField(
         queryset=Language.objects.all(),
         many=True,
@@ -60,6 +64,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'url',
             'recording',
+            'recording_web',
             'name',
             'email',
             'phone',
@@ -117,4 +122,39 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             defaults=place_data,
         )
         validated_data['place'] = place
+        # Italian speakers are always first generation even if not migrated
+        if place.country.code == 'IT':
+            validated_data['generation'] = Recording.FIRST_GEN
         return super().create(validated_data)
+
+
+class PlaceRecordingsSerializer(serializers.ModelSerializer):
+    country = serializers.SlugRelatedField(
+        slug_field='code',
+        queryset=Country.objects.all(),
+    )
+    recordings = serializers.SerializerMethodField()
+
+    # credits to https://stackoverflow.com/a/25313145/
+    def get_recordings(self, place):
+        recordings = Recording.objects.filter(place=place, public=True)
+        serializer = RecordingSerializer(
+            many=True,
+            instance=recordings,
+            # context is needed for its 'request' field because of
+            # RecordingSerializer's HyperlinkedIdentityFields
+            context=self.context,
+        )
+        return serializer.data
+
+    class Meta:
+        model = Place
+        fields = (
+            'id',
+            'placeID',
+            'name',
+            'latitude',
+            'longitude',
+            'country',
+            'recordings',
+        )

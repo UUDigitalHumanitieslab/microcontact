@@ -22,7 +22,7 @@ if sys.version_info < (3, 5):
         retcode = process.poll()
         if check and retcode:
             raise subprocess.CalledProcessError(
-                retcode, process.args, output=stdout, stderr=stderr)
+                retcode, process.args, output=stdout)
         return retcode, stdout, stderr
 else:
     run = subprocess.run
@@ -35,9 +35,12 @@ def convert_to_mp3(infile):
     `infile` should be a file path. Return value is the same path, but
     with the extension replaced by '.mp3'.
     """
-    # possible to link to Recording object from models.py
-    #infile = recording.recording_link
-    outfile = os.path.splitext(infile)[0] + '.mp3'
+    # first, some sanity
+    name, extension = os.path.splitext(infile)
+    if extension.lower() == '.mp3':
+        return infile
+    # then, the new name
+    outfile = name + '.mp3'
     # output as a one-channel, 128kbit mp3 (variable bit rate)
     # -ar flag omitted, this automatically uses input sampling rate
     # does not show log output (as this goes to stderr)

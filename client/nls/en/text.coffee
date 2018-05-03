@@ -39,8 +39,8 @@ navContributionsLink: 'Show recordings'
 
 # Welcome panel
 welcomeTitle: 'Welcome to Microcontact'
-welcomeLead: 'Partecipa anche tu alla documentazione e alla valorizzazione
-	delle varietà italiane parlate nelle Americhe!'
+welcomeLead: 'Partecipa anche tu alla documentazione e alla valorizzazione delle varietà italiane parlate nelle Americhe!<br>
+	(Come fare: <a href="https://www.youtube.com/watch?v=VXLl2HPWdiM" target=_blank>video</a>).'
 welcomeShowMoreButton: 'Continua a leggere...'
 welcomeCollapsedText: '''
 	<p class="collapse welcome-more">Vai da un membro anziano della tua famiglia che parla il dialetto.<br>Registra con il tuo telefonino il parlante. Poi carica il file audio sul sito. Il racconto registrato può essere lungo fino a un massimo di 10 minuti. Il parlante può racontare un evento della sua infanzia, la sua giovinezza, un viaggio, la guerra, un ricordo passato, ecc.</p>
@@ -54,7 +54,7 @@ welcomeParticipateButton: 'Partecipate'
 # Contributions, place listing
 justAnExampleMsg: 'We are checking the recordings,
 	which will appear online as soon as possible.'
-numberOfContributions: '{{pins.length}} contribution(s)'
+numberOfContributions: '{{recordings.length}} contribution(s)'
 	# {{pins.length}} is a number
 
 # Participate, choose country

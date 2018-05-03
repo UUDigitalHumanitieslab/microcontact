@@ -51,19 +51,21 @@ define [
 		
 		render: (place) ->
 			place = place.toInternal()
-			generationRequired = (place.country != 'IT')
+			fromItaly = (place.country == 'IT')
 			@validator?.destroy()
 			@$el.html @template {
-				place
+				place, fromItaly
 				dialects: dialects.toJSON()
 				languages: languages.toJSON()
 				ages: ages.toJSON()
 			}
 			@$('#upload-languages').select2
 				width: '100%'
-				tags: true
 				tokenSeparators: [',', ' ', '\n']
 				placeholder: i18n.otherLanguagesPlaceholder
+			# Workaround for a bug that causes the placeholder to be invisible,
+			# see https://github.com/select2/select2/issues/155#issuecomment-243093331
+			@$('.select2-search__field').css width: ''
 			@validator = @$('form').validate
 				submitHandler: @submit
 				invalidHandler: @handleInvalid
@@ -83,7 +85,7 @@ define [
 							depends: (elem) =>
 								not $.validator.methods.accept.call @validator, $(elem).val(), elem, acceptedMediaTypes
 					generation:
-						required: generationRequired
+						required: true
 					migrated:
 						required: depends: @isFirstGeneration
 					'origin-place':
@@ -107,7 +109,6 @@ define [
 				errorPlacement: @placeError
 			@firstGenFields = @$ firstGenFieldsSelector
 			@firstGenFields.hide()
-			@$(generationFieldSelector).hide() unless generationRequired
 			@
 
 		handleInvalid: (event, validator) =>
@@ -131,29 +132,9 @@ define [
 			event.preventDefault()
 			@setOrigin event
 			contribution = new Contribution
-			@updateLanguages =>
-				contribution.save(form).then(@handleSuccess, @handleError)
-				@$('fieldset').prop 'disabled', true
+			contribution.save(form).then(@handleSuccess, @handleError)
+			@$('fieldset').prop 'disabled', true
 			@showStatus 'info', i18n.uploadInProgressMsg
-
-		updateLanguages: (callback) ->
-			chosenLanguages = @$('#upload-languages').select2 'data'
-			newLanguages = (
-				# preexisting languages have a numerical id, new ones don't
-				lang for lang in chosenLanguages when lang.id == lang.text
-			)
-			newLanguageCount = newLanguages.length
-			callback() if newLanguageCount == 0
-			for {text, element} in newLanguages
-				newModel = languages.add language: text
-				newModel.save().done(
-					(data) => $(element).val data.id
-				).fail(
-					=> $(element).remove()
-				).always =>
-					@$('#upload-languages').trigger 'change.select2'
-					if --newLanguageCount == 0
-						callback()
 
 		handleSuccess: (data, statusText, jqXHR) =>
 			@showStatus 'success', i18n.uploadSuccessMsg

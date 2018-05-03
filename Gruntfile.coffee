@@ -33,6 +33,7 @@ module.exports = (grunt) ->
 			all: [
 				'<%= stage %>'
 				'<%= dist %>'
+				'.grunt'
 				'.<%= functional %>'
 				'.*cache'
 				'**/__pycache__'
@@ -70,13 +71,13 @@ module.exports = (grunt) ->
 				}, {
 					expand: true
 					cwd: '<%= source %>/<%= i18n %>'
-					src: ['!text.coffee', '**/*.coffee']
+					src: ['!text.coffee', '**/text.coffee']
 					dest: '<%= stage %>/<%= i18n %>/'
 					ext: '.js.pre'
 				}, {
 					expand: true
 					cwd: '<%= source %>/<%= i18n %>'
-					src: ['text.coffee']
+					src: ['text.coffee', '**/validation.coffee']
 					dest: '<%= stage %>/<%= i18n %>/'
 					ext: '.js'
 				}]
@@ -121,6 +122,7 @@ module.exports = (grunt) ->
 				options:
 					includePaths: [
 						'bower_components/bootstrap-sass/assets/stylesheets'
+						'bower_components/plyr/src/scss'
 					]
 					sourceComments: true
 				expand: true
@@ -157,8 +159,13 @@ module.exports = (grunt) ->
 				src: ['bower_components']
 				dest: '<%= stage %>/bower_components'
 			develop:
-				src: ['<%= source %>/<%= image %>']
-				dest: '<%= stage %>/<%= image %>'
+				files: [{
+					src: ['<%= source %>/<%= image %>']
+					dest: '<%= stage %>/<%= image %>'
+				}, {
+					src: ['<%= source %>/<%= script %>/mock/api']
+					dest: '<%= stage %>/<%= script %>/mock/api'
+				}]
 			dist:
 				src: ['<%= source %>/<%= image %>']
 				dest: '<%= dist %>/<%= image %>'
@@ -198,12 +205,13 @@ module.exports = (grunt) ->
 						'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
 					]
 # host: 'http://localhost:8000/'
-					template: require 'grunt-template-jasmine-requirejs'
+					template: require '@radum/grunt-template-jasmine-requirejs'
 					templateOptions:
 						requireConfigFile: '<%= stage %>/<%= script %>/developConfig.js'
 						requireConfig:
 							baseUrl: '<%= script %>'
 							paths:
+								api: 'mock/api'
 								'google-maps-mock': '../bower_components/google-maps-mock/google-maps-mock'
 								googlemaps: 'mock/google-maps'
 							shim:
@@ -283,6 +291,7 @@ module.exports = (grunt) ->
 						select2: 'empty:'
 						'jquery.validate': 'empty:'
 						'jquery.validate.additions': 'empty:'
+						plyr: 'empty:'
 					include: ['main.js']
 					out: '<%= dist %>/microcontact.js'
 
