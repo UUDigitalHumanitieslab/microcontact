@@ -52,8 +52,6 @@ welcomeLink: 'Il sito web del nostro progetto'
 welcomeParticipateButton: 'Partecipa'
 
 # Contributions, place listing
-justAnExampleMsg: 'Stiamo controllando le registrazioni,
-	che appariranno on line al più presto.'
 numberOfContributions: '{{recordings.length}} registrazione/i'
 	# {{recordings.length}} is a number
 
