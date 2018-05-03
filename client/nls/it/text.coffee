@@ -55,7 +55,7 @@ welcomeParticipateButton: 'Partecipa'
 justAnExampleMsg: 'Stiamo controllando le registrazioni,
 	che appariranno on line al più presto.'
 numberOfContributions: '{{recordings.length}} contribution(s)'
-	# {{pins.length}} is a number
+	# {{recordings.length}} is a number
 
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'
