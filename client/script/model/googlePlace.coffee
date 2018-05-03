@@ -7,17 +7,18 @@ define [
 	'backbone'
 	'underscore'
 	'googlemaps'
-], (bb, _, gmaps) ->
+	'util/i18nText'
+], (bb, _, gmaps, i18n) ->
 	'use strict'
-	
+
 	class GooglePlaceModel extends bb.Model
 		idAttribute: 'place_id'
-		
+
 		initialize: (content, options) ->
 			@service = @collection?.service ? (
 				new gmaps.places.PlacesService options.map if options.map
 			)
-		
+
 		# Uses Google Maps fetching instead of jQuery fetching. Updates
 		# this with the results. Works only if this was initialized with
 		# a map or if it is a member of a collection. Options:
@@ -33,7 +34,7 @@ define [
 			@service.getDetails request, @callback options
 			@trigger 'request', @, null, options
 			return
-		
+
 		# Returns a bound callback function that is passed to the
 		# PlacesService as the second argument in a search request.
 		callback: (options) =>
@@ -51,17 +52,18 @@ define [
 				switch status
 					when 'OK' then @set results
 					else @trigger 'error', @, status, options
-		
+
 		toInternal: ->
 			components = @get 'address_components'
 			countryComponent = if components
 				_.find components, (component) -> 'country' in component.types
+			country = countryComponent?.short_name
 			cityComponent = if components then components[0]
 			location = @get('geometry')?.location
 			return result =
 				placeID: @get 'place_id'
 				name: cityComponent?.long_name
-				country: countryComponent?.short_name
-				countryName: countryComponent?.long_name
+				country: country
+				countryName: country && i18n[country]
 				latitude: location?.lat()
 				longitude: location?.lng()
