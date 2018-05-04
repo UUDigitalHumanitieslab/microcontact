@@ -8,22 +8,7 @@
 # text between quotes. Also, please skip everything that looks like computer
 # code.
 
-# Countries
-AR: 'Argentina'
-BR: 'Brazil'
-CA: 'Canada'
-US: 'USA'
-IT: 'Italy'
-
-# Italian languages
-Abruzzese: 'Abruzzese/Teatino'
-Florentine: 'Florentine'
-Neapolitan: 'Neapolitan'
-Palermitan: 'Palermitan'
-Piedmontese: 'Piedmontese'
-Salentino: 'Salentino'
-Sienese: 'Sienese'
-Venetan: 'Venetan'
+currentLanguage: 'en'
 
 # General buttons etcetera
 closeButtonLabel: 'Close'

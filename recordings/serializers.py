@@ -3,24 +3,40 @@ from .models import Dialect, Language, Country, Place, AgeCategory, Recording
 
 
 class DialectSerializer(serializers.ModelSerializer):
-    """Serializer to map the Model instance into JSON format."""
+    dialect = serializers.SerializerMethodField()
+    
+    # alias of the Italian localization for backwards compatibility
+    def get_dialect(self, dialect):
+        return dialect.it
 
     class Meta:
         """Meta class to map serializer's fields with the model fields."""
         model = Dialect
-        fields = ('id', 'dialect', 'color')
+        fields = ('id', 'en', 'es', 'fr', 'it', 'pt', 'color', 'dialect')
 
 
 class LanguageSerializer(serializers.ModelSerializer):
+    language = serializers.SerializerMethodField()
+    
+    # alias of the Italian localization for backwards compatibility
+    def get_language(self, language):
+        return language.it
+    
     class Meta:
         model = Language
-        fields = ('id', 'language')
+        fields = ('id', 'en', 'es', 'fr', 'it', 'pt', 'language')
 
 
 class CountrySerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    
+    # alias of the Italian localization for backwards compatibility
+    def get_name(self, country):
+        return country.it
+    
     class Meta:
         model = Country
-        fields = ('id', 'name', 'code')
+        fields = ('id', 'en', 'es', 'fr', 'it', 'pt', 'code', 'name')
 
 
 class PlaceSerializer(serializers.ModelSerializer):

@@ -7,8 +7,8 @@ define [
 	'backbone'
 	'underscore'
 	'googlemaps'
-	'util/i18nText'
-], (bb, _, gmaps, i18n) ->
+	'util/countries'
+], (bb, _, gmaps, countries) ->
 	'use strict'
 
 	class GooglePlaceModel extends bb.Model
@@ -64,6 +64,6 @@ define [
 				placeID: @get 'place_id'
 				name: cityComponent?.long_name
 				country: country
-				countryName: country && i18n[country]
+				countryName: country && countries.findWhere(code: country)?.get 'name'
 				latitude: location?.lat()
 				longitude: location?.lng()

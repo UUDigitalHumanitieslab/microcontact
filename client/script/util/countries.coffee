@@ -12,8 +12,8 @@ define [
 	'use strict'
 
 	# localize the country names first
-	localized = _(apiCountries).map('code').map(_.partial _.get, i18n).value()
-	_.forEach apiCountries, (country, index) -> country.name = localized[index]
+	locale = i18n.currentLanguage
+	_.forEach apiCountries, (country) -> country.name = country[locale]
 
 	countries = new bb.Collection
 	countries.url = 'api/countries/'
