@@ -25,6 +25,7 @@
     "grunt-postcss": "^0.8.0",
     "grunt-sass": "^2.0.0",
     "grunt-shell": "^2.0.0",
+    "handlebars": "^4.0.11",
     "http-proxy": "^1.15.1"
   }
 }

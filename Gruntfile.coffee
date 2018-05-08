@@ -20,6 +20,7 @@ module.exports = (grunt) ->
 		style: 'style'
 		template: 'template'
 		templateSrc: '<%= source %>/<%= template %>'
+		i18n: 'nls'
 		image: 'image'
 		functional: 'functional-tests'
 		stage: '.tmp'
@@ -61,17 +62,44 @@ module.exports = (grunt) ->
 			options:
 				bare: true
 			compile:
-				expand: true
-				cwd: '<%= source %>/<%= script %>'
-				src: ['**/*.coffee']
-				dest: '<%= stage %>/<%= script %>/'
-				ext: '.js'
+				files: [{
+					expand: true
+					cwd: '<%= source %>/<%= script %>'
+					src: ['**/*.coffee']
+					dest: '<%= stage %>/<%= script %>/'
+					ext: '.js'
+				}, {
+					expand: true
+					cwd: '<%= source %>/<%= i18n %>'
+					src: ['!text.coffee', '**/text.coffee']
+					dest: '<%= stage %>/<%= i18n %>/'
+					ext: '.js.pre'
+				}, {
+					expand: true
+					cwd: '<%= source %>/<%= i18n %>'
+					src: ['text.coffee', '**/validation.coffee']
+					dest: '<%= stage %>/<%= i18n %>/'
+					ext: '.js'
+				}]
 			functional:
 				expand: true
 				cwd: '<%= functional %>'
 				src: ['**/*.coffee']
 				dest: '.<%= functional %>/'
 				ext: '.js'
+
+		'hash-handlebars':
+			compile:
+				expand: true
+				cwd: '<%= stage %>/<%= i18n %>'
+				src: ['**/*.js.pre']
+				dest: '<%= stage %>/<%= i18n %>'
+				ext: '.js'
+				options:
+					processFile: eval  # JS object literal, *not* JSON
+					wrapStart: 'define({\n'
+					wrapEnd: '\n});'
+					hbsOptions: '<%= handlebars.options.compilerOptions %>'
 
 		'compile-handlebars':
 			develop:
@@ -88,6 +116,7 @@ module.exports = (grunt) ->
 				templateData:
 					production: true
 					gmapikey: googleMapsAPIKey
+
 		sass:
 			compile:
 				options:
@@ -204,11 +233,11 @@ module.exports = (grunt) ->
 				files: '<%= handlebars.compile.src %>'
 				tasks: 'handlebars:compile'
 			scripts:
-				files: '<%= coffee.compile.src %>'
-				options:
-					cwd:
-						files: '<%= coffee.compile.cwd %>'
+				files: '<%= source %>/**/*.coffee'
 				tasks: ['newer:coffee:compile', 'jasmine:test']
+			i18n:
+				files: '<%= stage %>/<%= i18n %>/**/*.js.pre'
+				tasks: 'newer:hash-handlebars:compile'
 			sass:
 				files: '<%= sass.compile.src %>'
 				options:
@@ -263,7 +292,7 @@ module.exports = (grunt) ->
 						'jquery.validate': 'empty:'
 						'jquery.validate.additions': 'empty:'
 						plyr: 'empty:'
-					include: ['main.js']
+					include: ['main.js', 'nls/it/text', 'nls/it/validation']
 					out: '<%= dist %>/microcontact.js'
 
 		cssmin:
@@ -312,10 +341,12 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-contrib-requirejs'
 	grunt.loadNpmTasks 'grunt-contrib-cssmin'
 	grunt.loadNpmTasks 'grunt-newer'
+	grunt.loadTasks 'grunt-tasks'  # these are our own
 
 	grunt.registerTask 'compile-base', [
 		'handlebars:compile'
 		'newer:coffee:compile'
+		'newer:hash-handlebars:compile'
 		'sass:compile'
 		'postcss:compile'
 		'symlink:base'

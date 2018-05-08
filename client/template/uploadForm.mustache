@@ -4,29 +4,29 @@
 	<div class=upload-status></div>
 	<fieldset>
 		<div class=form-group>
-			<label for=upload-file class=control-label>La tua registrazione (obbligatorio)</label>
+			<label for=upload-file class=control-label>{{>recordingLabel}} {{>fieldRequired}}</label>
 			<input id=upload-file name=recording type=file class=form-control required>
 		</div>
 	</fieldset>
 	<fieldset>
-		<legend>Informazioni sulla registrazione e sul parlante</legend>
+		<legend>{{>sociolinguisticLegend}}</legend>
 		<div class=form-group>
-			<label for=upload-dialect class=control-label>Dialetto del paese di provenienza (obbligatorio)</label>
+			<label for=upload-dialect class=control-label>{{>dialectFieldLabel}} {{>fieldRequired}}</label>
 			<select id=upload-dialect name=dialect class=form-control required>
 				<option></option>
 				{{#dialects}}<option value={{id}}>{{dialect}}</option>{{/dialects}}
 			</select>
 		</div>
 		<div class=form-group>
-			<label for=upload-languages class=control-label>Quali altre lingue conosce il parlante?</label>
+			<label for=upload-languages class=control-label>{{>otherLanguagesFieldLabel}}</label>
 			<select multiple id=upload-languages name=languages class=form-control>
 				{{#languages}}<option value={{id}}>{{language}}</option>{{/languages}}
 			</select>
 		</div>
 		<div class=form-group>
-			<label class=control-label>Nazione</label>
+			<label class=control-label>{{>countryFieldLabel}}</label>
 			<p class=form-control-static>{{countryName}}</p>
-			<label class=control-label>Città</label>
+			<label class=control-label>{{>placeFieldLabel}}</label>
 			<p class=form-control-static>{{name}}</p>
 			<input type=hidden name="place.placeID" value="{{placeID}}">
 			<input type=hidden name="place.name" value="{{name}}">
@@ -35,29 +35,29 @@
 			<input type=hidden name="place.longitude" value="{{longitude}}">
 		</div>
 		<div class=form-group>
-			<label for=upload-age class=control-label>Età (obbligatorio)</label>
+			<label for=upload-age class=control-label>{{>ageFieldLabel}} {{>fieldRequired}}</label>
 			<select id=upload-age name=age class=form-control required>
 				<option></option>
 				{{#ages}}<option value={{id}}>{{least}}&ndash;{{greatest}}</option>{{/ages}}
 			</select>
 		</div>
 		<div class=form-group>
-			<label for=upload-sex class=control-label>Sesso (obbligatorio)</label>
+			<label for=upload-sex class=control-label>{{>sexFieldLabel}} {{>fieldRequired}}</label>
 			<select id=upload-sex name=sex class=form-control required>
 				<option></option>
-				<option value=a>maschile</option>
-				<option value=b>femminile</option>
-				<option value=c>altro</option>
+				<option value=a>{{>sexFieldMale}}</option>
+				<option value=b>{{>sexFieldFemale}}</option>
+				<option value=c>{{>sexFieldOther}}</option>
 			</select>
 		</div>
 		<div class=form-group>
-			<label for=upload-education class=control-label>Livello di istruzione (obbligatorio)</label>
+			<label for=upload-education class=control-label>{{>educationFieldLabel}} {{>fieldRequired}}</label>
 			<select id=upload-education name=education class=form-control required>
 				<option></option>
-				<option value=e>elementare</option>
-				<option value=m>scuola media</option>
-				<option value=h>scuola superiore</option>
-				<option value=u>università</option>
+				<option value=e>{{>educationFieldElementary}}</option>
+				<option value=m>{{>educationFieldMiddle}}</option>
+				<option value=h>{{>educationFieldHigh}}</option>
+				<option value=u>{{>educationFieldUniversity}}</option>
 			</select>
 		</div>
 		{{#fromItaly}}
@@ -65,28 +65,28 @@
 			<div class=radio>
 				<label>
 					<input type=radio name=generation value=b>
-					Ho sempre vissuto a {{name}}.
+					{{>movedNeverLabel}}
 				</label><br>
 				<label>
 					<input type=radio name=generation value=a>
-					Mi sono trasferito a {{name}}.
+					{{>movedWithinItalyLabel}}
 				</label>
 			</div>
 		</fieldset>
 		<fieldset id=upload-firstgen-fields>
 			<div class=form-group>
-				<label for=upload-origin-place class=control-label>Mi sono trasferito da (obbligatorio)</label>
-				<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="Città di origine" maxlength=200 spellcheck=false>
+				<label for=upload-origin-place class=control-label>{{>movedFromLabel}} {{>fieldRequired}}</label>
+				<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="{{>placeOfOriginPlaceholder}}" maxlength=200 spellcheck=false>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 				<input type=hidden id=upload-origin name=origin>
 			</div>
 			<div class=form-group>
-				<label for=upload-origin-province class=control-label>in provincia di (obbligatorio)</label>
-				<input id=upload-origin-province name=origin-province type=text class=form-control placeholder="Provincia" maxlength=50 spellcheck=false>
+				<label for=upload-origin-province class=control-label>{{>bornInProvinceLabel}} {{>fieldRequired}}</label>
+				<input id=upload-origin-province name=origin-province type=text class=form-control placeholder="{{>provincePlaceholder}}" maxlength=50 spellcheck=false>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 			</div>
 			<div class=form-group>
-				<label for=upload-migrated class=control-label>nell'anno (obbligatorio)</label>
+				<label for=upload-migrated class=control-label>{{>movedInYearLabel}} {{>fieldRequired}}</label>
 				<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
 			</div>
 		</fieldset>
@@ -96,49 +96,49 @@
 			<div class=radio>
 				<label>
 					<input type=radio name=generation value=a>
-					Sono nato in Italia.
+					{{>bornInItalyLabel}}
 				</label><br>
 				<label>
 					<input type=radio name=generation value=b>
-					Sono nato in {{countryName}}.
+					{{>bornHereLabel}}
 				</label>
 			</div>
 		</fieldset>
 		<fieldset id=upload-firstgen-fields>
 			<div class=form-group>
-				<label for=upload-migrated class=control-label>Sono emigrato dall'Italia nell'anno (obbligatorio)</label>
+				<label for=upload-migrated class=control-label>{{>bornInYearLabel}} {{>fieldRequired}}</label>
 				<input id=upload-migrated name=migrated type=number class=form-control placeholder=1960 min=1890 max=2021 step=1 spellcheck=false>
 			</div>
 			<div class=form-group>
-				<label for=upload-origin-place class=control-label>Sono nato a (obbligatorio)</label>
-				<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="Città/paese" maxlength=200 spellcheck=false>
+				<label for=upload-origin-place class=control-label>{{>bornInVillageLabel}} {{>fieldRequired}}</label>
+				<input id=upload-origin-place name=origin-place type=text class=form-control placeholder="{{>placeFieldPlaceholder}}" maxlength=200 spellcheck=false>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 				<input type=hidden id=upload-origin name=origin>
 			</div>
 			<div class=form-group>
-				<label for=upload-origin-province class=control-label>in provincia di (obbligatorio)</label>
-				<input id=upload-origin-province name=origin-province type=text class=form-control placeholder="Provincia" maxlength=50 spellcheck=false>
+				<label for=upload-origin-province class=control-label>{{>bornInProvinceLabel}} {{>fieldRequired}}</label>
+				<input id=upload-origin-province name=origin-province type=text class=form-control placeholder="{{>provincePlaceholder}}" maxlength=50 spellcheck=false>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 			</div>
 		</fieldset>
 		{{/fromItaly}}
 	</fieldset>
 	<fieldset>
-		<legend>Informazioni sulla persona che effettua il caricamento del file.</legend>
-		<p class=text-success><strong>I tuoi dati personali non saranno mai resi pubblici.</strong></p>
+		<legend>{{>uploaderLegend}}</legend>
+		<p class=text-success><strong>{{>uploaderPrivacyNote}}</strong></p>
 		<div class=form-group>
-			<label for=upload-name class=control-label>Nome e Cognome (obbligatorio)</label>
-			<input id=upload-name name=name type=text class=form-control required autocomplete=name spellcheck=false placeholder="Christina Alvarez" maxlength=200>
+			<label for=upload-name class=control-label>{{>nameFieldLabel}} {{>fieldRequired}}</label>
+			<input id=upload-name name=name type=text class=form-control required autocomplete=name spellcheck=false placeholder="{{>namePlaceholder}}" maxlength=200>
 			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 		</div>
 		<div class=form-group>
-			<label for=upload-email class=control-label>Email (dare almeno un tipo di contatto)</label>
-			<input id=upload-email name=email type=email class="form-control upload-contact" autocomplete=email spellcheck=false placeholder="calvarez@example.com" maxlength=254>
+			<label for=upload-email class=control-label>{{>emailFieldLabel}} {{>atleastOneContactDetail}}</label>
+			<input id=upload-email name=email type=email class="form-control upload-contact" autocomplete=email spellcheck=false placeholder="{{>emailPlaceholder}}" maxlength=254>
 			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 		</div>
 		<div class=form-group>
-			<label for=upload-phone class=control-label>Telefono (dare almeno un tipo di contatto)</label>
-			<input id=upload-phone name=phone type=tel class="form-control upload-contact" autocomplete=tel placeholder="+1 123456789" maxlength=128 spellcheck=false>
+			<label for=upload-phone class=control-label>{{>telephoneFieldLabel}} {{>atleastOneContactDetail}}</label>
+			<input id=upload-phone name=phone type=tel class="form-control upload-contact" autocomplete=tel placeholder="{{>telephonePlaceholder}}" maxlength=128 spellcheck=false>
 			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 		</div>
 	</fieldset>
@@ -146,12 +146,12 @@
 		<div class=checkbox>
 			<label>
 				<input type="checkbox" name="consent" required>
-				Selezionando questa casella e inviando la registrazione audio, sia la persona che carica il file sia la persona che è stata registrata confermano di aver letto e capito il <a href="#participant-information" target=_blank>Modulo informativo per il partecipante</a>, e confermano inoltre di essere d’accordo a partecipare allo studio.
+				{{>informedConsent}}
 			</label>
 		</div>
 		<div class=form-group>
 			<div class=upload-status></div>
-			<button type=submit class="btn btn-primary" id=submit-button>Invia</button>
+			<button type=submit class="btn btn-primary" id=submit-button>{{>uploadButton}}</button>
 		</div>
 	</fieldset>
 </form>

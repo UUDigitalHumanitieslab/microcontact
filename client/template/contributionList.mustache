@@ -2,7 +2,7 @@
 {{#sections}}
 	<div class="dialect" style="border-left-color: {{color}}">
 		<h3>{{dialect}}</h3>
-		<p class="contributions-count">{{recordings.length}} contribution(s)</p>
+		<p class="contributions-count">{{>numberOfContributions}}</p>
 		{{#recordings}}<audio controls>
 			<source src="{{recording_web}}" type="audio/mp3">
 		</audio>{{/recordings}}
