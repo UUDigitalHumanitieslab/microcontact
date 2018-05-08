@@ -13,30 +13,31 @@ TURN_OF_19TH_CENTURY = 1890
 END_OF_RESEARCH_PROJECT = 2021
 
 
-class ModelWithName:
+class ModelWithName(models.Model):
+    en = models.CharField(max_length=200, default='')
+    it = models.CharField(max_length=200, default='')
+    fr = models.CharField(max_length=200, default='')
+    es = models.CharField(max_length=200, default='')
+    pt = models.CharField(max_length=200, default='')
+
     def __str__(self):
-        return self.name
+        return self.en
+    
+    class Meta:
+        abstract = True
 
 
-class Dialect(models.Model):
-    dialect = models.CharField(max_length=200, unique=True)
+class Dialect(ModelWithName):
     color = models.CharField(max_length=7, validators=[
         RegexValidator('^#([0-9a-fA-F]{3})+$', 'Enter an RGB color code.'),
     ])
 
-    def __str__(self):
-        return self.dialect
+
+class Language(ModelWithName):
+    pass
 
 
-class Language(models.Model):
-    language = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.language
-
-
-class Country(ModelWithName, models.Model):
-    name = models.CharField(max_length=200)
+class Country(ModelWithName):
     code = models.CharField(max_length=3, unique=True)
 
     class Meta:
@@ -49,7 +50,7 @@ class Place(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     country = models.ForeignKey(Country, on_delete="PROTECT")
-    
+
     def __str__(self):
         return '{}, {}'.format(self.name, self.country.code)
 
@@ -57,7 +58,7 @@ class Place(models.Model):
 class AgeCategory(models.Model):
     least = models.IntegerField()
     greatest = models.IntegerField()
-    
+
     def __str__(self):
         return '{}-{}'.format(self.least, self.greatest)
 
@@ -152,9 +153,9 @@ class Recording(models.Model):
         blank=True,
     )
     recording_original_name = models.CharField(blank=True, max_length=200)
-    
+
     def get_web_recording(self):
         return self.recording_web or self.recording
-    
+
     def __str__(self):
         return '{.id}'.format(self)
