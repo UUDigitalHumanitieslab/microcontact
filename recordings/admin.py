@@ -21,11 +21,12 @@ class RecordingAdmin(admin.ModelAdmin):
         'public',
         ('dialect', admin.RelatedOnlyFieldListFilter),
         ('place', admin.RelatedOnlyFieldListFilter),
+        'place__country',
         'sex',
         'education',
         'generation',
         ('age', admin.RelatedOnlyFieldListFilter),
-        'migrated',
+        'migrated',        
     )
     search_fields = ('recording', 'name', 'email', 'phone', 'origin')
     list_display = (
