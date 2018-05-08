@@ -61,6 +61,7 @@ class RecordingAdmin(admin.ModelAdmin):
                         'recording',
                         'recording_web',
                         'recording_original_name',
+                        'recording_original_corpus',
                     ),
                 }),
                 ('Information about the uploader', {
