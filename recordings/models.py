@@ -97,6 +97,11 @@ class Recording(models.Model):
         (UNIVERSITY_EDU, 'university'),
     )
 
+    class Meta:
+        permissions = (
+            ("view_uploader_contactdetails", "Can see contactdetails of the uploader"),
+        )
+
     # administrative fields
     status = models.CharField(
         max_length=1,

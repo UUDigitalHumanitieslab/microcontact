@@ -1,14 +1,10 @@
-from django.contrib import admin
-
 # Register your models here.
 from django.contrib import admin
-
 from .models import Dialect, Recording, Language, Place, Country
 
 
 class LocalizedNamesAdmin(admin.ModelAdmin):
     list_display = ('en', 'it', 'es', 'fr', 'pt')
-
 
 class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
@@ -16,34 +12,9 @@ class PlaceAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name', 'country', 'latitude', 'longitude', 'placeID')
 
-
 class RecordingAdmin(admin.ModelAdmin):
     """ Customizations to the default ModelAdmin. """
     readonly_fields = ('recording_web', 'recording_original_name')
-    fieldsets = (
-        (None, {
-            'fields': (
-                ('status', 'public'),
-                'recording',
-                'recording_web',
-                'recording_original_name',
-            ),
-        }),
-        ('Information about the uploader', {
-            'fields': ('name', 'email', 'phone'),
-        }),
-        ('Information about the recording and the speaker', {
-            'fields': (
-                'dialect',
-                'place',
-                'languages',
-                ('age', 'sex'),
-                'education',
-                'generation',
-                ('origin', 'migrated'),
-            ),
-        }),
-    )
     filter_horizontal = ('languages',)
     list_filter = (
         'status',
@@ -79,6 +50,39 @@ class RecordingAdmin(admin.ModelAdmin):
     def formerly(self, instance):
         """ A renaming trick just like `uploader`. """
         return instance.recording_original_name
+
+    def get_fieldsets(self, request, obj=None):
+        """ Customization of fieldsets, since some users do not have permission to see contact details of the uploader """         
+        return (
+                (None, {
+                    'fields': (
+                        ('status', 'public'),
+                        'recording',
+                        'recording_web',
+                        'recording_original_name',
+                    ),
+                }),
+                ('Information about the uploader', {
+                    'fields': self.get_allowed_uploader_fields(request.user),
+                }),
+                ('Information about the recording and the speaker', {
+                    'fields': (
+                        'dialect',
+                        'place',
+                        'languages',
+                        ('age', 'sex'),
+                        'education',
+                        'generation',
+                        ('origin', 'migrated'),
+                    ),
+                }),
+            )
+
+    def get_allowed_uploader_fields(self, user):
+        if (user.has_perm('recordings.view_uploader_contactdetails')):
+            return ('name', 'email', 'phone')
+        else:
+            return ('name',)
 
 
 admin.site.register(Dialect, LocalizedNamesAdmin)
