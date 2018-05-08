@@ -6,6 +6,10 @@ from django.contrib import admin
 from .models import Dialect, Recording, Language, Place, Country
 
 
+class LocalizedNamesAdmin(admin.ModelAdmin):
+    list_display = ('en', 'it', 'es', 'fr', 'pt')
+
+
 class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
     list_filter = (('country', admin.RelatedOnlyFieldListFilter),)
@@ -62,23 +66,23 @@ class RecordingAdmin(admin.ModelAdmin):
         'status',
         'public',
     )
-    
+
     def uploader(self, instance):
         """
         Return the name of the uploader from the Recording instance.
-        
+
         This is basically a trick to rename the column in `list_display`,
         see https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display.
         """
         return instance.name
-    
+
     def formerly(self, instance):
         """ A renaming trick just like `uploader`. """
         return instance.recording_original_name
 
 
-admin.site.register(Dialect)
+admin.site.register(Dialect, LocalizedNamesAdmin)
 admin.site.register(Recording, RecordingAdmin)
-# admin.site.register(Language)
+admin.site.register(Language, LocalizedNamesAdmin)
 admin.site.register(Place, PlaceAdmin)
-admin.site.register(Country)
+admin.site.register(Country, LocalizedNamesAdmin)

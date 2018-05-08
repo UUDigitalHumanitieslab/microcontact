@@ -43,7 +43,7 @@
 			{{>developConfig}}
 			{{/production}}
 			define('googlemaps', [
-				'async!https://maps.google.com/maps/api/js?v=3&libraries=places&language=IT&region=IT&key={{gmapikey}}'
+				'async!https://maps.google.com/maps/api/js?v=3&libraries=places&key={{gmapikey}}'
 			], function() {
 				return window.google.maps;
 			});

@@ -6,7 +6,8 @@
 define [
 	'backbone'
 	'templates'
-], (bb, JST) ->
+	'util/i18nText'
+], (bb, JST, i18n) ->
 	'use strict'
 	
 	class ParticipStep3Choose extends bb.View
@@ -14,5 +15,5 @@ define [
 		
 		render: ->
 			@$('#particip-step-content').html @template @model.attributes
-			@$('#particip-step-title').text 'Scegli la località tra i risultati'
+			@$('#particip-step-title').text i18n.pickPlaceTitle
 			@

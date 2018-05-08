@@ -75,8 +75,8 @@ def insertable(model):
 def dialects():
     """ Return Dialect instances which haven't been saved yet. """
     return (
-        Dialect(dialect='Elvish', color='#fff'),
-        Dialect(dialect='Orkish', color='#000'),
+        Dialect(en='Elvish', color='#fff'),
+        Dialect(en='Orkish', color='#000'),
     )
 
 
@@ -85,8 +85,8 @@ def dialects():
 def countries():
     """ Return Country instances which haven't been saved yet. """
     return (
-        Country(name='Eriador', code='ER'),
-        Country(name='Mordor', code='MO'),
+        Country(en='Eriador', code='ER'),
+        Country(en='Mordor', code='MO'),
     )
 
 
