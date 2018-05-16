@@ -41,17 +41,13 @@ class RecordingAdmin(admin.ModelAdmin):
         'public',
     )
 
-    def uploader(self, instance):
+    def formerly(self, instance):
         """
-        Return the name of the uploader from the Recording instance.
+        Return the former name of the file from the Recording instance.
 
         This is basically a trick to rename the column in `list_display`,
         see https://docs.djangoproject.com/en/1.8/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display.
         """
-        return instance.name
-
-    def formerly(self, instance):
-        """ A renaming trick just like `uploader`. """
         return instance.recording_original_name
 
     def get_fieldsets(self, request, obj=None):
