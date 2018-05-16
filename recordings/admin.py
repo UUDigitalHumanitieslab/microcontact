@@ -1,16 +1,19 @@
 # Register your models here.
 from django.contrib import admin
+
 from .models import Dialect, Recording, Language, Place, Country
 
 
 class LocalizedNamesAdmin(admin.ModelAdmin):
     list_display = ('en', 'it', 'es', 'fr', 'pt')
 
+
 class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ('placeID', 'name', 'latitude', 'longitude', 'country')
     list_filter = (('country', admin.RelatedOnlyFieldListFilter),)
     search_fields = ('name',)
     list_display = ('name', 'country', 'latitude', 'longitude', 'placeID')
+
 
 class RecordingAdmin(admin.ModelAdmin):
     """ Customizations to the default ModelAdmin. """
@@ -32,7 +35,6 @@ class RecordingAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'formerly',
-        'uploader',
         'dialect',
         'place',
         'status',
@@ -53,9 +55,8 @@ class RecordingAdmin(admin.ModelAdmin):
         return instance.recording_original_name
 
     def get_fieldsets(self, request, obj=None):
-        """ Customization of fieldsets, since some users do not have permission to see contact details of the uploader """         
-        return (
-                (None, {
+        """ Customization of fieldsets, since some users do not have permission to see contact details of the uploader """
+        general_part = (None, {
                     'fields': (
                         ('status', 'public'),
                         'recording',
@@ -63,11 +64,9 @@ class RecordingAdmin(admin.ModelAdmin):
                         'recording_original_name',
                         'recording_original_corpus',
                     ),
-                }),
-                ('Information about the uploader', {
-                    'fields': self.get_allowed_uploader_fields(request.user),
-                }),
-                ('Information about the recording and the speaker', {
+                })
+        optional_part_uploader_details =  self.get_uploader_section(request.user)
+        recording_speaker_part = ('Information about the recording and the speaker', {
                     'fields': (
                         'dialect',
                         'place',
@@ -77,14 +76,16 @@ class RecordingAdmin(admin.ModelAdmin):
                         'generation',
                         ('origin', 'migrated'),
                     ),
-                }),
-            )
+                }) 
+        return (general_part, recording_speaker_part) if not optional_part_uploader_details else (general_part, optional_part_uploader_details, recording_speaker_part)
 
-    def get_allowed_uploader_fields(self, user):
+    def get_uploader_section(self, user):
         if (user.has_perm('recordings.view_uploader_contactdetails')):
-            return ('name', 'email', 'phone')
+            return ('Information about the uploader', {
+                        'fields': ('name', 'email', 'phone'),
+                    })
         else:
-            return ('name',)
+            return None
 
 
 admin.site.register(Dialect, LocalizedNamesAdmin)
