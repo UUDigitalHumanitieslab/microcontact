@@ -5,19 +5,49 @@
 @import bootstrap-custom
 @import plyr
 
+$home-break: 1150px;
+
 html, body, #map
 	height: 100%
 
 body
 	padding: 0
+	background-color: #a7cdf2
 
 main
 	height: 100%
 
-#participate-welcome, #participate-guide
+#home
+	display: block
+	margin-top: 10%
+	margin-left: auto
+	margin-right: auto
+	width: 80%
+	
+	#welcome		
+		min-width: 275px
+		margin: auto
+		margin-bottom: 10px
+
+		@media screen and (min-width: $home-break)
+			margin-left: 7%
+			margin-right: 10px			
+			float: left		
+
+	#mapimage
+		border: 1px solid #337ab7
+		border-radius: 3px
+		width: 75%
+		min-width: 275px
+		display: block
+		margin: auto
+
+		@media screen and (min-width: $home-break)
+			width: 50%
+
+.custom-panel
 	width: 65ex
 	max-width: 40%
-	margin: 10px
 
 	h1 small
 		clear: left
@@ -25,6 +55,9 @@ main
 	p:not(.lead)
 		font-size: 1.1em
 		line-height: 1.8
+
+#participate-guide	
+	margin: 10px	
 
 .contributions-pin
 	h2
