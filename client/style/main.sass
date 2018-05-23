@@ -1,5 +1,5 @@
 /*
-	(c) 2016 Julian Gonggrijp
+	(c) 2016 Julian Gonggrijp, Alex Hebing
 	(c) 2017 Digital Humanities Lab, Utrecht University
 
 @import bootstrap-custom
@@ -16,6 +16,9 @@ body
 
 main
 	height: 100%
+	// set overflow: auto to solve problems with margin collapse in floating children
+	// see also: http://doctype.com/margin-child-element-moves-parent-element
+	overflow: auto
 
 #home
 	display: block
@@ -55,6 +58,9 @@ main
 	p:not(.lead)
 		font-size: 1.1em
 		line-height: 1.8
+
+#enterButtons
+	margin-top: 50vh;
 
 #participate-guide	
 	margin: 10px	

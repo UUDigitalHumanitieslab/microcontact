@@ -34,7 +34,11 @@ welcomeCollapsedText: '''
 welcomeThankYou: 'Thank you for your cooperation!'
 welcomeSignature: 'The research team'
 welcomeLink: 'The website of our project'
-welcomeParticipateButton: 'Partecipate'
+welcomeEnter: 'Enter'
+
+# The enter screen
+enterParticipateButton: 'Partecipate'
+enterShowContibutionsButton: 'Show contributions'
 
 # Contributions, place listing
 numberOfContributions: '{{recordings.length}} contribution(s)'
