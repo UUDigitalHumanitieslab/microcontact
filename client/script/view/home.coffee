@@ -13,7 +13,6 @@ define [
 	
 	class HomeView extends bb.View
 		template: JST['home']
-		el: 'main'
 		id: 'home'
 		
 		initialize: ->

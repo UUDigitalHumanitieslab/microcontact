@@ -16,7 +16,7 @@ define [
 	'util/countries'
 ], (bb, $, Map, Menu, Contributions, Participate, InfoForm, Home, Enter, countries) ->
 	'use strict'
-	
+
 	class MainRouter extends bb.Router
 		initialize: ->
 			@map = new Map
@@ -30,7 +30,7 @@ define [
 					when 'participate' then @participateView.remove()
 					when 'contributions' then @contributionsView.remove()
 				switch newMode
-					when 'home' then @getHome().render()
+					when 'home' then @getHome().render().$el.appendTo('main')
 					when 'enter' then @getEnter().render()
 					when 'participate' then @lazyGetParticipate().render()
 					when 'contributions' then @lazyGetContributions().render()
@@ -48,7 +48,7 @@ define [
 
 		enter: ->
 			@state.set mode: 'enter'
-		
+
 		participate: (country, query) ->
 			@state.set mode: 'participate'
 			countryLong = (countries.find code: country)?.get 'name'
