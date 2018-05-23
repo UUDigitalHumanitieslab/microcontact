@@ -13,6 +13,7 @@ define [
 	
 	class EnterView extends bb.View
 		el: 'enter'
+		buttonsPosition: gmaps.ControlPosition.TOP_CENTER
 		
 		initialize: (options) ->
 			@map = options.map
@@ -20,9 +21,8 @@ define [
 			@
 
 		render: ->
-			console.log('render')
 			return @ if @rendered
-			@addControl @buttons, gmaps.ControlPosition.TOP_CENTER, 1
+			@addControl @buttons, @buttonsPosition, 1
 			@rendered = true
 			@
 
@@ -30,3 +30,7 @@ define [
 			div = view.render().el
 			div.index = index
 			@map.controls[position].push div
+
+		remove: ->
+			@map.controls[@buttonsPosition].pop()
+			@

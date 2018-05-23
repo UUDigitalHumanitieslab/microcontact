@@ -21,6 +21,6 @@ define [
 		render: ->
 			return @ if @rendered
 			@$el.html @template {}
-			@$el.find('#home').prepend(@welcome.render().el)
+			@$el.prepend(@welcome.render().el)
 			@rendered = true
 			@

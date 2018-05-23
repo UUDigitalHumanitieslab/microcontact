@@ -37,7 +37,7 @@ define [
 
 		routes:
 			'(home)': 'home'
-			'enter': 'enter'
+			'map': 'enter'
 			'participate(/:country)(/:query)': 'participate'
 			'contributions': 'contributions'
 			'participant-information': 'participantInformation'
@@ -64,18 +64,18 @@ define [
 			@infoForm.render()
 
 		getHome: ->
+			@map.remove()
 			@home = new Home
 			@home
 
 		getEnter: ->
-			# return @enter if @enter?
-			@map.render()
+			@map.render().$el.appendTo('main')
 			@enter = new Enter map: @map.map
 			@enter
 
 		lazyGetParticipate: ->
 			return @participateView if @participateView?
-			@map.render()
+			@map.render().$el.appendTo('main')
 			@participateView = new Participate map: @map.map
 			@participateView.state.on 'change', (state) =>
 				{country, query} = state.attributes
@@ -87,11 +87,10 @@ define [
 						@navigate "participate/#{country}", trigger: true
 					else
 						@participateView.close()
-						@navigate 'participate'
 			@participateView
 
 		lazyGetContributions: ->
 			return @contributionsView if @contributionsView?
-			@map.render()
+			@map.render().$el.appendTo('main')
 			@contributionsView = new Contributions map: @map.map
 			@contributionsView

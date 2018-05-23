@@ -36,10 +36,6 @@ welcomeSignature: 'The research team'
 welcomeLink: 'The website of our project'
 welcomeEnter: 'Enter'
 
-# The enter screen
-enterParticipateButton: 'Partecipate'
-enterShowContibutionsButton: 'Show contributions'
-
 # Contributions, place listing
 numberOfContributions: '{{recordings.length}} contribution(s)'
 	# {{recordings.length}} is a number

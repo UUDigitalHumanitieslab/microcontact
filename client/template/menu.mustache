@@ -1,14 +1,20 @@
 {{#show}}
 	<ol id="tab-participate" class="breadcrumb" role="tab">
-		<li><a href="#participate">{{>navParticipateLink}}</a>
-		{{#country}}
-		<li><a href="#participate/{{country}}">{{country}}</a>
-		{{/country}}
-		{{#query}}
-		<li><a href="#participate/{{country}}/{{query}}">{{query}}</a>
-		{{/query}}
-	</ol>
-	<ol id="tab-contributions" class="breadcrumb" role="presentation">
-		<li><a href="#contributions" role="tab">{{>navContributionsLink}}</a></li>
-	</ol>
+		<li><a href="#home">Home</a></li>
+		{{#showEnter}}
+		<li><a href="#map">Map</a></li>
+		{{/showEnter}}
+		{{#showParticipate}}
+		<li><a href="#participate">{{>navParticipateLink}}</a></li>
+			{{#country}}
+			<li><a href="#participate/{{country}}">{{country}}</a></li>
+			{{/country}}
+			{{#query}}
+			<li><a href="#participate/{{country}}/{{query}}">{{query}}</a></li>
+			{{/query}}
+		{{/showParticipate}}		
+		{{#showContributions}}
+		<li>{{>navParticipateLink}}</li>
+		{{/showContributions}}
+	</ol>	
 {{/show}}

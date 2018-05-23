@@ -7,8 +7,7 @@ define [
 	'backbone'
 	'jquery'
 	'googlemaps'
-	'templates'
-], (bb, $, gmaps, JST) ->
+], (bb, $, gmaps) ->
 	'use strict'
 	
 	center =
@@ -31,13 +30,11 @@ define [
 	
 	class MapView extends bb.View
 		logoPos: gmaps.ControlPosition.BOTTOM_LEFT
-		template: JST['map']
-		el: 'main'
+		id: 'map'
+
 		render: ->
 			return @ if @rendered
-			@$el.html @template {}
-			mapElem = @$ '#map'
-			@map = new gmaps.Map mapElem[0], mapSettings
+			@map = new gmaps.Map @el, mapSettings
 			@map.fitBounds bounds
 			@addLogo 'logoERC', 1
 			@addLogo 'logoLab', 2
