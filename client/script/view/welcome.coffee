@@ -5,10 +5,10 @@ define [
 ], (bb, JST) ->
 	'use strict'
 	
-	class ParticipWelcomeView extends bb.View
+	class WelcomeView extends bb.View
 		className: 'panel panel-primary'
-		id: 'participate-welcome'
-		template: JST['participWelcome']
+		id: 'welcome'
+		template: JST['welcome']
 		
 		render: ->
 			@$el.html @template {}

@@ -24,12 +24,24 @@ define [
 		update: (route, params) ->
 			@$('li').removeClass 'active'
 			switch route
+				when 'home'
+					@model.set {show:true, showEnter:false, showParticipate: false, showContributions:false}
+					@render()
+					@makeLastChildActive()
+				when 'enter'
+					@model.set {show:true, showEnter:true, showParticipate: false, showContributions:false}
+					@render()
+					@makeLastChildActive()
 				when 'participate'
 					[country, query] = params
-					@model.set {country, show: true, query}
+					@model.set {country, show: true, query, showParticipate: true, showEnter:true, showContributions:false}
 					@render()
-					@$('\#tab-participate li').last().addClass 'active'
+					@makeLastChildActive()
 				when 'contributions'
-					@model.set {show: false}
+					@model.set {show:true, showEnter:true, showParticipate: false, showContributions:true}
+					# @model.set {show: false}
 					@render()
 			@$("\#tab-#{route}").addClass 'active'
+
+		makeLastChildActive: ->
+			@$('\#tab-navigate li').last().addClass 'active'

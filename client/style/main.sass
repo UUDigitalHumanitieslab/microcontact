@@ -5,19 +5,68 @@
 @import bootstrap-custom
 @import plyr
 
+// when screen gets too narrow for navigation buttons 
+$nav-break: 470px;
+// when the welcome panel and picture do not fit next to each other anymore
+$home-break: 1150px;
+
 html, body, #map
 	height: 100%
 
 body
 	padding: 0
+	background-color: #a7cdf2
 
 main
 	height: 100%
+	// set overflow: auto to solve problems with margin collapse in floating children
+	// see also: http://doctype.com/margin-child-element-moves-parent-element
+	overflow: auto	
 
-#participate-welcome, #participate-guide
-	width: 65ex
-	max-width: 40%
+#home
+	display: block
+	margin-top: 10%
+	margin-left: auto
+	margin-right: auto
+	margin-bottom: 25px
+	width: 80%
+	
+	#welcome		
+		min-width: 275px
+		margin: auto
+		margin-bottom: 10px
+		width: 65ex
+		max-width: 40%
+
+		h1 small
+			clear: left
+
+		p:not(.lead)
+			font-size: 1.1em
+			line-height: 1.8
+
+		@media screen and (min-width: $home-break)
+			margin-left: 7%
+			margin-right: 10px			
+			float: left		
+
+	#mapimage
+		border: 1px solid #337ab7
+		border-radius: 3px
+		width: 75%
+		min-width: 275px
+		display: block
+		margin: auto
+
+		@media screen and (min-width: $home-break)
+			width: 50%
+
+#enterButtons
+	margin-top: 50vh;
+
+#participate-guide	
 	margin: 10px
+	margin-top: 122px	
 
 	h1 small
 		clear: left
@@ -25,6 +74,14 @@ main
 	p:not(.lead)
 		font-size: 1.1em
 		line-height: 1.8
+
+	@media screen and (min-width: $nav-break)
+		margin-top: 60px
+	
+	@media screen and (min-width: $home-break)
+		margin-top: 10px
+		width: 65ex
+		max-width: 40%
 
 .contributions-pin
 	h2
@@ -50,16 +107,19 @@ main
 	width: 100%
 	z-index: 2
 
-	#tab-contributions
-		float: right
-
 	.breadcrumb
 		display: inline-block
 		margin: 10px
+		margin-right: 50px
 
 		.active a
 			color: #555	
 			pointer-events: none
+
+#tab-switch
+	@media screen and (min-width: $nav-break)
+		margin-top: 10px
+		float: right
 
 // vertical alignment fix for the form feedback glyphicons
 .gm-style-iw .has-feedback label ~ .form-control-feedback

@@ -10,8 +10,7 @@ define [
 	'util/places'
 	'view/contributionList'
 	'view/contributionPie'
-	'view/participWelcome'
-], (bb, gmaps, dialects, places, ContribList, ContribPie, Welcome) ->
+], (bb, gmaps, dialects, places, ContribList, ContribPie) ->
 	'use strict'
 
 	class ContributionsView extends bb.View
@@ -25,7 +24,6 @@ define [
 			@markers = @pies.map @createMarker
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribList
-			@welcome = new Welcome
 
 		createMarker: (pie) =>
 			place = pie.model
@@ -33,7 +31,7 @@ define [
 				lat: place.get 'latitude'
 				lng: place.get 'longitude'
 			address = place.get 'name'
-			marker = new gmaps.Marker 
+			marker = new gmaps.Marker
 				position: position
 				title: address
 				icon: pie.render().asIcon()
@@ -42,15 +40,13 @@ define [
 				@popup.setPosition position
 				@popup.setContent @contribList.render(place).el
 				@popup.open @map, marker
-			marker		
+			marker
 
 		render: ->
-			@addControl @welcome, @welcomePos, 1
 			marker.setMap @map for marker in @markers
 			@
 
 		remove: ->
-			@map.controls[@welcomePos].pop()
 			@popup.close()
 			@contribList.remove()
 			marker.setMap undefined for marker in @markers if @markers
