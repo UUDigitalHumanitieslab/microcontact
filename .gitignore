@@ -15,5 +15,7 @@ _SpecRunner.html
 .gmapikey
 .DS_Store
 env
+/.env
 .idea
 /media
+/.vscode
