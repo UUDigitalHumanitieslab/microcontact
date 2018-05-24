@@ -2,7 +2,17 @@
 {{#sections}}
 	<div class="dialect" style="border-left-color: {{color}}">
 		<h3>{{dialect}}</h3>
-		<p class="contributions-count">{{>numberOfContributions}}</p>
+		<p class="contributions-count">{{>numberOfContributions}}</p>		
+		<button 
+			class="btn btn-link contrib-details-button" 
+			type=button 
+			data-toggle=collapse 
+			data-target="#details{{@index}}" 
+			aria-expanded=false 
+			aria-controls="#details{{@index}}">
+			{{>contributionShowDetails}}
+		</button>		
+		<div id=details{{@index}} class="collapse"><p>{{>contributionDetails}}</p></div>
 		{{#recordings}}<audio controls>
 			<source src="{{recording_web}}" type="audio/mp3">
 		</audio>{{/recordings}}

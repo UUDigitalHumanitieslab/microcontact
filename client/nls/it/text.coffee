@@ -40,6 +40,10 @@ welcomeEnter: 'Entrare'
 numberOfContributions: '{{recordings.length}} registrazione/i'
 	# {{recordings.length}} is a number
 
+# Contributions, details
+contributionShowDetails: 'Show details'
+contributionDetails: 'Details here'
+
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'
 

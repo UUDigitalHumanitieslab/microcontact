@@ -40,6 +40,10 @@ welcomeEnter: 'Enter'
 numberOfContributions: '{{recordings.length}} contribution(s)'
 	# {{recordings.length}} is a number
 
+# Contributions, details
+contributionShowDetails: 'Show details'
+contributionDetails: 'Details here'
+
 # Participate, choose country
 chooseCountryTitle: 'Choose your country'
 

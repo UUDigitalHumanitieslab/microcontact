@@ -4,6 +4,7 @@ define [
 	'plyr'
 	'templates'
 	'util/dialects'
+	'bootstrap/collapse'
 ], (bb, _, plyr, JST, dialects) ->
 	'use strict'
 	
@@ -14,11 +15,17 @@ define [
 		
 		render: (place) ->
 			lists = _.groupBy place.recordings.toJSON(), 'dialect'
+			
+			console.log(lists)
+			
 			sections = _.map lists, (list, id) ->
 				dialect: dialects.get(id).get 'dialect'
 				color: dialects.get(id).get 'color'
 				recordings: list
 			@$el.html @template {city: place.get('name'), sections}
+			
+			console.log(sections)
+			
 			@cleanup()
 			@players = plyr.setup @$('audio').get(),
 				displayDuration: false
