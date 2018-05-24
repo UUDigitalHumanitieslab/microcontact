@@ -11,10 +11,12 @@ define [
 	'view/contributions'
 	'view/participate'
 	'view/informationForm'
+	'view/home'
+	'view/enter'
 	'util/countries'
-], (bb, $, Map, Menu, Contributions, Participate, InfoForm, countries) ->
+], (bb, $, Map, Menu, Contributions, Participate, InfoForm, Home, Enter, countries) ->
 	'use strict'
-	
+
 	class MainRouter extends bb.Router
 		initialize: ->
 			@map = new Map
@@ -23,16 +25,29 @@ define [
 			@state = new bb.Model
 			@state.on 'change:mode', (state, newMode) =>
 				switch state.previous 'mode'
+					when 'home' then @home.remove()
+					when 'enter' then @enter.remove()
 					when 'participate' then @participateView.remove()
 					when 'contributions' then @contributionsView.remove()
 				switch newMode
+					when 'home' then @getHome().render().$el.appendTo('main')
+					when 'enter' then @getEnter().render()
 					when 'participate' then @lazyGetParticipate().render()
 					when 'contributions' then @lazyGetContributions().render()
 
 		routes:
+			'(home)': 'home'
+			'map': 'enter'
 			'participate(/:country)(/:query)': 'participate'
-			'(contributions)': 'contributions'
+			'contributions': 'contributions'
 			'participant-information': 'participantInformation'
+
+		home: ->
+			@state.set mode: 'home'
+			@navigate 'home'
+
+		enter: ->
+			@state.set mode: 'enter'
 
 		participate: (country, query) ->
 			@state.set mode: 'participate'
@@ -43,15 +58,24 @@ define [
 
 		contributions: ->
 			@state.set mode: 'contributions'
-			@navigate 'contributions'
 
 		participantInformation: ->
 			@infoForm = new InfoForm el: $ 'main'
 			@infoForm.render()
 
+		getHome: ->
+			@map.remove()
+			@home = new Home
+			@home
+
+		getEnter: ->
+			@map.render().$el.appendTo('main')
+			@enter = new Enter map: @map.map
+			@enter
+
 		lazyGetParticipate: ->
 			return @participateView if @participateView?
-			@map.render()
+			@map.render().$el.appendTo('main')
 			@participateView = new Participate map: @map.map
 			@participateView.state.on 'change', (state) =>
 				{country, query} = state.attributes
@@ -63,11 +87,10 @@ define [
 						@navigate "participate/#{country}", trigger: true
 					else
 						@participateView.close()
-						@navigate 'participate'
 			@participateView
 
 		lazyGetContributions: ->
 			return @contributionsView if @contributionsView?
-			@map.render()
+			@map.render().$el.appendTo('main')
 			@contributionsView = new Contributions map: @map.map
 			@contributionsView
