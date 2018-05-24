@@ -1,5 +1,5 @@
 ###
-	(c) 2017 Digital Humanities Lab, Utrecht University
+	(c) 2018 Digital Humanities Lab, Utrecht University
 	Author: Alex Hebing
 ###
 
@@ -11,8 +11,7 @@ define [
 ], (bb, $, gmaps, EnterButtons) ->
 	'use strict'
 	
-	class EnterView extends bb.View
-		el: 'enter'
+	class EnterView extends bb.View		
 		buttonsPosition: gmaps.ControlPosition.TOP_CENTER
 		
 		initialize: (options) ->

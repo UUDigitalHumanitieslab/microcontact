@@ -11,7 +11,7 @@ define [
 	
 	class ParticipGuideView extends bb.View
 		tagName: 'div'
-		className: 'panel panel-primary custom-panel'
+		className: 'panel panel-primary'
 		id: 'participate-guide'
 		template: JST['participStepContainer']
 		

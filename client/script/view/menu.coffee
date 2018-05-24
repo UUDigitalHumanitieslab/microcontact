@@ -44,4 +44,4 @@ define [
 			@$("\#tab-#{route}").addClass 'active'
 
 		makeLastChildActive: ->
-			@$('\#tab-participate li').last().addClass 'active'
+			@$('\#tab-navigate li').last().addClass 'active'
