@@ -68,16 +68,15 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
     languages = serializers.PrimaryKeyRelatedField(
         queryset=Language.objects.all(),
         many=True,
-        write_only=True,
     )
     age = serializers.PrimaryKeyRelatedField(
         queryset=AgeCategory.objects.all(),
-        write_only=True,
     )
 
     class Meta():
         model = Recording
         fields = (
+            'id',
             'url',
             'recording',
             'recording_web',
@@ -103,19 +102,15 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             'phone': {
                 'write_only': True,
                 'required': False,
-            },
-            'sex': {'write_only': True},
-            'education': {'write_only': True},
+            }, 
             'generation': {
                 'write_only': True,
                 'required': False,
             },
-            'origin': {
-                'write_only': True,
+            'origin': {                
                 'required': False,
             },
-            'migrated': {
-                'write_only': True,
+            'migrated': {                
                 'required': False,
                 'allow_null': True,
             },
