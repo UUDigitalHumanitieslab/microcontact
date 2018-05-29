@@ -7,6 +7,7 @@
 		<audio controls>
 			<source src="{{recording_web}}" type="audio/mp3">
 		</audio>
+		<p>{{>contributionDetailsRecId}}: {{id}}, {{>contributionDetailsAge}}: {{ageCategoryLeast}} &ndash; {{ageCategoryGreatest}}, {{>contributionDetailsSex}}: {{sex}}</p>
 		<button 
 			class="btn btn-link contrib-details-button" 
 			type=button 
@@ -16,7 +17,21 @@
 			aria-controls="#details{{dialect}}{{@index}}">
 			{{>contributionShowDetails}}
 		</button>
-		<div id=details{{dialect}}{{@index}} class="collapse"><p>{{>contributionDetails}}</p></div>
+		<div id=details{{dialect}}{{@index}} class="collapse">
+			<p>{{>contributionDetailsRecId}}: {{id}}</p>
+			<p>{{>contributionDetailsAge}}: {{ageCategoryLeast}} &ndash; {{ageCategoryGreatest}}</p>
+			<p>{{>contributionDetailsSex}}: {{sex}}</p>
+			<p>{{>contributionDetailsEducation}}: {{education}}</p>
+			{{#origin}}
+			<p>{{>contributionDetailsOrigin}}: {{origin}}</p>
+			{{/origin}}
+			{{#migrated}}
+			<p>{{>contributionDetailsMigrated}}: {{migrated}}</p>
+			{{/migrated}}
+			{{#languages}}
+			<p>{{>contributionDetailsLanguages}}: {{languages}}</p>
+			{{/languages}}
+		</div>
 		{{/recordings}}
 	</div>
 {{/sections}}
