@@ -8,7 +8,6 @@ define [
 	'util/sexes'
 	'util/educationLevels'
 	'util/languages'
-	'bootstrap/collapse'
 	'bootstrap/popover'
 ], (bb, _, plyr, JST, dialects, ages, sexes, eduLevels, languagesAPI) ->
 	'use strict'
@@ -43,11 +42,6 @@ define [
 			@players = plyr.setup @$('audio').get(),
 				displayDuration: false
 			@
-
-		mapRecordings: (recordings) ->
-			mappedRecordings = _.map recordings, (recording, id) ->
-				ageCategory: ages.get(id)
-			mappedRecordings
 
 		remove: ->
 			@cleanup()
