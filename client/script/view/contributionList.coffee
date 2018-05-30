@@ -9,6 +9,7 @@ define [
 	'util/educationLevels'
 	'util/languages'
 	'bootstrap/collapse'
+	'bootstrap/popover'
 ], (bb, _, plyr, JST, dialects, ages, sexes, eduLevels, languagesAPI) ->
 	'use strict'
 	
@@ -16,7 +17,7 @@ define [
 		className: 'contributions-pin'
 		tagName: 'div'
 		template: JST['contributionList']
-		
+
 		render: (place) ->
 			lists = _.groupBy place.recordings.toJSON(), 'dialect'
 
@@ -33,10 +34,11 @@ define [
 					migrated: recording.migrated
 					languages: _(recording.languages).map((language) ->
 						languagesAPI.get(language).get('language')
-					).join(', ')
+					).join(', ') 
 					
-			@$el.html @template {city: place.get('name'), sections}
-			
+			@$el.html @template { city: place.get('name'), sections }
+			@$('[data-toggle="popover"]').popover({ container: 'body' })
+
 			@cleanup()
 			@players = plyr.setup @$('audio').get(),
 				displayDuration: false

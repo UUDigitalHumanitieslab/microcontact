@@ -42,7 +42,13 @@ numberOfContributions: '{{recordings.length}} registrazione/i'
 
 # Contributions, details
 contributionShowDetails: 'Show details'
-contributionDetails: 'Details here'
+contributionDetailsRecId: 'Registrazione id'
+contributionDetailsAge: 'Età'
+contributionDetailsSex: 'Sesso'
+contributionDetailsEducation: 'Livello di istruzione'
+contributionDetailsOrigin: 'Città di origine'
+contributionDetailsMigrated: 'Migrated in'
+contributionDetailsLanguages: 'Other languages'
 
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'
