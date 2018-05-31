@@ -5,8 +5,7 @@
 		<p class="contributions-count">{{>numberOfContributions}}</p>		
 		{{#recordings}}		
 		<b>{{>contributionDetailsRecId}}: {{id}}</b> ({{>contributionDetailsAge}}: {{ageCategoryLeast}} &ndash; {{ageCategoryGreatest}}, {{>contributionDetailsSex}}: {{sex}}) 
-		<a
-			tabindex=0
+		<a  tabindex=0
 			role=button 
 			class="btn-link showDetailsButton" 
 			data-toggle="popover"
@@ -25,7 +24,8 @@
 							{{/migrated}}
 							{{#languages}}
 							<p>{{>contributionDetailsLanguages}}: {{languages}}</p>
-							{{/languages}}">{{>contributionShowDetails}}</a>
+							{{/languages}}"
+		>{{>contributionShowDetails}}</a>
 		<audio controls>
 			<source src="{{recording_web}}" type="audio/mp3">
 		</audio>								

@@ -9,7 +9,7 @@ define [
 	'util/educationLevels'
 	'util/languages'
 	'bootstrap/popover'
-], (bb, _, plyr, JST, dialects, ages, sexes, eduLevels, languagesAPI) ->
+], (bb, _, plyr, JST, dialects, ages, sexes, eduLevels, globalLanguages) ->
 	'use strict'
 	
 	class ContributionListView extends bb.View
@@ -26,6 +26,7 @@ define [
 				recordings: _.map list, (recording) ->
 					id: recording.id
 					originalCorpus: recording.recording_original_corpus
+					recording_web: recording.recording_web
 					ageCategoryLeast: ages.get(recording.age).get 'least'
 					ageCategoryGreatest: ages.get(recording.age).get 'greatest'
 					sex: sexes.get(recording.sex).get 'name'
@@ -33,7 +34,7 @@ define [
 					origin: `recording.origin == ',' ? undefined : recording.origin`
 					migrated: recording.migrated
 					languages: _(recording.languages).map((language) ->
-						languagesAPI.get(language).get('language')
+						globalLanguages.get(language).get('language')
 					).join(', ') 
 					
 			@$el.html @template { city: place.get('name'), sections }
