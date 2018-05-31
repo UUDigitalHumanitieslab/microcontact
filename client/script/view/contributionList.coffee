@@ -25,6 +25,7 @@ define [
 				color: dialects.get(id).get 'color'
 				recordings: _.map list, (recording) ->
 					id: recording.id
+					originalCorpus: recording.recording_original_corpus
 					ageCategoryLeast: ages.get(recording.age).get 'least'
 					ageCategoryGreatest: ages.get(recording.age).get 'greatest'
 					sex: sexes.get(recording.sex).get 'name'

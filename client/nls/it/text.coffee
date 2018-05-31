@@ -49,6 +49,7 @@ contributionDetailsEducation: 'Livello di istruzione'
 contributionDetailsOrigin: 'Città di origine'
 contributionDetailsMigrated: 'Migrated in'
 contributionDetailsLanguages: 'Other languages'
+contributionDetailsOriginalCorpus: 'Original corpus'
 
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'

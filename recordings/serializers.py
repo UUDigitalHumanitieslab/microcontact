@@ -80,6 +80,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'recording',
             'recording_web',
+            'recording_original_corpus',
             'name',
             'email',
             'phone',
