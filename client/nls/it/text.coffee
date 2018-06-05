@@ -40,6 +40,17 @@ welcomeEnter: 'Entrare'
 numberOfContributions: '{{recordings.length}} registrazione/i'
 	# {{recordings.length}} is a number
 
+# Contributions, details
+contributionShowDetails: 'Mostra dettagli'
+contributionDetailsRecId: 'Registrazione id'
+contributionDetailsAge: 'Età'
+contributionDetailsSex: 'Sesso'
+contributionDetailsEducation: 'Livello di istruzione'
+contributionDetailsOrigin: 'Città di origine'
+contributionDetailsMigrated: 'Emigrato/a nel'
+contributionDetailsLanguages: 'Altre lingue conosciute'
+contributionDetailsDatasource: 'Provenienza dei dati'
+
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'
 

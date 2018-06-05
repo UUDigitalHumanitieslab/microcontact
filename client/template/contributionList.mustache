@@ -2,9 +2,35 @@
 {{#sections}}
 	<div class="dialect" style="border-left-color: {{color}}">
 		<h3>{{dialect}}</h3>
-		<p class="contributions-count">{{>numberOfContributions}}</p>
-		{{#recordings}}<audio controls>
+		<p class="contributions-count">{{>numberOfContributions}}</p>		
+		{{#recordings}}		
+		<b>{{>contributionDetailsRecId}}: {{id}}</b> ({{>contributionDetailsAge}}: {{ageCategoryLeast}} &ndash; {{ageCategoryGreatest}}, {{>contributionDetailsSex}}: {{sex}}) 
+		<a  tabindex=0
+			role=button 
+			class="btn-link showDetailsButton" 
+			data-toggle="popover"
+			data-trigger="focus" 
+			title="<b>{{>contributionDetailsRecId}}: {{id}}<b>"
+			data-html=true
+			data-content="{{#originalDatasource}}
+							<p>{{>contributionDetailsDatasource}}: {{originalDatasource}}</p>
+							{{/originalDatasource}}
+							<p>{{>contributionDetailsAge}}: {{ageCategoryLeast}} &ndash; {{ageCategoryGreatest}}</p>
+							<p>{{>contributionDetailsSex}}: {{sex}}</p>
+							<p>{{>contributionDetailsEducation}}: {{education}}</p>
+							{{#origin}}
+							<p>{{>contributionDetailsOrigin}}: {{origin}}</p>
+							{{/origin}}
+							{{#migrated}}
+							<p>{{>contributionDetailsMigrated}}: {{migrated}}</p>
+							{{/migrated}}
+							{{#languages}}
+							<p>{{>contributionDetailsLanguages}}: {{languages}}</p>
+							{{/languages}}"
+		>{{>contributionShowDetails}}</a>
+		<audio controls>
 			<source src="{{recording_web}}" type="audio/mp3">
-		</audio>{{/recordings}}
+		</audio>								
+		{{/recordings}}
 	</div>
 {{/sections}}
