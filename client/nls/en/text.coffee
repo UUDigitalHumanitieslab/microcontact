@@ -40,6 +40,17 @@ welcomeEnter: 'Enter'
 numberOfContributions: '{{recordings.length}} contribution(s)'
 	# {{recordings.length}} is a number
 
+# Contributions, details
+contributionShowDetails: 'Show details'
+contributionDetailsRecId: 'Recording id'
+contributionDetailsAge: 'Age'
+contributionDetailsSex: 'Sex'
+contributionDetailsEducation: 'Level of education'
+contributionDetailsOrigin: 'Place of origin'
+contributionDetailsMigrated: 'Migrated in'
+contributionDetailsLanguages: 'Other languages'
+contributionDetailsDatasource: 'Data source'
+
 # Participate, choose country
 chooseCountryTitle: 'Choose your country'
 

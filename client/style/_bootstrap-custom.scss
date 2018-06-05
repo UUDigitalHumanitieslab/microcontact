@@ -49,9 +49,9 @@ $icon-font-path: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/';
 
 // Components w/ JavaScript
 //@import "bootstrap/modals";
-//@import "bootstrap/tooltip";
-//@import "bootstrap/popovers";
-//@import "bootstrap/carousel";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+// @import "bootstrap/carousel";
 
 // Utility classes
 @import "bootstrap/utilities";
