@@ -58,7 +58,7 @@ class RecordingAdmin(admin.ModelAdmin):
                         'recording',
                         'recording_web',
                         'recording_original_name',
-                        'recording_original_corpus',
+                        'recording_original_datasource',
                     ),
                 })
         optional_part_uploader_details =  self.get_uploader_section(request.user)

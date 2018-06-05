@@ -72,6 +72,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
     age = serializers.PrimaryKeyRelatedField(
         queryset=AgeCategory.objects.all(),
     )
+    recording_original_datasource = serializers.SerializerMethodField()    
 
     class Meta():
         model = Recording
@@ -80,7 +81,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'recording',
             'recording_web',
-            'recording_original_corpus',
+            'recording_original_datasource',
             'name',
             'email',
             'phone',
@@ -138,6 +139,12 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
         if place.country.code == 'IT':
             validated_data['generation'] = Recording.FIRST_GEN
         return super().create(validated_data)
+
+    def get_recording_original_datasource(self, recording):
+        if recording.recording_original_datasource == '':
+            return None
+        else:
+           return recording.recording_original_datasource    
 
 
 class PlaceRecordingsSerializer(serializers.ModelSerializer):

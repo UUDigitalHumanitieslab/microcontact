@@ -158,7 +158,7 @@ class Recording(models.Model):
         blank=True,
     )
     recording_original_name = models.CharField(blank=True, max_length=200)
-    recording_original_corpus = models.CharField(blank=True, max_length=200)
+    recording_original_datasource = models.CharField(blank=True, max_length=200)
 
     def get_web_recording(self):
         return self.recording_web or self.recording

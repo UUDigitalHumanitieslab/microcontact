@@ -12,7 +12,9 @@
 			data-trigger="focus" 
 			title="<b>{{>contributionDetailsRecId}}: {{id}}<b>"
 			data-html=true
-			data-content="<p>{{>contributionDetailsOriginalCorpus}}: {{originalCorpus}}</p>
+			data-content="{{#originalDatasource}}
+							<p>{{>contributionDetailsDatasource}}: {{originalDatasource}}</p>
+							{{/originalDatasource}}
 							<p>{{>contributionDetailsAge}}: {{ageCategoryLeast}} &ndash; {{ageCategoryGreatest}}</p>
 							<p>{{>contributionDetailsSex}}: {{sex}}</p>
 							<p>{{>contributionDetailsEducation}}: {{education}}</p>

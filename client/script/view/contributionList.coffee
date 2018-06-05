@@ -25,7 +25,7 @@ define [
 				color: dialects.get(id).get 'color'
 				recordings: _.map list, (recording) ->
 					id: recording.id
-					originalCorpus: recording.recording_original_corpus
+					originalDatasource: recording.recording_original_datasource
 					recording_web: recording.recording_web
 					ageCategoryLeast: ages.get(recording.age).get 'least'
 					ageCategoryGreatest: ages.get(recording.age).get 'greatest'
@@ -37,6 +37,8 @@ define [
 						globalLanguages.get(language).get('language')
 					).join(', ') 
 					
+			console.log(sections)
+
 			@$el.html @template { city: place.get('name'), sections }
 			@$('[data-toggle="popover"]').popover({ container: 'body' })
 
