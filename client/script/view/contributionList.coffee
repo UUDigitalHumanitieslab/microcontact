@@ -35,9 +35,7 @@ define [
 					migrated: recording.migrated
 					languages: _(recording.languages).map((language) ->
 						globalLanguages.get(language).get('language')
-					).join(', ') 
-					
-			console.log(sections)
+					).join(', ')
 
 			@$el.html @template { city: place.get('name'), sections }
 			@$('[data-toggle="popover"]').popover({ container: 'body' })
