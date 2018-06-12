@@ -19,6 +19,9 @@ define [
 	generationFieldSelector = '#upload-generation-field'
 	generationFieldValueSelector = "#{generationFieldSelector} input:checked"
 	firstGenFieldsSelector = '#upload-firstgen-fields'
+	uploaderRelationFieldSelector = '#uploader-relation-field'
+	uploaderRelationFieldValueSelector = "#{uploaderRelationFieldSelector} input:checked"
+	specifyRelationFieldsSelector = '#upload-specify-relation-fields'
 	acceptedMediaTypes = 'audio/*'
 	# The following is a merger of a somewhat arbitrary selection out of
 	#  - ffmpeg -codecs
@@ -48,6 +51,7 @@ define [
 
 		events:
 			"change #{generationFieldSelector} input": 'toggleFirstGenFields'
+			"change #{uploaderRelationFieldSelector} input": 'toggleSpecifyRelationField'
 
 		render: (place) ->
 			place = place.toInternal()
@@ -96,6 +100,10 @@ define [
 						require_from_group: [1, '.upload-contact']
 					phone:
 						require_from_group: [1, '.upload-contact']
+					'uploader-relation':
+						required: true
+					'relation_to_speaker':
+						required: depends: @uploaderIsNotRecordee
 				messages:
 					recording:
 						required: recordingDefaultMessage
@@ -109,6 +117,8 @@ define [
 				errorPlacement: @placeError
 			@firstGenFields = @$ firstGenFieldsSelector
 			@firstGenFields.hide()
+			@specifyRelationFields = @$ specifyRelationFieldsSelector
+			@specifyRelationFields.hide()
 			@
 
 		handleInvalid: (event, validator) =>
@@ -163,10 +173,21 @@ define [
 				place.slice 0, maxLength - province.length - 2
 			}, #{province}"
 
-		isFirstGeneration: => $(generationFieldValueSelector).val() == 'a'
+		isFirstGeneration: =>
+			$(generationFieldValueSelector).val() == 'a'
+
+		uploaderIsNotRecordee: -> 
+			$(uploaderRelationFieldValueSelector).val() == 'b'
 
 		toggleFirstGenFields: (event) ->
 			if @isFirstGeneration() # Born in Italy
 				@firstGenFields.show()
 			else
 				@firstGenFields.hide()
+
+		toggleSpecifyRelationField: (event) ->
+			if @uploaderIsNotRecordee()
+				@specifyRelationFields.show()
+			else
+				@specifyRelationFields.hide()
+

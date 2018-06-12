@@ -131,7 +131,7 @@ bornInVillageLabel: 'Sono nato a'
 bornInProvinceLabel: 'in provincia di'
 provincePlaceholder: 'Provincia'
 
-# Upload form, uploader contact section
+# Upload form, uploader details section
 uploaderLegend: 'Informazioni sulla persona che effettua il caricamento del file.'
 uploaderPrivacyNote: 'I tuoi dati personali non saranno mai resi pubblici.'
 nameFieldLabel: 'Nome e Cognome'  # should be a full name
@@ -141,6 +141,10 @@ emailFieldLabel: 'Email'
 emailPlaceholder: 'calvarez@example.com'
 telephoneFieldLabel: 'Telefono'
 telephonePlaceholder: '+1 123456789'  # please localize
+uploaderRelationIsSpeaker: 'Uploader is the person recorded'
+uploaderRelationIsNotSpeaker: 'Uploader is not the person recorded'
+uploaderSpecifyRelationLabel: 'Relation to the speaker'
+uploaderSpecifyRelationPlaceholder: 'Daughter, Son, Grandson...'
 
 # Upload form, bottom section
 uploadButton: 'Invia'

@@ -130,7 +130,7 @@ bornInVillageLabel: 'I was born in'
 bornInProvinceLabel: 'in the province of'
 provincePlaceholder: 'Province'
 
-# Upload form, uploader contact section
+# Upload form, uploader details section
 uploaderLegend: 'About the uploader of the recording'
 uploaderPrivacyNote: 'Your personal details will never be published.'
 nameFieldLabel: 'Name'  # should be a full name
@@ -140,6 +140,10 @@ emailFieldLabel: 'Email'
 emailPlaceholder: 'calvarez@example.com'
 telephoneFieldLabel: 'Phone'
 telephonePlaceholder: '+1 123456789'  # please localize
+uploaderRelationIsSpeaker: 'Uploader is the person recorded'
+uploaderRelationIsNotSpeaker: 'Uploader is not the person recorded'
+uploaderSpecifyRelationLabel: 'Relation to the speaker'
+uploaderSpecifyRelationPlaceholder: 'Daughter, Son, Grandson...'
 
 # Upload form, bottom section
 uploadButton: 'Submit'
