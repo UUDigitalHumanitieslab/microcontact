@@ -5,7 +5,7 @@
 @import bootstrap-custom
 @import plyr
 
-// when screen gets too narrow for navigation buttons 
+// when screen gets too narrow for navigation buttons
 $nav-break: 470px;
 // when the welcome panel and picture do not fit next to each other anymore
 $home-break: 1150px;
@@ -21,7 +21,7 @@ main
 	height: 100%
 	// set overflow: auto to solve problems with margin collapse in floating children
 	// see also: http://doctype.com/margin-child-element-moves-parent-element
-	overflow: auto	
+	overflow: auto
 
 #home
 	display: block
@@ -30,8 +30,8 @@ main
 	margin-right: auto
 	margin-bottom: 25px
 	width: 80%
-	
-	#welcome		
+
+	#welcome
 		min-width: 275px
 		margin: auto
 		margin-bottom: 10px
@@ -47,8 +47,8 @@ main
 
 		@media screen and (min-width: $home-break)
 			margin-left: 7%
-			margin-right: 10px			
-			float: left		
+			margin-right: 10px
+			float: left
 
 	#mapimage
 		border: 1px solid #337ab7
@@ -64,9 +64,9 @@ main
 #enterButtons
 	margin-top: 50vh;
 
-#participate-guide	
+#participate-guide
 	margin: 10px
-	margin-top: 122px	
+	margin-top: 122px
 
 	h1 small
 		clear: left
@@ -77,7 +77,7 @@ main
 
 	@media screen and (min-width: $nav-break)
 		margin-top: 60px
-	
+
 	@media screen and (min-width: $home-break)
 		margin-top: 10px
 		width: 65ex
@@ -87,20 +87,22 @@ main
 	h2
 		text-align: center
 
-	.dialect			
+	.dialect
 		border-left: solid 5px
 		padding-left: 10px
 
 		.contributions-count
 			font-style: italic
 
-.showDetailsButton 
+.showDetailsButton
 	float: right
 
 .plyr
 	margin-bottom: 12px
 
-
+// standard margin for google maps controls that shouldn't touch the edge
+.gmaps-control
+	margin: 10px
 
 //  The next three selectors are a bit of a hack.
 	They copy the contents of the similar .nav* > li* > a selectors,
@@ -116,12 +118,12 @@ main
 	z-index: 2
 
 	.breadcrumb
+		@extend .gmaps-control
 		display: inline-block
-		margin: 10px
 		margin-right: 50px
 
 		.active a
-			color: #555	
+			color: #555
 			pointer-events: none
 
 #tab-switch
@@ -142,3 +144,8 @@ label.help-block
 	@extend .table
 	tbody > tr > td
 		border-top: 0
+
+.legend
+	@extend .contact-table
+	td:first-child
+		width: 2em

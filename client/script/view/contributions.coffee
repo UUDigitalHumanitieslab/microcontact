@@ -10,11 +10,13 @@ define [
 	'util/places'
 	'view/contributionList'
 	'view/contributionPie'
-], (bb, gmaps, dialects, places, ContribList, ContribPie) ->
+	'view/contributionLegend'
+], (bb, gmaps, dialects, places, ContribList, ContribPie, ContribLegend) ->
 	'use strict'
 
 	class ContributionsView extends bb.View
 		welcomePos: gmaps.ControlPosition.TOP_LEFT
+		legendPos: gmaps.ControlPosition.LEFT_BOTTOM
 
 		initialize: (options) ->
 			@map = options.map
@@ -24,6 +26,7 @@ define [
 			@markers = @pies.map @createMarker
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribList
+			@legend = new ContribLegend collection: dialects
 
 		createMarker: (pie) =>
 			place = pie.model
@@ -43,6 +46,7 @@ define [
 			marker
 
 		render: ->
+			@addControl @legend, @legendPos, 1
 			marker.setMap @map for marker in @markers
 			@
 
@@ -50,6 +54,8 @@ define [
 			@popup.close()
 			@contribList.remove()
 			marker.setMap undefined for marker in @markers if @markers
+			@legend.$el.popover 'hide'
+			@map.controls[@legendPos].pop()
 			super()
 
 		addControl: (view, position, index) ->
