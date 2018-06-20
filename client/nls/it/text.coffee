@@ -188,6 +188,8 @@ informationFormText: '''
 		<p><strong>Benefici e rischi:</strong> il beneficio della tua partecipazione è contribuire informazioni per l’analisi linguistica e per capire come funzionano le lingue quando entrano in contatto con altre lingue. Offrirai inoltre una preziosa documentazione della tua lingua, che sarà molto utile per chiunque lavori sulla cultura e la storia degli emigrati italiani.<br>
 		Non ci sono rischi associati alla partecipazione a questo studio. Non ti saranno mai chiesti soldi o contributi materiali di qualsiasi tipo durante le fasi della ricerca. Stai solo aiutando la ricerca scientifica.</p>
 		<p><strong>Riservatezza:</strong> il tuo nome e cognome non saranno registrati e non saranno mai resi pubblici. Le tue informazioni identificative non saranno associate a nessuna relazione scritta della ricerca. Tutte le tue informazioni e risposte nell’intervista saranno riservate. Il ricercatore non condividerà queste informazioni con nessun altro, ma solo con i membri del gruppo di ricerca.</p>
+		<p><strong>Conservazione e sicurezza dei dati:</strong> Per evitare la compromissione o la perdita dei dati, seguiamo gli standard di sicurezza dell’Università di Utrecht. I dati e i backup saranno custoditi in modo sicuro e protetto nell’archivio-deposito dell’Università di Utrecht e saranno sorvegliati dai locali amministratori del sistema (ICT e Media Backoffice) e dai vigilanti di sicurezza dell’Università di Utrecht. I dati saranno custoditi per 10 anni.</p>
+		<p><strong>Approvazione dello studio:</strong>La Commissione di Valutazione Etica per la Linguistica dell’Università di Utrecht ha approvato il nostro studio. Se hai necessità di inviare un reclamo, puoi rivolgerti ai contatti indicati sotto.</p>
 		<p>Se hai domande, dubbi o reclami, puoi contattare la Prof. Roberta D’Alessandro (vedi sotto).</p>
 	</section>
 	<section>
@@ -204,6 +206,16 @@ informationFormText: '''
 			<tr><td>Email:</td><td>r.dalessandro@uu.nl</td></tr>
 	<tr><td></td><td></td></tr>
 			<tr><td><strong>Email del gruppo di ricerca:</strong></td><td>microcontact@uu.nl</td></tr>
+			<tr>
+			 <td><strong>Commissione Etica:</strong></td>
+			 <td>M.K.A. de Klerk (Maartje)</td>
+			</tr>
+			<tr><td>Indirizzo:</td><td>
+				Ethische ToetsingsCommissie Linguïstiek (ETCL)<br>
+				Janskerkhof 13, 3512 BL, Utrecht
+			</td></tr>
+			<tr><td>Telefono:</td><td>+31 30 253 8472</td></tr>
+			<tr><td>Email:</td><td>m.k.a.deklerk@uu.nl</td></tr>
 		</table></address>
 	</section>
 '''

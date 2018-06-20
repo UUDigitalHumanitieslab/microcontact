@@ -187,6 +187,8 @@ informationFormText: '''
 		<p><strong>Benefits and Risks:</strong> The benefit of your participation is to contribute information for linguistic analysis, for understanding how languages work when they are in contact with other languages. You will also offer very important documentation of your language, which will be of use for anybody working on the culture and history of Italian emigrants.<br>
 		There are no risks associated with participating in the study. You will never be asked any money or any material contribution, in any form, at any stage of the research. You will only be helping science.</p>
 		<p><strong>Confidentiality:</strong> Your name will not be recorded and will never appear publicly. Your name and identifying information will not be associated with any part of the written report of the research. All of your information and interview responses will be kept confidential.  The researcher will not share your individual responses with anyone other than the research team.</p>
+		<p><strong>Data storage and security:</strong> To avoid hacking and data leaking, we follow the data security standards at Utrecht University. The data and backups will be securely stored in the protected repository vault of Utrecht University, and will be monitored by the local system administrators (ICT & Media Backoffice) and by the security guards of Utrecht University. The data will be stored for 10 years.</p>
+		<p><strong>Approval of the study:</strong>The Ethical Assessment Committee Linguistics (ETCL) at the Utrecht Institute of Linguistics OTS has approved this study. In case you wish to file a complaint about this study, please see contacts below</p>
 		<p>If you have any questions, concerns or complaints, please contact Prof. Roberta D’Alessandro (see below).</p>
 	</section>
 	<section>
@@ -203,6 +205,16 @@ informationFormText: '''
 			<tr><td>Email:</td><td>r.dalessandro@uu.nl</td></tr>
 	<tr><td></td><td></td></tr>
 			<tr><td><strong>Research Team Email:</strong></td><td>microcontact@uu.nl</td></tr>
+			<tr>
+			 <td><strong>Ethical Assessment Committee:</strong></td>
+			 <td>M.K.A. de Klerk (Maartje)</td>
+			</tr>
+			<tr><td>Address:</td><td>
+				Ethische ToetsingsCommissie Linguïstiek (ETCL)<br>
+				Janskerkhof 13, 3512 BL, Utrecht
+			</td></tr>
+			<tr><td>Telephone:</td><td>+31 30 253 8472</td></tr>
+			<tr><td>Email:</td><td>m.k.a.deklerk@uu.nl</td></tr>
 		</table></address>
 	</section>
 '''
