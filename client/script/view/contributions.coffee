@@ -75,7 +75,7 @@ define [
 				# custom zoom level for cities, fit screen for other results
 				if 'locality' in result.types
 					@map.setCenter(result.geometry.location)
-					@map.setZoom(6)  # Why 7? Because it looks good.
+					@map.setZoom(6)  # Why 6? Because it looks good.
 				else
 					@map.fitBounds(result.geometry.viewport)
 			
