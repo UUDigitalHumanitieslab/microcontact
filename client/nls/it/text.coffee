@@ -36,6 +36,10 @@ welcomeSignature: 'Il gruppo di ricerca'
 welcomeLink: 'Il sito web del nostro progetto'
 welcomeEnter: 'Entrare'
 
+# Contributions, legend
+dialectLegendTitle: 'Legend of dialect colors'
+dialectLegendButton: 'Legend'
+
 # Contributions, place listing
 numberOfContributions: '{{recordings.length}} registrazione/i'
 	# {{recordings.length}} is a number

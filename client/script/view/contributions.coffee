@@ -12,12 +12,14 @@ define [
 	'view/contributionList'
 	'view/contributionPie'
 	'view/contributionSearch'
-], (bb, gmaps, $, dialects, places, ContribList, ContribPie, ContribSearch) ->
+	'view/contributionLegend'
+], (bb, gmaps, $, dialects, places, ContribList, ContribPie, ContribSearch, ContribLegend) ->
 	'use strict'
 
 	class ContributionsView extends bb.View
 		welcomePos: gmaps.ControlPosition.TOP_LEFT
 		searchBoxPos: gmaps.ControlPosition.TOP_LEFT
+		legendPos: gmaps.ControlPosition.LEFT_BOTTOM
 
 		initialize: (options) ->
 			@map = options.map
@@ -28,7 +30,7 @@ define [
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribList
 			@contribSearch = new ContribSearch
-			
+			@legend = new ContribLegend collection: dialects
 
 		createMarker: (pie) =>
 			place = pie.model
@@ -48,6 +50,7 @@ define [
 			marker
 
 		render: ->
+			@addControl @legend, @legendPos, 1
 			marker.setMap @map for marker in @markers
 			@addControl(@contribSearch, @searchBoxPos, 1)
 			inputField = @contribSearch.$('#pac-input')[0]
@@ -62,6 +65,8 @@ define [
 			@contribSearch.remove()
 			@map.controls[@searchBoxPos].pop()
 			marker.setMap undefined for marker in @markers if @markers
+			@legend.$el.popover 'hide'
+			@map.controls[@legendPos].pop()
 			super()
 
 		addControl: (view, position, index) ->
