@@ -4,7 +4,7 @@
 ###
 
 define [
-	'nls/en/text'  # this is the default, change here if needed
+	'nls/it/text'  # this is the default, change here if needed
 ], (defaultLanguage) ->
 	root: defaultLanguage
 	en: true
