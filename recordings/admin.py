@@ -17,7 +17,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 class RecordingAdmin(admin.ModelAdmin):
     """ Customizations to the default ModelAdmin. """
-    readonly_fields = ('recording_web', 'recording_original_name')
+    readonly_fields = ('recording_web', 'recording_original_name', 'uploader_relation_to_speaker')
     filter_horizontal = ('languages',)
     list_filter = (
         'status',
@@ -61,7 +61,7 @@ class RecordingAdmin(admin.ModelAdmin):
                         'recording_original_datasource',
                     ),
                 })
-        optional_part_uploader_details =  self.get_uploader_section(request.user)
+        optional_part_uploader_details =  self.get_uploader_section(request.user, obj)
         recording_speaker_part = ('Information about the recording and the speaker', {
                     'fields': (
                         'dialect',
@@ -75,14 +75,14 @@ class RecordingAdmin(admin.ModelAdmin):
                 }) 
         return (general_part, recording_speaker_part) if not optional_part_uploader_details else (general_part, optional_part_uploader_details, recording_speaker_part)
 
-    def get_uploader_section(self, user):
+    def get_uploader_section(self, user, obj):
         if (user.has_perm('recordings.view_uploader_contactdetails')):
             return ('Information about the uploader', {
-                        'fields': ('name', 'email', 'phone'),
+                        'fields': ('name', 'email', 'phone', 'uploader_relation_to_speaker'),
                     })
         else:
             return None
-
+            
 
 admin.site.register(Dialect, LocalizedNamesAdmin)
 admin.site.register(Recording, RecordingAdmin)
