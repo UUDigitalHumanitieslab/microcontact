@@ -37,8 +37,8 @@ welcomeLink: 'Il sito web del nostro progetto'
 welcomeEnter: 'Entrare'
 
 # Contributions, legend
-dialectLegendTitle: 'Legend of dialect colors'
-dialectLegendButton: 'Legend'
+dialectLegendTitle: 'Legenda dei colori dei dialetti'
+dialectLegendButton: 'Legenda'
 
 # Contributions, place listing
 numberOfContributions: '{{recordings.length}} registrazione/i'
@@ -56,7 +56,7 @@ contributionDetailsLanguages: 'Altre lingue conosciute'
 contributionDetailsDatasource: 'Provenienza dei dati'
 
 # contributions, search
-contributionsSearchPlaceHolder: 'Search by place'
+contributionsSearchPlaceHolder: 'Cerca il luogo'
 
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'
@@ -148,10 +148,10 @@ emailFieldLabel: 'Email'
 emailPlaceholder: 'calvarez@example.com'
 telephoneFieldLabel: 'Telefono'
 telephonePlaceholder: '+1 123456789'  # please localize
-uploaderRelationIsSpeaker: 'Uploader is the person recorded'
-uploaderRelationIsNotSpeaker: 'Uploader is not the person recorded'
-uploaderSpecifyRelationLabel: 'Relation to the speaker'
-uploaderSpecifyRelationPlaceholder: 'Daughter, Son, Grandson...'
+uploaderRelationIsSpeaker: 'La persona che carica il file è la persona registrata'
+uploaderRelationIsNotSpeaker: 'La persona che carica il file non è la persona registrata'
+uploaderSpecifyRelationLabel: 'Relazione con il parlante'
+uploaderSpecifyRelationPlaceholder: 'Figlia, figlio, nipote...'
 
 # Upload form, bottom section
 uploadButton: 'Invia'
