@@ -51,6 +51,9 @@ contributionDetailsMigrated: 'Migrated in'
 contributionDetailsLanguages: 'Other languages'
 contributionDetailsDatasource: 'Data source'
 
+# contributions, search
+contributionsSearchPlaceHolder: 'Search by place'
+
 # Participate, choose country
 chooseCountryTitle: 'Choose your country'
 

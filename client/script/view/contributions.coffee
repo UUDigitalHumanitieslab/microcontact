@@ -6,15 +6,18 @@
 define [
 	'backbone'
 	'googlemaps'
+	'jquery'
 	'util/dialects'
 	'util/places'
 	'view/contributionList'
 	'view/contributionPie'
-], (bb, gmaps, dialects, places, ContribList, ContribPie) ->
+	'view/contributionSearch'
+], (bb, gmaps, $, dialects, places, ContribList, ContribPie, ContribSearch) ->
 	'use strict'
 
 	class ContributionsView extends bb.View
 		welcomePos: gmaps.ControlPosition.TOP_LEFT
+		searchBoxPos: gmaps.ControlPosition.TOP_LEFT
 
 		initialize: (options) ->
 			@map = options.map
@@ -24,6 +27,8 @@ define [
 			@markers = @pies.map @createMarker
 			@popup = new gmaps.InfoWindow
 			@contribList = new ContribList
+			@contribSearch = new ContribSearch
+			
 
 		createMarker: (pie) =>
 			place = pie.model
@@ -44,11 +49,18 @@ define [
 
 		render: ->
 			marker.setMap @map for marker in @markers
+			@addControl(@contribSearch, @searchBoxPos, 1)
+			inputField = @contribSearch.$('#pac-input')[0]
+			@autocomplete = new gmaps.places.Autocomplete inputField,
+				types: ['geocode']
+			@autocomplete.addListener 'place_changed', @focusOnPlace
 			@
 
 		remove: ->
 			@popup.close()
 			@contribList.remove()
+			@contribSearch.remove()
+			@map.controls[@searchBoxPos].pop()
 			marker.setMap undefined for marker in @markers if @markers
 			super()
 
@@ -56,3 +68,14 @@ define [
 			div = view.render().el
 			div.index = index
 			@map.controls[position].push div
+
+		focusOnPlace: =>
+			result = @autocomplete.getPlace()
+			if result.geometry and result.geometry.viewport
+				# custom zoom level for cities, fit screen for other results
+				if 'locality' in result.types
+					@map.setCenter(result.geometry.location)
+					@map.setZoom(6)  # Why 6? Because it looks good.
+				else
+					@map.fitBounds(result.geometry.viewport)
+			

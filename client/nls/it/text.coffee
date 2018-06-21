@@ -51,6 +51,9 @@ contributionDetailsMigrated: 'Emigrato/a nel'
 contributionDetailsLanguages: 'Altre lingue conosciute'
 contributionDetailsDatasource: 'Provenienza dei dati'
 
+# contributions, search
+contributionsSearchPlaceHolder: 'Search by place'
+
 # Participate, choose country
 chooseCountryTitle: 'Seleziona il tuo Paese'
 
