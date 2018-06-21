@@ -141,8 +141,24 @@
 			<input id=upload-phone name=phone type=tel class="form-control upload-contact" autocomplete=tel placeholder="{{>telephonePlaceholder}}" maxlength=128 spellcheck=false>
 			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 		</div>
-	</fieldset>
-	<fieldset>
+		<fieldset id=uploader-relation-field>
+			<div class=radio>
+				<label>
+					<input type=radio name=uploader-relation value=a>
+					{{>uploaderRelationIsSpeaker}}
+				</label><br>
+				<label>
+					<input type=radio name=uploader-relation value=b>
+					{{>uploaderRelationIsNotSpeaker}}
+				</label>
+			</div>			
+		</fieldset>
+		<fieldset id=upload-specify-relation-fields>
+			<div>
+				<label>{{>uploaderSpecifyRelationLabel}}</label>
+				<input type="text" name=relation_to_speaker class=form-control placeholder="{{>uploaderSpecifyRelationPlaceholder}}" maxlength=75>
+			</div>
+		</fieldset>
 		<div class=checkbox>
 			<label>
 				<input type="checkbox" name="consent" required>

@@ -114,6 +114,14 @@ class Recording(models.Model):
     name = models.CharField(max_length=200, blank=True)
     email = models.EmailField('uploader\'s email address', blank=True)
     phone = PhoneNumberField('uploader\'s phone number', blank=True)
+    relation_to_speaker = models.CharField('uploader\'s relation to speaker', max_length=75, blank=True)
+
+    # this method sets a default value for relation_to_speaker if it is empty (i.e the uploader is the speaker).    
+    def uploader_relation_to_speaker(self):
+        if not self.relation_to_speaker:
+            return "Uploader is speaker"
+        else:
+            return self.relation_to_speaker
 
     # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
