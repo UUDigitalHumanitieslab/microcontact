@@ -292,7 +292,7 @@ module.exports = (grunt) ->
 						'jquery.validate': 'empty:'
 						'jquery.validate.additions': 'empty:'
 						plyr: 'empty:'
-					include: ['main.js', 'nls/it/text', 'nls/it/validation']
+					include: ['main.js', 'nls/en/text', 'nls/en/validation']
 					out: '<%= dist %>/microcontact.js'
 
 		cssmin:
