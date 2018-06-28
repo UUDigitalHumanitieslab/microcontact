@@ -4,7 +4,7 @@
 ###
 
 define [
-	'nls/en/validation'  # this is the default, change here if needed
+	'nls/it/validation'  # this is the default, change here if needed
 ], (defaultLanguage) ->
 	root: defaultLanguage
 	en: true

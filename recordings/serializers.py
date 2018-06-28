@@ -85,6 +85,7 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
             'name',
             'email',
             'phone',
+            'relation_to_speaker',
             'dialect',
             'place',
             'languages',
@@ -102,6 +103,10 @@ class RecordingSerializer(serializers.HyperlinkedModelSerializer):
                 'required': False,
             },
             'phone': {
+                'write_only': True,
+                'required': False,
+            },
+            'relation_to_speaker': {
                 'write_only': True,
                 'required': False,
             }, 
