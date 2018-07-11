@@ -9,11 +9,11 @@ define [
 	'googlemaps'
 ], (bb, $, gmaps) ->
 	'use strict'
-	
+
 	center =
-		lat:  42
-		lng:   6
-	zoom = 4
+		lat:   5
+		lng: -61
+	zoom = 3
 	mapSettings = {
 		center
 		zoom
@@ -21,13 +21,13 @@ define [
 		streetViewControl: false
 		mapTypeControl: false
 	}
-	# Fit Italy-in-context into the viewport.
+	# Fit both Italy and America on the map.
 	bounds =
-		north:  48
+		north:  60
 		east:   19
-		south:  36
-		west:   -7
-	
+		south: -50
+		west: -142
+
 	class MapView extends bb.View
 		logoPos: gmaps.ControlPosition.BOTTOM_LEFT
 		id: 'map'
