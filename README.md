@@ -9,7 +9,7 @@ For local development use, create a Python module in the project root that start
 
 For production use, copy `microcontact/settings.py` to a separate file. Put this file elsewhere in the filesystem under restrictive access rights, then modify its contents. There are many settings that need to be overridden because of security considerations; please see the comments.
 
-In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the path to your customized settings module in order to use it. For documentation, see the [Django documentation on settings][1].
+In either case, set the environment variable `DJANGO_SETTINGS_MODULE` to the module name of your customized settings in order to use it. Depending on location of your settings module, you may also need to set `PYTHONPATH`. For documentation, see the [Django documentation on settings][1].
 
 Google Maps API key
 -------------------
