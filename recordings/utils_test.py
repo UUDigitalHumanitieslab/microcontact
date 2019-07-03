@@ -22,10 +22,10 @@ def test_get_absolute_path_from_absolute():
 
 def test_get_absolute_path_from_django_File(tmp_media_root, settings):
     with NamedTemporaryFile(dir=settings.MEDIA_ROOT) as temp:
-        django_file = File(temp)
-        absolute_path = get_absolute_path(django_file)
-        assert op.isabs(absolute_path)
-        assert op.isfile(absolute_path)
+        with File(temp) as django_file:
+            absolute_path = get_absolute_path(django_file)
+            assert op.isabs(absolute_path)
+            assert op.isfile(absolute_path)
 
 
 def test_get_file_size_from_string(amr_file):
@@ -34,8 +34,8 @@ def test_get_file_size_from_string(amr_file):
 
 
 def test_get_file_size_from_named_object(amr_file):
-    file_object = File(amr_file)
-    assert get_file_size(file_object) == TEST_FILE_SIZE
+    with File(amr_file) as file_object:
+        assert get_file_size(file_object) == TEST_FILE_SIZE
 
 
 def test_get_file_size_from_unnamed_object():

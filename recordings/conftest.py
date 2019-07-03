@@ -27,13 +27,15 @@ def testcase_dir():
 @pytest.fixture
 def mp3_file(testcase_dir):
     """ Return the mp3 file from the testcases directory. """
-    return open(op.join(testcase_dir, 'speech.mp3'), mode='rb')
+    with open(op.join(testcase_dir, 'speech.mp3'), mode='rb') as mp3:
+        yield mp3
 
 
 @pytest.fixture
 def amr_file(testcase_dir):
     """ Return the amr file from the testcases directory. """
-    return open(op.join(testcase_dir, 'speech.amr'), mode='rb')
+    with open(op.join(testcase_dir, 'speech.amr'), mode='rb') as amr:
+        yield amr
 
 
 @pytest.fixture
@@ -52,7 +54,7 @@ def insert_into_db(items, model):
 def insertable(model):
     """
         Return a fixture decorator adding an _in_db version.
-        
+
         Given a fixture and its name, generate a second fixture which has
         the same name with _in_db appended. This fixture returns the same
         set of model instances, except that they are already saved in the
@@ -103,7 +105,9 @@ def places(countries_in_db):
 @pytest.fixture
 def recordings(dialects_in_db, places_in_db, audio_files):
     """ Return Recording instances which haven't been saved yet. """
-    return (
-        Recording(dialect=dialects_in_db[0], place=places_in_db[0], recording=File(audio_files[0])),
-        Recording(dialect=dialects_in_db[1], place=places_in_db[1], recording=File(audio_files[1])),
-    )
+    with File(audio_files[0]) as f0:
+        with File(audio_files[1]) as f1:
+            yield (
+                Recording(dialect=dialects_in_db[0], place=places_in_db[0], recording=f0),
+                Recording(dialect=dialects_in_db[1], place=places_in_db[1], recording=f1),
+            )
