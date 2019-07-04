@@ -24,12 +24,12 @@ class RecordingAdmin(admin.ModelAdmin):
         'public',
         ('dialect', admin.RelatedOnlyFieldListFilter),
         ('place', admin.RelatedOnlyFieldListFilter),
-        'place__country',
+        # 'place__country',
         'sex',
         'education',
         'generation',
         ('age', admin.RelatedOnlyFieldListFilter),
-        'migrated',        
+        'migrated',
     )
     search_fields = ('recording', 'name', 'email', 'phone', 'origin')
     list_display = (
@@ -72,7 +72,7 @@ class RecordingAdmin(admin.ModelAdmin):
                         'generation',
                         ('origin', 'migrated'),
                     ),
-                }) 
+                })
         return (general_part, recording_speaker_part) if not optional_part_uploader_details else (general_part, optional_part_uploader_details, recording_speaker_part)
 
     def get_uploader_section(self, user, obj):
@@ -82,7 +82,7 @@ class RecordingAdmin(admin.ModelAdmin):
                     })
         else:
             return None
-            
+
 
 admin.site.register(Dialect, LocalizedNamesAdmin)
 admin.site.register(Recording, RecordingAdmin)
