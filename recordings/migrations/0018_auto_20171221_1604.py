@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recording',
             name='place',
-            field=models.ForeignKey(on_delete='PROTECT', to='recordings.Place', related_name='recordings'),
+            field=models.ForeignKey(on_delete=models.PROTECT, to='recordings.Place', related_name='recordings'),
         ),
     ]
