@@ -9,6 +9,7 @@ django-auth-ldap==1.2.13
 django-phonenumber-field==1.3.0
 django==1.10.8
 djangorestframework==3.6.3
+phonenumberslite==8.8.0   # via django-phonenumber-field
 psycopg2==2.7.1
 py==1.4.34                # via pytest
 pycrypto==2.6.1
