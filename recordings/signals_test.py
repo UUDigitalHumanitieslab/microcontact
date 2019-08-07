@@ -19,23 +19,35 @@ def test_standardize_filename(dummy):
 
 
 @pytest.fixture
-def blank_web_safe(dialects_in_db, places_in_db, mp3_file):
-    with File(mp3_file) as f:
-        yield Recording(
-            dialect=dialects_in_db[0],
-            place=places_in_db[0],
-            recording=f,
-        )
+def django_mp3_file(mp3_file):
+    with File(mp3_file) as django_mp3_file:
+        django_mp3_file.name = op.basename(django_mp3_file.name)
+        yield django_mp3_file
 
 
 @pytest.fixture
-def blank_convertible(dialects_in_db, places_in_db, amr_file):
-    with File(amr_file) as f:
-        yield Recording(
-            dialect=dialects_in_db[0],
-            place=places_in_db[0],
-            recording=f,
-        )
+def django_amr_file(amr_file):
+    with File(amr_file) as django_amr_file:
+        django_amr_file.name = op.basename(django_amr_file.name)
+        yield django_amr_file
+
+
+@pytest.fixture
+def blank_web_safe(dialects_in_db, places_in_db, django_mp3_file):
+    return Recording(
+        dialect=dialects_in_db[0],
+        place=places_in_db[0],
+        recording=django_mp3_file,
+    )
+
+
+@pytest.fixture
+def blank_convertible(dialects_in_db, places_in_db, django_amr_file):
+    return Recording(
+        dialect=dialects_in_db[0],
+        place=places_in_db[0],
+        recording=django_amr_file,
+    )
 
 
 @pytest.fixture
@@ -50,10 +62,10 @@ def converted_in_db(blank_convertible):
     return blank_convertible
 
 
-def test_save_blank_web_safe_rename(blank_web_safe, mp3_file):
-    assert blank_web_safe.recording.name == mp3_file.name
+def test_save_blank_web_safe_rename(blank_web_safe, django_mp3_file):
+    assert blank_web_safe.recording.name == django_mp3_file.name
     blank_web_safe.save()
-    assert op.basename(blank_web_safe.recording.name) == op.basename(standardize_filename(blank_web_safe, mp3_file.name)[0])
+    assert op.basename(blank_web_safe.recording.name) == op.basename(standardize_filename(blank_web_safe, django_mp3_file.name)[0])
 
 
 def test_save_blank_web_safe_no_alias(blank_web_safe):
@@ -106,60 +118,56 @@ def test_save_arbitrary_change_uf_web_safe(web_safe_in_db):
     assert web_safe_in_db.recording_web == ''
 
 
-def test_save_file_change_no_uf_web_safe_to_web_safe(web_safe_in_db, mp3_file):
+def test_save_file_change_no_uf_web_safe_to_web_safe(web_safe_in_db, django_mp3_file):
     original_name = web_safe_in_db.recording.name
     original_file = web_safe_in_db.recording.file
-    with File(mp3_file) as f:
-        web_safe_in_db.recording = f
-        web_safe_in_db.save()
-        assert web_safe_in_db.recording.name == original_name
-        assert web_safe_in_db.recording.file != original_file
-        assert web_safe_in_db.recording_web == ''
-        assert op.basename(web_safe_in_db.recording_original_name) == op.basename(mp3_file.name)
+    web_safe_in_db.recording = django_mp3_file
+    web_safe_in_db.save()
+    assert web_safe_in_db.recording.name == original_name
+    assert web_safe_in_db.recording.file != original_file
+    assert web_safe_in_db.recording_web == ''
+    assert op.basename(web_safe_in_db.recording_original_name) == op.basename(django_mp3_file.name)
 
 
-def test_save_file_change_uf_web_safe_to_web_safe(web_safe_in_db, mp3_file):
+def test_save_file_change_uf_web_safe_to_web_safe(web_safe_in_db, django_mp3_file):
     original_name = web_safe_in_db.recording.name
     original_file = web_safe_in_db.recording.file
-    with File(mp3_file) as f:
-        web_safe_in_db.recording = f
-        web_safe_in_db.save(update_fields=('recording',))
-        assert web_safe_in_db.recording.name == original_name
-        assert web_safe_in_db.recording.file != original_file
-        assert web_safe_in_db.recording_web == ''
-        assert op.basename(web_safe_in_db.recording_original_name) == op.basename(mp3_file.name)
+    web_safe_in_db.recording = django_mp3_file
+    web_safe_in_db.save(update_fields=('recording',))
+    assert web_safe_in_db.recording.name == original_name
+    assert web_safe_in_db.recording.file != original_file
+    assert web_safe_in_db.recording_web == ''
+    assert op.basename(web_safe_in_db.recording_original_name) == op.basename(django_mp3_file.name)
 
 
-def test_save_file_change_no_uf_web_safe_to_converted(web_safe_in_db, amr_file):
+def test_save_file_change_no_uf_web_safe_to_converted(web_safe_in_db, django_amr_file):
     original_name = web_safe_in_db.recording.name
     original_file = web_safe_in_db.recording.file
-    with File(amr_file) as f:
-        web_safe_in_db.recording = f
-        web_safe_in_db.save()
-        assert web_safe_in_db.recording.name != original_name
-        assert op.splitext(web_safe_in_db.recording.name)[0] == op.splitext(original_name)[0]
-        assert web_safe_in_db.recording.file != original_file
-        assert web_safe_in_db.recording_web.name == original_name
-        assert op.basename(web_safe_in_db.recording_original_name) == op.basename(amr_file.name)
+    web_safe_in_db.recording = django_amr_file
+    web_safe_in_db.save()
+    assert web_safe_in_db.recording.name != original_name
+    assert op.splitext(web_safe_in_db.recording.name)[0] == op.splitext(original_name)[0]
+    assert web_safe_in_db.recording.file != original_file
+    assert web_safe_in_db.recording_web.name == original_name
+    assert op.basename(web_safe_in_db.recording_original_name) == op.basename(django_amr_file.name)
 
 
-def test_save_file_change_uf_web_safe_to_converted(web_safe_in_db, amr_file):
+def test_save_file_change_uf_web_safe_to_converted(web_safe_in_db, django_amr_file):
     original_name = web_safe_in_db.recording.name
     original_file = web_safe_in_db.recording.file
-    with File(amr_file) as f:
-        web_safe_in_db.recording = f
-        web_safe_in_db.save(update_fields=('recording',))
-        assert web_safe_in_db.recording.name != original_name
-        assert op.splitext(web_safe_in_db.recording.name)[0] == op.splitext(original_name)[0]
-        assert web_safe_in_db.recording.file != original_file
-        assert web_safe_in_db.recording_web.name == original_name
-        assert op.basename(web_safe_in_db.recording_original_name) == op.basename(amr_file.name)
+    web_safe_in_db.recording = django_amr_file
+    web_safe_in_db.save(update_fields=('recording',))
+    assert web_safe_in_db.recording.name != original_name
+    assert op.splitext(web_safe_in_db.recording.name)[0] == op.splitext(original_name)[0]
+    assert web_safe_in_db.recording.file != original_file
+    assert web_safe_in_db.recording_web.name == original_name
+    assert op.basename(web_safe_in_db.recording_original_name) == op.basename(django_amr_file.name)
 
 
-def test_save_blank_convertible_rename(blank_convertible, amr_file):
-    assert blank_convertible.recording.name == amr_file.name
+def test_save_blank_convertible_rename(blank_convertible, django_amr_file):
+    assert blank_convertible.recording.name == django_amr_file.name
     blank_convertible.save()
-    assert op.basename(blank_convertible.recording.name) == op.basename(standardize_filename(blank_convertible, amr_file.name)[0])
+    assert op.basename(blank_convertible.recording.name) == op.basename(standardize_filename(blank_convertible, django_amr_file.name)[0])
 
 
 def test_save_blank_convertible_conversion(blank_convertible):
@@ -224,57 +232,53 @@ def test_save_arbitrary_change_uf_converted(converted_in_db):
     assert converted_in_db.recording_web.file == original_web_file
 
 
-def test_save_file_change_no_uf_converted_to_converted(converted_in_db, amr_file):
+def test_save_file_change_no_uf_converted_to_converted(converted_in_db, django_amr_file):
     original_name = converted_in_db.recording.name
     original_file = converted_in_db.recording.file
     original_web_name = converted_in_db.recording_web.name
     original_web_file = converted_in_db.recording_web.file
-    with File(amr_file) as f:
-        converted_in_db.recording = f
-        converted_in_db.save()
-        assert converted_in_db.recording.name == original_name
-        assert converted_in_db.recording.file != original_file
-        assert converted_in_db.recording_web.name == original_web_name
-        assert converted_in_db.recording_web.file != original_web_file
-        assert op.basename(converted_in_db.recording_original_name) == op.basename(amr_file.name)
+    converted_in_db.recording = django_amr_file
+    converted_in_db.save()
+    assert converted_in_db.recording.name == original_name
+    assert converted_in_db.recording.file != original_file
+    assert converted_in_db.recording_web.name == original_web_name
+    assert converted_in_db.recording_web.file != original_web_file
+    assert op.basename(converted_in_db.recording_original_name) == op.basename(django_amr_file.name)
 
 
-def test_save_file_change_uf_converted_to_converted(converted_in_db, amr_file):
+def test_save_file_change_uf_converted_to_converted(converted_in_db, django_amr_file):
     original_name = converted_in_db.recording.name
     original_file = converted_in_db.recording.file
     original_web_name = converted_in_db.recording_web.name
     original_web_file = converted_in_db.recording_web.file
-    with File(amr_file) as f:
-        converted_in_db.recording = f
-        converted_in_db.save(update_fields=('recording',))
-        assert converted_in_db.recording.name == original_name
-        assert converted_in_db.recording.file != original_file
-        assert converted_in_db.recording_web.name == original_web_name
-        assert converted_in_db.recording_web.file != original_web_file
-        assert op.basename(converted_in_db.recording_original_name) == op.basename(amr_file.name)
+    converted_in_db.recording = django_amr_file
+    converted_in_db.save(update_fields=('recording',))
+    assert converted_in_db.recording.name == original_name
+    assert converted_in_db.recording.file != original_file
+    assert converted_in_db.recording_web.name == original_web_name
+    assert converted_in_db.recording_web.file != original_web_file
+    assert op.basename(converted_in_db.recording_original_name) == op.basename(django_amr_file.name)
 
 
-def test_save_file_change_no_uf_converted_to_web_safe(converted_in_db, mp3_file):
+def test_save_file_change_no_uf_converted_to_web_safe(converted_in_db, django_mp3_file):
     original_name = converted_in_db.recording.name
     original_file = converted_in_db.recording.file
-    with File(mp3_file) as f:
-        converted_in_db.recording = f
-        converted_in_db.save()
-        assert converted_in_db.recording.name != original_name
-        assert op.splitext(converted_in_db.recording.name)[0] == op.splitext(original_name)[0]
-        assert converted_in_db.recording.file != original_file
-        assert converted_in_db.recording_web == None
-        assert op.basename(converted_in_db.recording_original_name) == op.basename(mp3_file.name)
+    converted_in_db.recording = django_mp3_file
+    converted_in_db.save()
+    assert converted_in_db.recording.name != original_name
+    assert op.splitext(converted_in_db.recording.name)[0] == op.splitext(original_name)[0]
+    assert converted_in_db.recording.file != original_file
+    assert converted_in_db.recording_web == None
+    assert op.basename(converted_in_db.recording_original_name) == op.basename(django_mp3_file.name)
 
 
-def test_save_file_change_uf_converted_to_web_safe(converted_in_db, mp3_file):
+def test_save_file_change_uf_converted_to_web_safe(converted_in_db, django_mp3_file):
     original_name = converted_in_db.recording.name
     original_file = converted_in_db.recording.file
-    with File(mp3_file) as f:
-        converted_in_db.recording = f
-        converted_in_db.save(update_fields=('recording',))
-        assert converted_in_db.recording.name != original_name
-        assert op.splitext(converted_in_db.recording.name)[0] == op.splitext(original_name)[0]
-        assert converted_in_db.recording.file != original_file
-        assert converted_in_db.recording_web == None
-        assert op.basename(converted_in_db.recording_original_name) == op.basename(mp3_file.name)
+    converted_in_db.recording = django_mp3_file
+    converted_in_db.save(update_fields=('recording',))
+    assert converted_in_db.recording.name != original_name
+    assert op.splitext(converted_in_db.recording.name)[0] == op.splitext(original_name)[0]
+    assert converted_in_db.recording.file != original_file
+    assert converted_in_db.recording_web == None
+    assert op.basename(converted_in_db.recording_original_name) == op.basename(django_mp3_file.name)
