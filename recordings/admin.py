@@ -24,7 +24,7 @@ class RecordingAdmin(admin.ModelAdmin):
         'public',
         ('dialect', admin.RelatedOnlyFieldListFilter),
         ('place', admin.RelatedOnlyFieldListFilter),
-        # 'place__country',
+        'place__country',
         'sex',
         'education',
         'generation',
