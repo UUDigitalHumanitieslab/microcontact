@@ -1,5 +1,4 @@
 Django>=1.11,<2.0
-pycrypto
 pyldap
 django-auth-ldap
 djangorestframework
