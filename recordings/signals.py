@@ -14,7 +14,7 @@ FILENAME_FORMAT = 'microcontact_{id:07}{extension}'
 def store_recording_files(sender, **kwargs):
     """
     Name recording after instance ID and convert to MP3 if necessary.
-    
+
     This is a signal handler for django.db.models.signals.post_save.
     """
     resave = False
@@ -59,7 +59,7 @@ def store_recording_files(sender, **kwargs):
 def standardize_filename(recording, current_name):
     """
         Generate a standardized filename based on the recording attributes.
-        
+
         `recording`: instance of .models.Recording.
     """
     std_extension = op.splitext(current_name)[1].lower()
@@ -71,7 +71,7 @@ def standardize_filename(recording, current_name):
 def remove_recording_files(sender, **kwargs):
     """
     Remove the audio files associated with the instance.
-    
+
     This is a signal handler for django.db.models.signals.post_delete.
     """
     instance = kwargs.get('instance')
