@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=200)),
                 ('latitude', models.FloatField()),
                 ('longitude', models.FloatField()),
-                ('country', models.ForeignKey(to='recordings.Country', on_delete='PROTECT')),
+                ('country', models.ForeignKey(to='recordings.Country', on_delete=models.PROTECT)),
             ],
         ),
         migrations.CreateModel(
@@ -59,9 +59,9 @@ class Migration(migrations.Migration):
                 ('speaker_generation', models.CharField(null=True, max_length=1, choices=[('a', 'first'), ('b', 'second')])),
                 ('year_migrated_to_americas', models.DateField(null=True, blank=True)),
                 ('recording_link', models.CharField(max_length=200)),
-                ('dialect', models.ForeignKey(to='recordings.Dialect', on_delete='PROTECT')),
-                ('languages', models.ForeignKey(to='recordings.Language', on_delete='PROTECT')),
-                ('place', models.ForeignKey(on_delete='PROTECT', null=True, to='recordings.Place')),
+                ('dialect', models.ForeignKey(to='recordings.Dialect', on_delete=models.PROTECT)),
+                ('languages', models.ForeignKey(to='recordings.Language', on_delete=models.PROTECT)),
+                ('place', models.ForeignKey(on_delete=models.PROTECT, null=True, to='recordings.Place')),
             ],
         ),
     ]

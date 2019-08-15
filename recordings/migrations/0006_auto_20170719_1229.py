@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recording',
             name='languages',
-            field=models.ForeignKey(blank=True, on_delete='PROTECT', to='recordings.Language', null=True),
+            field=models.ForeignKey(blank=True, on_delete=models.PROTECT, to='recordings.Language', null=True),
         ),
         migrations.AlterField(
             model_name='recording',

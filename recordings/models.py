@@ -49,7 +49,7 @@ class Place(models.Model):
     name = models.CharField(max_length=200)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    country = models.ForeignKey(Country, on_delete="PROTECT")
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
 
     def __str__(self):
         return '{}, {}'.format(self.name, self.country.code)
@@ -125,10 +125,10 @@ class Recording(models.Model):
 
     # details about the speaker
     sex = models.CharField(max_length=1, choices=sex_choices, blank=True)
-    age = models.ForeignKey(AgeCategory, blank=True, null=True)
-    place = models.ForeignKey(Place, on_delete="PROTECT", related_name='recordings')
+    age = models.ForeignKey(AgeCategory, blank=True, null=True, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, related_name='recordings')
     languages = models.ManyToManyField(Language, blank=True)
-    dialect = models.ForeignKey(Dialect, on_delete="PROTECT")
+    dialect = models.ForeignKey(Dialect, on_delete=models.PROTECT)
     generation = models.CharField(
         max_length=1,
         choices=generation_choices,

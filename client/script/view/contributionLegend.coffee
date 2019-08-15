@@ -3,6 +3,7 @@ define [
 	'templates'
 	'util/i18nText'
 	'bootstrap/popover'
+	'util/sanitizeWhitelist'
 ], (bb, JST, i18n) ->
 	'use strict'
 

@@ -7,7 +7,7 @@ from django.db import migrations, models
 def remove_age_data(apps, schema_editor):
     """
     Remove pre-existing age data from the Recording model.
-    
+
     No such data should exist, as the application has not used the
     field until now. This is purely for the convenience of developers
     who may have manually inserted ages in recording objects for test
@@ -48,6 +48,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recording',
             name='age',
-            field=models.ForeignKey(null=True, blank=True, to='recordings.AgeCategory'),
+            field=models.ForeignKey(null=True, blank=True, to='recordings.AgeCategory', on_delete=models.CASCADE),
         ),
     ]
