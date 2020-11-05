@@ -10,7 +10,6 @@ module.exports = (grunt) ->
 	httpProxy = require 'http-proxy'
 	proxy = httpProxy.createProxyServer {}
 	fs = require 'fs'
-	googleMapsAPIKey = fs.readFileSync('.gmapikey').toString().trim()
 	process = require 'process'
 	extendEnv = (modifications) -> Object.assign {}, process.env, modifications
 
@@ -108,14 +107,12 @@ module.exports = (grunt) ->
 				partials: '<%= stage %>/<%= script %>/*.js'
 				templateData:
 					production: false
-					gmapikey: googleMapsAPIKey
 			dist:
 				src: '<%= source %>/<%= template %>/index.mustache'
 				dest: '<%= dist %>/index.html'
 				partials: '<%= stage %>/<%= script %>/*.js'
 				templateData:
 					production: true
-					gmapikey: googleMapsAPIKey
 
 		sass:
 			compile:
