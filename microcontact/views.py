@@ -7,4 +7,4 @@ def proxy_maps(request):
     url = 'https://maps.google.com/maps/api/js'
     payload = {'v': 3, 'libraries': 'places', 'key': settings.GMAPIKEY}
     response = requests.get(url, params=payload)
-    return HttpResponse(response)
+    return HttpResponse(response, content_type='application/x-javascript')
