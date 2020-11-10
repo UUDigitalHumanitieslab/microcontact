@@ -18,9 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from .index import index
+from .views import proxy_maps
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('recordings.urls')),
     url(r'^$', index),
+    url(r'^proxymaps', proxy_maps)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
