@@ -36,7 +36,7 @@ pluggy==0.13.1
     # via pytest
 psycopg2==2.8.5
     # via -r requirements.in
-py==1.8.1
+py==1.10.0
     # via pytest
 pyasn1-modules==0.2.8
     # via python-ldap
