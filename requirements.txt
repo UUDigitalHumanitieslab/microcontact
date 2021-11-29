@@ -52,7 +52,7 @@ pytest==3.10.1
     #   pytest-django
 pytest-django==3.9.0
     # via -r requirements.in
-python-ldap==3.2.0
+python-ldap==3.4.0
     # via django-auth-ldap
 python-magic==0.4.15
     # via -r requirements.in
