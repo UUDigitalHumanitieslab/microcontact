@@ -1,5 +1,6 @@
 Microcontact
 ============
+Microcontact. Language Variation and Change from the Italian heritage perspective is an ERC-funded research project that aims to understand language change from a syntactic microvariational perspective, by observing core syntactic aspects of Romance languages in contact.
 
 Configuration
 -------------
