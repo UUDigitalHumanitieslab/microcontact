@@ -1,4 +1,4 @@
-Django>=1.11,<2.0
+Django>=1.11,<4.0
 pyldap<3
 django-auth-ldap<2
 djangorestframework<4
