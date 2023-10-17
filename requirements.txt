@@ -64,7 +64,7 @@ requests==2.31.0
     # via -r requirements.in
 six==1.15.0
     # via pytest
-urllib3==1.24.3
+urllib3==1.26.18
     # via requests
 
 # The following packages are considered to be unsafe in a requirements file:
